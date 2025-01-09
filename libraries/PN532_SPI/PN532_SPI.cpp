@@ -19,10 +19,11 @@ void PN532_SPI::begin()
     pinMode(_ss, OUTPUT);
 
     _spi->begin();
-    _spi->setDataMode(SPI_MODE0);  // PN532 only supports mode0
-    _spi->setBitOrder(LSBFIRST);
+    //_spi->setDataMode(SPI_MODE0);  // PN532 only supports mode0
+    _spi->beginTransaction(SPISettings(20000000, LSBFIRST, SPI_MODE0)); //updates deprecated functions used in libraryß
+    //_spi->setBitOrder(LSBFIRST);
 #ifndef __SAM3X8E__
-    _spi->setClockDivider(SPI_CLOCK_DIV8); // set clock 2MHz(max: 5MHz)
+    //_spi->setClockDivider(SPI_CLOCK_DIV8); // set clock 2MHz(max: 5MHz)
 #else
     /** DUE spi library does not support SPI_CLOCK_DIV8 macro */
     _spi->setClockDivider(42);             // set clock 2MHz(max: 5MHz)
