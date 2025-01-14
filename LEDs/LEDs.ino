@@ -1,62 +1,99 @@
-void setup() {
-  pinMode(13, OUTPUT);
-  pinMode(14, OUTPUT);
-  pinMode(15, OUTPUT);
-}
-
-void loop() {
-  HardwareAPI::turnOnLED(13);
-  delay(5000);
-  HardwareAPI::turnOffLED(13);
-  delay(5000);
-  HardwareAPI::changeLEDcolor(13, 'R'); //00
-  delay(5000);
-  HardwareAPI::changeLEDcolor(13, 'B'); //01
-  delay(5000);
-  HardwareAPI::changeLEDcolor(13, 'G'); //10
-  delay(5000);
-  HardwareAPI::changeLEDcolor(13, 'Y'); //11
-}
-
 class HardwareAPI {
   private:
-
-  public:
-    static void turnOnLED(char port) {
-      digitalWrite(port, HIGH);
+public:
+    static void turnOnLED(char hexTile, char color) {
+      changeLEDcolor(hexTile, color);
+      switch (hexTile) {
+      case 0x00:
+        digitalWrite(24, LOW);
+        break;
+      }
     }
 
-    static void turnOffLED(char port) {
-      digitalWrite(port, LOW);
+    static void turnOffLED(char hexTile) {
+      switch (hexTile) {
+      case 0x00:
+        digitalWrite(24, HIGH);
+        break;
+      }
     }
 
-    static void changeLEDcolor(char port, char color) {
-      switch (port) {
-      case 13:
+    /*
+    method: changeLEDcolor
+    function: changes LED color for specified tile to specified color
+    params:
+      hexTile:
+        board is represented using the "0x88" system. 
+        Pass a char between 0x00 and 0x88.
+          examples:
+            "a1" would be 0x00 (rank 8 = 0x0, file a = 0x0)
+            "h8" would be 0x77 (rank 1 = 0x7, file h = 0x7)
+      color: enum: ['R','G','B','Y']
+        'R' - Red
+        'G' - Green
+        'B' - Blue
+        'Y' - Yellow
+    */
+
+    static void changeLEDcolor(char hexTile, char color) {
+      switch (hexTile) {
+      case 0x00:
         switch (color) {
           case 'R':
-            digitalWrite(14, LOW);
-            digitalWrite(15, LOW);
+            digitalWrite(26, LOW);
+            digitalWrite(28, LOW);
             break;
           case 'B':
-            digitalWrite(14, LOW);
-            digitalWrite(15, HIGH);
-            break;
-          case 'G':
-            digitalWrite(14, HIGH);
-            digitalWrite(15, LOW);
+            digitalWrite(26, LOW);
+            digitalWrite(28, HIGH);
             break;
           case 'Y':
-            digitalWrite(14, HIGH);
-            digitalWrite(15, HIGH);
+            digitalWrite(26, HIGH);
+            digitalWrite(28, LOW);
+            break;
+          case 'G':
+            digitalWrite(26, HIGH);
+            digitalWrite(28, HIGH);
+            break;
+          default:
+            // Log invalid color case
+            Serial.println("Invalid color input");
             break;
         }
         break;
-      
-
-      case 16:
-
-      default:  
-      }
+      default:
+        Serial.println("Invalid tile input");
+        break;
+      //invalid tile, do nothing
     }
+  }
+};
+
+void setup() {
+  Serial.begin(115200);
+  while(!Serial);
+  pinMode(24, OUTPUT);
+  pinMode(26, OUTPUT);
+  pinMode(28, OUTPUT);
+}
+
+void loop() {
+  Serial.println("On - Green");
+  HardwareAPI::turnOnLED(0x00, 'G');
+  delay(5000);
+  Serial.println("Red");
+  HardwareAPI::changeLEDcolor(0x00, 'R');
+  delay(5000);
+  Serial.println("Blue");
+  HardwareAPI::changeLEDcolor(0x00, 'B');
+  delay(5000);
+  Serial.println("Green");
+  HardwareAPI::changeLEDcolor(0x00, 'G');
+  delay(5000);
+  Serial.println("Yellow");
+  HardwareAPI::changeLEDcolor(0x00, 'Y');
+  delay(5000);
+  Serial.println("Off");
+  HardwareAPI::turnOffLED(0x00);
+  delay(5000);
 }
