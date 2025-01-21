@@ -1,8 +1,11 @@
 #include "Arduino.h"
 #include "HardwareAPI.h"
+#include "Adafruit_LiquidCrystal.h"
 
 HardwareAPI::begin() 
 {  
+    // Connect via i2c, default address #0 (A0-A2 not jumpered)
+    Adafruit_LiquidCrystal lcd(0);
     pinMode(_00sb0, OUTPUT);
     pinMode(_00sb1, OUTPUT);
     pinMode(_00eb, OUTPUT);

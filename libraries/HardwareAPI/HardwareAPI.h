@@ -8,10 +8,10 @@ Released into the public domain
 #define HardwareAPI_h
 
 #include "Arduino.h"
+#include "Adafruit_LiquidCrystal.h"
 
 class HardwareAPI {
   public:
-    HardwareAPI();
     static void begin();
     static void turnOnLED(char hexTile, char color);
     static void turnOffLED(char hexTile);
