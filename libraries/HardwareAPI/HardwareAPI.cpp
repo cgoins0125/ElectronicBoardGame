@@ -1,11 +1,12 @@
+#include "Arduino.h"
+#include "HardwareAPI.h"
+
 HardwareAPI::begin() 
-{
-    
+{  
     pinMode(_00sb0, OUTPUT);
     pinMode(_00sb1, OUTPUT);
     pinMode(_00eb, OUTPUT);
     lcd.begin(16, 2);
-
 }
 
 HardwareAPI::turnOnLED(char hexTile, char color) 
