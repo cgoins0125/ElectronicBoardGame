@@ -5,7 +5,7 @@ public:
       changeLEDcolor(hexTile, color);
       switch (hexTile) {
       case 0x00:
-        digitalWrite(24, LOW);
+        digitalWrite(24, LOW); //active-low enable bit
         break;
       }
     }
@@ -13,7 +13,7 @@ public:
     static void turnOffLED(char hexTile) {
       switch (hexTile) {
       case 0x00:
-        digitalWrite(24, HIGH);
+        digitalWrite(24, HIGH); //active-low enable bit
         break;
       }
     }
@@ -78,10 +78,10 @@ void setup() {
 }
 
 void loop() {
-  Serial.println("On - Green");
+  // Serial.println("On - Green");
   HardwareAPI::turnOnLED(0x00, 'G');
-  delay(5000);
-  Serial.println("Red");
+  delay(50000);
+ /* Serial.println("Red");
   HardwareAPI::changeLEDcolor(0x00, 'R');
   delay(5000);
   Serial.println("Blue");
@@ -96,4 +96,5 @@ void loop() {
   Serial.println("Off");
   HardwareAPI::turnOffLED(0x00);
   delay(5000);
+*/
 }
