@@ -2,17 +2,23 @@
 #include "HardwareAPI.h"
 #include "Adafruit_LiquidCrystal.h"
 
-HardwareAPI::begin() 
+HardwareAPI::HardwareAPI()
+{
+    _00sb0 = 26; 
+    _00sb1 = 28;
+    _00eb = 24;
+}
+
+void HardwareAPI::begin() 
 {  
     // Connect via i2c, default address #0 (A0-A2 not jumpered)
-    Adafruit_LiquidCrystal lcd(0);
     pinMode(_00sb0, OUTPUT);
     pinMode(_00sb1, OUTPUT);
     pinMode(_00eb, OUTPUT);
     lcd.begin(16, 2);
 }
 
-HardwareAPI::turnOnLED(char hexTile, char color) 
+void HardwareAPI::turnOnLED(char hexTile, char color) 
 {
   changeLEDcolor(hexTile, color);
   switch (hexTile) {
@@ -22,7 +28,7 @@ HardwareAPI::turnOnLED(char hexTile, char color)
   }
 }
 
-HardwareAPI::turnOffLED(char hexTile) 
+void HardwareAPI::turnOffLED(char hexTile) 
 {
   switch (hexTile) {
   case 0x00:
@@ -48,7 +54,7 @@ params:
     'Y' - Yellow
 */
 
-HardwareAPI::changeLEDcolor(char hexTile, char color) 
+void HardwareAPI::changeLEDcolor(char hexTile, char color) 
 {
   switch (hexTile) {
   case 0x00:
@@ -77,10 +83,11 @@ HardwareAPI::changeLEDcolor(char hexTile, char color)
   default:
     //Do nothing, invalid tile 
     break;
+  }
 }
     
 
-HardwareAPI::PrintLCD(const char c1[], const char c2[]) 
+void HardwareAPI::PrintLCD(const char c1[], const char c2[]) 
 {
   ClearLCD();
   lcd.setCursor(0, 0);
@@ -90,7 +97,7 @@ HardwareAPI::PrintLCD(const char c1[], const char c2[])
 }
 
     
-HardwareAPI::PrintLCDL1(const char str[]) 
+void HardwareAPI::PrintLCDL1(const char str[]) 
 {
   ClearLCDL1();
   lcd.setCursor(0, 0);
@@ -98,7 +105,7 @@ HardwareAPI::PrintLCDL1(const char str[])
 }
 
     
-HardwareAPI::PrintLCDL2(const char str[]) 
+void HardwareAPI::PrintLCDL2(const char str[]) 
 {
   ClearLCDL2();
   lcd.setCursor(0, 1);
@@ -106,21 +113,21 @@ HardwareAPI::PrintLCDL2(const char str[])
 }    
 
     
-HardwareAPI::ClearLCD() 
+void HardwareAPI::ClearLCD() 
 {
   ClearLCDL1();
   ClearLCDL2();
 }
 
     
-HardwareAPI::ClearLCDL1() 
+void HardwareAPI::ClearLCDL1() 
 {
   lcd.setCursor(0, 0);
   lcd.print("                ");
 }
 
     
-HardwareAPI::ClearLCDL2() 
+void HardwareAPI::ClearLCDL2() 
 {
   lcd.setCursor(0, 1);
   lcd.print("                ");

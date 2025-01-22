@@ -12,21 +12,23 @@ Released into the public domain
 
 class HardwareAPI {
   public:
-    static void begin();
-    static void turnOnLED(char hexTile, char color);
-    static void turnOffLED(char hexTile);
-    static void changeLEDcolor(char hexTile, char color);
-    static void PrintLCD(const char c1[], const char c2[]);
-    static void PrintLCDL1(const char str[]);
-    static void PrintLCDL2(const char str[]);
-    static void ClearLCD();
-    static void ClearLCDL1();
-    static void ClearLCDL2()
+    HardwareAPI();
+    void begin();
+    void turnOnLED(char hexTile, char color);
+    void turnOffLED(char hexTile);
+    void changeLEDcolor(char hexTile, char color);
+    void PrintLCD(const char c1[], const char c2[]);
+    void PrintLCDL1(const char str[]);
+    void PrintLCDL2(const char str[]);
+    void ClearLCD();
+    void ClearLCDL1();
+    void ClearLCDL2();
     
   private:
-    int _00sb0 = 26 
-    int _00sb1 = 28
-    int _00eb = 24
+    int _00sb0; 
+    int _00sb1;
+    int _00eb;
+    Adafruit_LiquidCrystal lcd{0};
 };
 
 #endif
