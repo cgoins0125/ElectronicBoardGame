@@ -92,7 +92,7 @@ void HardwareAPI::PrintLCD(const char c1[], const char c2[])
   ClearLCD();
   lcd.setCursor(0, 0);
   lcd.print(c1);
-  lcd.setCursor(1, 0);
+  lcd.setCursor(0, 1);
   lcd.print(c2);
 }
 
