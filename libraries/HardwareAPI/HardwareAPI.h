@@ -8,7 +8,9 @@ Released into the public domain
 #define HardwareAPI_h
 
 #include "Arduino.h"
+#include "Wire.h"
 #include "Adafruit_LiquidCrystal.h"
+#include "Adafruit_MCP23X17.h"
 
 class HardwareAPI {
   public:
@@ -29,6 +31,7 @@ class HardwareAPI {
     int _00sb1;
     int _00eb;
     Adafruit_LiquidCrystal lcd{0};
+    Adafruit_MCP23X17 mcp;
 };
 
 #endif

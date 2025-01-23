@@ -1,12 +1,15 @@
 #include "Arduino.h"
+#include "Wire.h"
 #include "HardwareAPI.h"
 #include "Adafruit_LiquidCrystal.h"
+#include "Adafruit_MCP23X17.h"
 
 HardwareAPI::HardwareAPI()
 {
     _00sb0 = 26; 
     _00sb1 = 28;
-    _00eb = 24;
+    //_00eb = 24;
+    _00eb = 21; //GPA0 = 0 for mcp23017
 }
 
 void HardwareAPI::begin() 
@@ -14,8 +17,11 @@ void HardwareAPI::begin()
     // Connect via i2c, default address #0 (A0-A2 not jumpered)
     pinMode(_00sb0, OUTPUT);
     pinMode(_00sb1, OUTPUT);
-    pinMode(_00eb, OUTPUT);
+    mcp.pinMode(_00eb, OUTPUT);
     lcd.begin(16, 2);
+    if (!mcp.begin_I2C(0x020, &Wire1)) {
+        Serial.println("Error. MCP failed to establish I2C connection.");
+    }
 }
 
 void HardwareAPI::turnOnLED(char hexTile, char color) 
@@ -23,7 +29,7 @@ void HardwareAPI::turnOnLED(char hexTile, char color)
   changeLEDcolor(hexTile, color);
   switch (hexTile) {
   case 0x00:
-    digitalWrite(_00eb, LOW); //active-low enable bit
+    mcp.digitalWrite(_00eb, LOW); //active-low enable bit
     break;
   }
 }
@@ -32,7 +38,7 @@ void HardwareAPI::turnOffLED(char hexTile)
 {
   switch (hexTile) {
   case 0x00:
-    digitalWrite(_00eb, HIGH); //active-low enable bit
+    mcp.digitalWrite(_00eb, HIGH); //active-low enable bit
     break;
   }
 }
