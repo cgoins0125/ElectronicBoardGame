@@ -7,22 +7,22 @@ void setup() {
 }
 
 void loop() {
-  api.PrintLCD("Current Color: Green", "Next Color: Red");
+  api.PrintLCD("Current: Green", "Next: Red");
   api.turnOnLED(0x00, 'G');
   delay(5000);
-  api.PrintLCD("Current Color: Red", "Next Color: Blue");
+  api.PrintLCD("Current: Red", "Next: Blue");
   api.changeLEDcolor(0x00, 'R');
   delay(5000);
-  api.PrintLCD("Current Color: Blue", "Next Color: Green");
+  api.PrintLCD("Current: Blue", "Next: Green");
   api.changeLEDcolor(0x00, 'B');
   delay(5000);
-  api.PrintLCD("Current Color: Green", "Next Color: Yellow");
+  api.PrintLCD("Current: Green", "Next: Yellow");
   api.changeLEDcolor(0x00, 'G');
   delay(5000);
-  api.PrintLCD("Current Color: Yellow", "Next: LEDs Off");
+  api.PrintLCD("Current: Yellow", "Next: LEDs Off");
   api.changeLEDcolor(0x00, 'Y');
   delay(5000);
-  api.PrintLCD("Leds off", "Next Color: Green");
+  api.PrintLCD("Leds off", "Next: Green");
   api.turnOffLED(0x00);
   delay(5000);
 }
