@@ -1,28 +1,25 @@
 #include <HardwareAPI.h>
 
+const int pin = 53;
+/* Variables for debouncing */
+//unsigned long lastDebounceTime = 0;
+//volatile bool switchState = false;
+//const unsigned long debounceDelay = 10; //milliseconds
 HardwareAPI api;
 
 void setup() {
   api.begin();
+  pinMode(pin, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(pin), ISR_00, CHANGE);
 }
 
 void loop() {
-  api.PrintLCD("Current: Green", "Next: Red");
-  api.turnOnLED(0x00, 'G');
+  interrupts();
   delay(5000);
-  api.PrintLCD("Current: Red", "Next: Blue");
-  api.changeLEDcolor(0x00, 'R');
-  delay(5000);
-  api.PrintLCD("Current: Blue", "Next: Green");
-  api.changeLEDcolor(0x00, 'B');
-  delay(5000);
-  api.PrintLCD("Current: Green", "Next: Yellow");
-  api.changeLEDcolor(0x00, 'G');
-  delay(5000);
-  api.PrintLCD("Current: Yellow", "Next: LEDs Off");
-  api.changeLEDcolor(0x00, 'Y');
-  delay(5000);
-  api.PrintLCD("Leds off", "Next: Green");
-  api.turnOffLED(0x00);
-  delay(5000);
+  api.ClearLCD();
 }
+
+void ISR_00(){
+  api.PrintLCDL1("Change detected.");
+}
+
