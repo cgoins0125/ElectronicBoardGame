@@ -9,6 +9,8 @@ Released into the public domain
 
 #include "Arduino.h"
 #include "Adafruit_LiquidCrystal.h"
+#include "Wire.h"
+#include "Adafruit_MCP23X17.h"
 
 /*
   Hexadecimal board layout (rank 8 at the top, rank 1 at the bottom):
@@ -37,6 +39,37 @@ class HardwareAPI {
     void ClearLCDL2();
     
   private:
+    //private methods
+    void initializeI2C();
+    void initializeMCP();
+    void initializePorts();
+    void initializeLCD();
+    void setMCPPortDir();
+
+    //declare mcp objects
+    //A2, A1, A0 = 000 → Address 0x20 (default) - for some reason mcp was set to 0x27????
+    //A2, A1, A0 = 001 → Address 0x21
+    //A2, A1, A0 = 010 → Address 0x22
+    //A2, A1, A0 = 011 → Address 0x23
+    //A2, A1, A0 = 100 → Address 0x24
+    //A2, A1, A0 = 101 → Address 0x25
+    //A2, A1, A0 = 110 → Address 0x26
+    //A2, A1, A0 = 111 → Address 0x27
+    //I2C bus 0
+    Adafruit_MCP23X17 r0r1_eb_mcp; //0x20
+    Adafruit_MCP23X17 r2r3_eb_mcp; //0x21
+    Adafruit_MCP23X17 r4r5_eb_mcp; //0x22
+    Adafruit_MCP23X17 r6r7_eb_mcp; //0x23
+    //I2C bus 1
+    Adafruit_MCP23X17 r0_sb_mcp; //0x20
+    Adafruit_MCP23X17 r1_sb_mcp; //0x21
+    Adafruit_MCP23X17 r2_sb_mcp; //0x22
+    Adafruit_MCP23X17 r3_sb_mcp; //0x23
+    Adafruit_MCP23X17 r4_sb_mcp; //0x24
+    Adafruit_MCP23X17 r5_sb_mcp; //0x25
+    Adafruit_MCP23X17 r6_sb_mcp; //0x26
+    Adafruit_MCP23X17 r7_sb_mcp; //0x27
+
   	//declare lcd object for controlling the lcd
   	Adafruit_LiquidCrystal lcd{0};
   
@@ -112,7 +145,6 @@ class HardwareAPI {
     int _75sb0, _75sb1, _75eb;
     int _76sb0, _76sb1, _76eb;
     int _77sb0, _77sb1, _77eb;
-    
 };
 
 #endif
