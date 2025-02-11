@@ -1,6 +1,7 @@
 #include "Arduino.h"
 #include "HardwareAPI.h"
 #include "Adafruit_LiquidCrystal.h"
+#include "Wire.h"
 
 
 /*
