@@ -42,12 +42,11 @@ class HardwareAPI {
     //private methods
     void initializeI2C();
     void initializeMCP();
-    void initializePorts();
     void initializeLCD();
     void setMCPPortDir();
 
     //declare mcp objects
-    //A2, A1, A0 = 000 → Address 0x20 (default) - for some reason mcp was set to 0x27????
+    //A2, A1, A0 = 000 → Address 0x20 (default)
     //A2, A1, A0 = 001 → Address 0x21
     //A2, A1, A0 = 010 → Address 0x22
     //A2, A1, A0 = 011 → Address 0x23
@@ -55,6 +54,7 @@ class HardwareAPI {
     //A2, A1, A0 = 101 → Address 0x25
     //A2, A1, A0 = 110 → Address 0x26
     //A2, A1, A0 = 111 → Address 0x27
+    
     //I2C bus 0
     Adafruit_MCP23X17 r0r1_eb_mcp; //0x20
     Adafruit_MCP23X17 r2r3_eb_mcp; //0x21

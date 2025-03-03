@@ -1,3 +1,9 @@
+/*
+HardwareAPI.cpp - Library for using the electronic board game
+Created by Casey Goins, Danae Wnuk, Chris Kmetz, and Jon Womble, January 2025
+Released into the public domain
+*/
+
 #include "Arduino.h"
 #include "HardwareAPI.h"
 #include "Adafruit_LiquidCrystal.h"
@@ -18,31 +24,8 @@
  	 A	   B     C     D     E     F     G     H
 */
 
-void HardwareAPI::initializeI2C() {
-  Wire.begin();  // Use Wire for I2C bus 0
-  Wire1.begin();  // Use Wire1 for I2C bus 1
-}
-
-void HardwareAPI::initializeMCP() {
-  // Initialize mcps for I2C bus 0
-  r0r1_eb_mcp.begin_I2C(0x20, (TwoWire*)&Wire);
-  r2r3_eb_mcp.begin_I2C(0x21, (TwoWire*)&Wire);
-  r4r5_eb_mcp.begin_I2C(0x22, (TwoWire*)&Wire);
-  r6r7_eb_mcp.begin_I2C(0x23, (TwoWire*)&Wire);
-
-  // Initialize mcps for I2C bus 1
-  r0_sb_mcp.begin_I2C(0x20, (TwoWire*)&Wire1);
-  r1_sb_mcp.begin_I2C(0x21, (TwoWire*)&Wire1);
-  r2_sb_mcp.begin_I2C(0x22, (TwoWire*)&Wire1);
-  r3_sb_mcp.begin_I2C(0x23, (TwoWire*)&Wire1);
-  r4_sb_mcp.begin_I2C(0x24, (TwoWire*)&Wire1);
-  r5_sb_mcp.begin_I2C(0x25, (TwoWire*)&Wire1);
-  r6_sb_mcp.begin_I2C(0x26, (TwoWire*)&Wire1);
-  r7_sb_mcp.begin_I2C(0x27, (TwoWire*)&Wire1);
-}
-
-void HardwareAPI::initializePorts() {
-
+HardwareAPI::HardwareAPI()
+{
   _00sb0 = 0; 
   _00sb1 = 1;
   _01sb0 = 2;  
@@ -247,7 +230,29 @@ void HardwareAPI::initializePorts() {
   _75eb  = 13;
   _76eb  = 14;
   _77eb  = 15;
+}
 
+void HardwareAPI::initializeI2C() {
+  Wire.begin();  // Use Wire for I2C bus 0
+  Wire1.begin();  // Use Wire1 for I2C bus 1
+}
+
+void HardwareAPI::initializeMCP() {
+  // Initialize mcps for I2C bus 0
+  r0r1_eb_mcp.begin_I2C(0x20, (TwoWire*)&Wire);
+  r2r3_eb_mcp.begin_I2C(0x21, (TwoWire*)&Wire);
+  r4r5_eb_mcp.begin_I2C(0x22, (TwoWire*)&Wire);
+  r6r7_eb_mcp.begin_I2C(0x23, (TwoWire*)&Wire);
+
+  // Initialize mcps for I2C bus 1
+  r0_sb_mcp.begin_I2C(0x20, (TwoWire*)&Wire1);
+  r1_sb_mcp.begin_I2C(0x21, (TwoWire*)&Wire1);
+  r2_sb_mcp.begin_I2C(0x22, (TwoWire*)&Wire1);
+  r3_sb_mcp.begin_I2C(0x23, (TwoWire*)&Wire1);
+  r4_sb_mcp.begin_I2C(0x24, (TwoWire*)&Wire1);
+  r5_sb_mcp.begin_I2C(0x25, (TwoWire*)&Wire1);
+  r6_sb_mcp.begin_I2C(0x26, (TwoWire*)&Wire1);
+  r7_sb_mcp.begin_I2C(0x27, (TwoWire*)&Wire1);
 }
 
 void HardwareAPI::setMCPPortDir() {
@@ -480,19 +485,15 @@ void HardwareAPI::initializeLCD() {
   lcd.begin(16, 2);
 }
 
-HardwareAPI::HardwareAPI()
-{
-    initializeI2C();
-    initializeLCD();
-    initializeMCP();
-    initializePorts();
-}
-
 /* method: begin
-function: Constructor
+function: initialization of I2C, MCPs, and LCD
 */
 void HardwareAPI::begin() 
 {  
+  initializeI2C();
+  initializeLCD();
+  initializeMCP();
+  initializePorts();
   setMCPPortDir();
 }
 
