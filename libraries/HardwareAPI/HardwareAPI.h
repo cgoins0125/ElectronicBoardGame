@@ -43,7 +43,7 @@ class HardwareAPI {
     void initializeI2C();
     void initializeMCP();
     void initializeLCD();
-    void setMCPPortDir();
+    void setMCPPortDir();  
 
     //declare mcp objects
     //A2, A1, A0 = 000 → Address 0x20 (default)

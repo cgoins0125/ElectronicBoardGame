@@ -8,7 +8,7 @@ Released into the public domain
 #include "HardwareAPI.h"
 #include "Adafruit_LiquidCrystal.h"
 #include "Wire.h"
-
+#include "Adafruit_MCP23X17.h"
 
 /*
   Hexadecimal board layout (rank 8 at the top, rank 1 at the bottom):
