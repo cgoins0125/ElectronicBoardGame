@@ -1,21 +1,52 @@
 #include "Arduino.h"
 #include "HardwareAPI.h"
 #include "Adafruit_LiquidCrystal.h"
+#include "Wire.h"
+#include "Adafruit_MCP23X17.h"
 
 HardwareAPI::HardwareAPI()
 {
-    _00sb0 = 26; 
-    _00sb1 = 28;
-    _00eb = 24;
+    _00sb0 = 9; //port 13 on demux
+    _00sb1 = 10; //port 14 on demux
+    _00eb = 8; //port 15 on demux
+}
+
+void HardwareAPI::initializeI2C() 
+{
+  Wire.begin();  // Use Wire for I2C bus 0
+  Wire1.begin();  // Use Wire1 for I2C bus 1
+}
+
+void HardwareAPI::initializeMCP() 
+{
+  r0_sb_mcp.begin_I2C(0x20, (TwoWire*)&Wire1);
+}
+
+void HardwareAPI::initializeLCD() 
+{
+  lcd.begin(16, 2);
+}
+
+void HardwareAPI::initializePorts() 
+{
+  
+}
+  
+void HardwareAPI::setMCPPortDir() {
+  // Row 0 (0x00 - 0x07) - Using r0_sb_mcp for sb
+  r0_sb_mcp.pinMode(_00sb0, OUTPUT);
+  r0_sb_mcp.pinMode(_00sb1, OUTPUT);
+  r0_sb_mcp.pinMode(_00eb, OUTPUT);
 }
 
 void HardwareAPI::begin() 
 {  
     // Connect via i2c, default address #0 (A0-A2 not jumpered)
-    pinMode(_00sb0, OUTPUT);
-    pinMode(_00sb1, OUTPUT);
-    pinMode(_00eb, OUTPUT);
-    lcd.begin(16, 2);
+    initializeI2C();
+    initializeLCD();
+    initializeMCP();
+    initializePorts();
+    setMCPPortDir();
 }
 
 void HardwareAPI::turnOnLED(char hexTile, char color) 
@@ -23,7 +54,7 @@ void HardwareAPI::turnOnLED(char hexTile, char color)
   changeLEDcolor(hexTile, color);
   switch (hexTile) {
   case 0x00:
-    digitalWrite(_00eb, LOW); //active-low enable bit
+    r0_sb_mcp.digitalWrite(_00eb, LOW); //active-low enable bit
     break;
   }
 }
@@ -32,7 +63,7 @@ void HardwareAPI::turnOffLED(char hexTile)
 {
   switch (hexTile) {
   case 0x00:
-    digitalWrite(_00eb, HIGH); //active-low enable bit
+    r0_sb_mcp.digitalWrite(_00eb, HIGH); //active-low enable bit
     break;
   }
 }
@@ -60,20 +91,20 @@ void HardwareAPI::changeLEDcolor(char hexTile, char color)
   case 0x00:
     switch (color) {
       case 'R':
-        digitalWrite(_00sb0, LOW);
-        digitalWrite(_00sb1, LOW);
+        r0_sb_mcp.digitalWrite(_00sb0, LOW);
+        r0_sb_mcp.digitalWrite(_00sb1, LOW);
         break;
       case 'B':
-        digitalWrite(_00sb0, LOW);
-        digitalWrite(_00sb1, HIGH);
+        r0_sb_mcp.digitalWrite(_00sb0, LOW);
+        r0_sb_mcp.digitalWrite(_00sb1, HIGH);
         break;
       case 'Y':
-        digitalWrite(_00sb0, HIGH);
-        digitalWrite(_00sb1, LOW);
+        r0_sb_mcp.digitalWrite(_00sb0, HIGH);
+        r0_sb_mcp.digitalWrite(_00sb1, LOW);
         break;
       case 'G':
-        digitalWrite(_00sb0, HIGH);
-        digitalWrite(_00sb1, HIGH);
+        r0_sb_mcp.digitalWrite(_00sb0, HIGH);
+        r0_sb_mcp.digitalWrite(_00sb1, HIGH);
         break;
       default:
         //Do nothing, color is invalid

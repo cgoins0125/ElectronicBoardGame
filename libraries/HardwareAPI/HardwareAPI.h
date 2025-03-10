@@ -9,6 +9,8 @@ Released into the public domain
 
 #include "Arduino.h"
 #include "Adafruit_LiquidCrystal.h"
+#include "Wire.h"
+#include "Adafruit_MCP23X17.h"
 
 class HardwareAPI {
   public:
@@ -25,10 +27,19 @@ class HardwareAPI {
     void ClearLCDL2();
     
   private:
+    //private methods
+    void initializeI2C();
+    void initializeMCP();
+    void initializePorts();
+    void initializeLCD();
+    void setMCPPortDir();  
+      
     int _00sb0; 
     int _00sb1;
     int _00eb;
     Adafruit_LiquidCrystal lcd{0};
+    
+    Adafruit_MCP23X17 r0_sb_mcp; //0x20
 };
 
 #endif
