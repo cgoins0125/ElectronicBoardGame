@@ -374,7 +374,6 @@ void HardwareAPI::begin()
   initializeI2C();
   initializeLCD();
   initializeMCP();
-  initializePorts();
   setMCPPortDir();
 }
 
