@@ -506,7 +506,7 @@ void HardwareAPI::turnOffLED(char hexTile)
   // Disable the LED using the active-low enable bit.
   switch (hexTile) {
     // Row 0 (0x00 - 0x07)
-    case 0x00: r0r1_eb_mcp.digitalWrite(_00eb, LOW); break;
+    case 0x00: r0r1_eb_mcp.digitalWrite(_00eb, HIGH); break;
     case 0x01: r0r1_eb_mcp.digitalWrite(_01eb, HIGH); break;
     case 0x02: r0r1_eb_mcp.digitalWrite(_02eb, HIGH); break;
     case 0x03: r0r1_eb_mcp.digitalWrite(_03eb, HIGH); break;
