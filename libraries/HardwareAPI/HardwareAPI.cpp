@@ -280,86 +280,75 @@ void HardwareAPI::setMCPPortDir() {
   r7_sb_mcp.pinMode(_x7sb0, OUTPUT);
   r7_sb_mcp.pinMode(_x7sb1, OUTPUT);
   
+// Row 0 (0x00 - 0x07) - Using r0r1_eb_mcp for eb
+r0r1_eb_mcp.pinMode(_00eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_00eb, HIGH);
+r0r1_eb_mcp.pinMode(_01eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_01eb, HIGH);
+r0r1_eb_mcp.pinMode(_02eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_02eb, HIGH);
+r0r1_eb_mcp.pinMode(_03eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_03eb, HIGH);
+r0r1_eb_mcp.pinMode(_04eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_04eb, HIGH);
+r0r1_eb_mcp.pinMode(_05eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_05eb, HIGH);
+r0r1_eb_mcp.pinMode(_06eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_06eb, HIGH);
+r0r1_eb_mcp.pinMode(_07eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_07eb, HIGH);
 
-  // Row 0 (0x00 - 0x07) - Using r0r1_eb_mcp for eb
-  r0r1_eb_mcp.pinMode(_00eb, OUTPUT);
-  r0r1_eb_mcp.pinMode(_01eb, OUTPUT);
-  r0r1_eb_mcp.pinMode(_02eb, OUTPUT);
-  r0r1_eb_mcp.pinMode(_03eb, OUTPUT);
-  r0r1_eb_mcp.pinMode(_04eb, OUTPUT);
-  r0r1_eb_mcp.pinMode(_05eb, OUTPUT);
-  r0r1_eb_mcp.pinMode(_06eb, OUTPUT);
-  r0r1_eb_mcp.pinMode(_07eb, OUTPUT);
+// Row 1 (0x10 - 0x17) - Using r0r1_eb_mcp for eb
+r0r1_eb_mcp.pinMode(_10eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_10eb, HIGH);
+r0r1_eb_mcp.pinMode(_11eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_11eb, HIGH);
+r0r1_eb_mcp.pinMode(_12eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_12eb, HIGH);
+r0r1_eb_mcp.pinMode(_13eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_13eb, HIGH);
+r0r1_eb_mcp.pinMode(_14eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_14eb, HIGH);
+r0r1_eb_mcp.pinMode(_15eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_15eb, HIGH);
+r0r1_eb_mcp.pinMode(_16eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_16eb, HIGH);
+r0r1_eb_mcp.pinMode(_17eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_17eb, HIGH);
 
-  // Row 1 (0x10 - 0x17) - Using r0r1_eb_mcp for eb
-  r0r1_eb_mcp.pinMode(_10eb, OUTPUT);
-  r0r1_eb_mcp.pinMode(_11eb, OUTPUT);
-  r0r1_eb_mcp.pinMode(_12eb, OUTPUT);
-  r0r1_eb_mcp.pinMode(_13eb, OUTPUT);
-  r0r1_eb_mcp.pinMode(_14eb, OUTPUT);
-  r0r1_eb_mcp.pinMode(_15eb, OUTPUT);
-  r0r1_eb_mcp.pinMode(_16eb, OUTPUT);
-  r0r1_eb_mcp.pinMode(_17eb, OUTPUT);
+// Row 2 (0x20 - 0x27) - Using r2r3_eb_mcp for eb
+r2r3_eb_mcp.pinMode(_20eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_20eb, HIGH);
+r2r3_eb_mcp.pinMode(_21eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_21eb, HIGH);
+r2r3_eb_mcp.pinMode(_22eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_22eb, HIGH);
+r2r3_eb_mcp.pinMode(_23eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_23eb, HIGH);
+r2r3_eb_mcp.pinMode(_24eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_24eb, HIGH);
+r2r3_eb_mcp.pinMode(_25eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_25eb, HIGH);
+r2r3_eb_mcp.pinMode(_26eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_26eb, HIGH);
+r2r3_eb_mcp.pinMode(_27eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_27eb, HIGH);
 
-  // Row 2 (0x20 - 0x27) - Using r2r3_eb_mcp for eb
-  r2r3_eb_mcp.pinMode(_20eb, OUTPUT);
-  r2r3_eb_mcp.pinMode(_21eb, OUTPUT);
-  r2r3_eb_mcp.pinMode(_22eb, OUTPUT);
-  r2r3_eb_mcp.pinMode(_23eb, OUTPUT);
-  r2r3_eb_mcp.pinMode(_24eb, OUTPUT);
-  r2r3_eb_mcp.pinMode(_25eb, OUTPUT);
-  r2r3_eb_mcp.pinMode(_26eb, OUTPUT);
-  r2r3_eb_mcp.pinMode(_27eb, OUTPUT);
+// Row 3 (0x30 - 0x37) - Using r2r3_eb_mcp for eb
+r2r3_eb_mcp.pinMode(_30eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_30eb, HIGH);
+r2r3_eb_mcp.pinMode(_31eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_31eb, HIGH);
+r2r3_eb_mcp.pinMode(_32eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_32eb, HIGH);
+r2r3_eb_mcp.pinMode(_33eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_33eb, HIGH);
+r2r3_eb_mcp.pinMode(_34eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_34eb, HIGH);
+r2r3_eb_mcp.pinMode(_35eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_35eb, HIGH);
+r2r3_eb_mcp.pinMode(_36eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_36eb, HIGH);
+r2r3_eb_mcp.pinMode(_37eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_37eb, HIGH);
 
-  // Row 3 (0x30 - 0x37) - Using r2r3_eb_mcp for eb
-  r2r3_eb_mcp.pinMode(_30eb, OUTPUT);
-  r2r3_eb_mcp.pinMode(_31eb, OUTPUT);
-  r2r3_eb_mcp.pinMode(_32eb, OUTPUT);
-  r2r3_eb_mcp.pinMode(_33eb, OUTPUT);
-  r2r3_eb_mcp.pinMode(_34eb, OUTPUT);
-  r2r3_eb_mcp.pinMode(_35eb, OUTPUT);
-  r2r3_eb_mcp.pinMode(_36eb, OUTPUT);
-  r2r3_eb_mcp.pinMode(_37eb, OUTPUT);
+// Row 4 (0x40 - 0x47) - Using r4r5_eb_mcp for eb
+r4r5_eb_mcp.pinMode(_40eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_40eb, HIGH);
+r4r5_eb_mcp.pinMode(_41eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_41eb, HIGH);
+r4r5_eb_mcp.pinMode(_42eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_42eb, HIGH);
+r4r5_eb_mcp.pinMode(_43eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_43eb, HIGH);
+r4r5_eb_mcp.pinMode(_44eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_44eb, HIGH);
+r4r5_eb_mcp.pinMode(_45eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_45eb, HIGH);
+r4r5_eb_mcp.pinMode(_46eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_46eb, HIGH);
+r4r5_eb_mcp.pinMode(_47eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_47eb, HIGH);
 
-  // Row 4 (0x40 - 0x47) - Using r4r5_eb_mcp for eb
-  r4r5_eb_mcp.pinMode(_40eb, OUTPUT);
-  r4r5_eb_mcp.pinMode(_41eb, OUTPUT);
-  r4r5_eb_mcp.pinMode(_42eb, OUTPUT);
-  r4r5_eb_mcp.pinMode(_43eb, OUTPUT);
-  r4r5_eb_mcp.pinMode(_44eb, OUTPUT);
-  r4r5_eb_mcp.pinMode(_45eb, OUTPUT);
-  r4r5_eb_mcp.pinMode(_46eb, OUTPUT);
-  r4r5_eb_mcp.pinMode(_47eb, OUTPUT);
+// Row 5 (0x50 - 0x57) - Using r4r5_eb_mcp for eb
+r4r5_eb_mcp.pinMode(_50eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_50eb, HIGH);
+r4r5_eb_mcp.pinMode(_51eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_51eb, HIGH);
+r4r5_eb_mcp.pinMode(_52eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_52eb, HIGH);
+r4r5_eb_mcp.pinMode(_53eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_53eb, HIGH);
+r4r5_eb_mcp.pinMode(_54eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_54eb, HIGH);
+r4r5_eb_mcp.pinMode(_55eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_55eb, HIGH);
+r4r5_eb_mcp.pinMode(_56eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_56eb, HIGH);
+r4r5_eb_mcp.pinMode(_57eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_57eb, HIGH);
 
-  // Row 5 (0x50 - 0x57) - Using r4r5_eb_mcp for eb
-  r4r5_eb_mcp.pinMode(_50eb, OUTPUT);
-  r4r5_eb_mcp.pinMode(_51eb, OUTPUT);
-  r4r5_eb_mcp.pinMode(_52eb, OUTPUT);
-  r4r5_eb_mcp.pinMode(_53eb, OUTPUT);
-  r4r5_eb_mcp.pinMode(_54eb, OUTPUT);
-  r4r5_eb_mcp.pinMode(_55eb, OUTPUT);
-  r4r5_eb_mcp.pinMode(_56eb, OUTPUT);
-  r4r5_eb_mcp.pinMode(_57eb, OUTPUT);
-
-  // Row 6 (0x60 - 0x67) - Using r6r7_eb_mcp for eb
-  r6r7_eb_mcp.pinMode(_60eb, OUTPUT);
-  r6r7_eb_mcp.pinMode(_61eb, OUTPUT);
-  r6r7_eb_mcp.pinMode(_62eb, OUTPUT);
-  r6r7_eb_mcp.pinMode(_63eb, OUTPUT);
-  r6r7_eb_mcp.pinMode(_64eb, OUTPUT);
-  r6r7_eb_mcp.pinMode(_65eb, OUTPUT);
-  r6r7_eb_mcp.pinMode(_66eb, OUTPUT);
-  r6r7_eb_mcp.pinMode(_67eb, OUTPUT);
-
-  // Row 7 (0x70 - 0x77) - Using r6r7_eb_mcp for eb
-  r6r7_eb_mcp.pinMode(_70eb, OUTPUT);
-  r6r7_eb_mcp.pinMode(_71eb, OUTPUT);
-  r6r7_eb_mcp.pinMode(_72eb, OUTPUT);
-  r6r7_eb_mcp.pinMode(_73eb, OUTPUT);
-  r6r7_eb_mcp.pinMode(_74eb, OUTPUT);
-  r6r7_eb_mcp.pinMode(_75eb, OUTPUT);
-  r6r7_eb_mcp.pinMode(_76eb, OUTPUT);
-  r6r7_eb_mcp.pinMode(_77eb, OUTPUT);
+// Row 6 (0x60 - 0x67) - Using r6r7_eb_mcp for eb
+r6r7_eb_mcp.pinMode(_60eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_60eb, HIGH);
+r6r7_eb_mcp.pinMode(_61eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_61eb, HIGH);
+r6r7_eb_mcp.pinMode(_62eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_62eb, HIGH);
+r6r7_eb_mcp.pinMode(_63eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_63eb, HIGH);
+r6r7_eb_mcp.pinMode(_64eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_64eb, HIGH);
+r6r7_eb_mcp.pinMode(_65eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_65eb, HIGH);
+r6r7_eb_mcp.pinMode(_66eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_66eb, HIGH);
+r6r7_eb_mcp.pinMode(_67eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_67eb, HIGH);
 }
 
 void HardwareAPI::initializeLCD() {
@@ -621,64 +610,64 @@ void HardwareAPI::changeLEDcolor(char hexTile, char color)
       switch (color) {
         case 'R': r0_sb_mcp.digitalWrite(_x0sb0, LOW); r0_sb_mcp.digitalWrite(_x0sb1, LOW); break;
         case 'B': r0_sb_mcp.digitalWrite(_x0sb0, LOW); r0_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
-        case 'Y': r0_sb_mcp.digitalWrite(_x0sb0, HIGH); r0_sb_mcp.digitalWrite(_x0sb1, LOW); break;
-        case 'G': r0_sb_mcp.digitalWrite(_x0sb0, HIGH); r0_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
+        case 'G': r0_sb_mcp.digitalWrite(_x0sb0, HIGH); r0_sb_mcp.digitalWrite(_x0sb1, LOW); break;
+        case 'Y': r0_sb_mcp.digitalWrite(_x0sb0, HIGH); r0_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
       }
       break;
     case 0x01:
       switch (color) {
         case 'R': r0_sb_mcp.digitalWrite(_x1sb0, LOW); r0_sb_mcp.digitalWrite(_x1sb1, LOW); break;
         case 'B': r0_sb_mcp.digitalWrite(_x1sb0, LOW); r0_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
-        case 'Y': r0_sb_mcp.digitalWrite(_x1sb0, HIGH); r0_sb_mcp.digitalWrite(_x1sb1, LOW); break;
-        case 'G': r0_sb_mcp.digitalWrite(_x1sb0, HIGH); r0_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
+        case 'G': r0_sb_mcp.digitalWrite(_x1sb0, HIGH); r0_sb_mcp.digitalWrite(_x1sb1, LOW); break;
+        case 'Y': r0_sb_mcp.digitalWrite(_x1sb0, HIGH); r0_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
       }
       break;
     case 0x02:
       switch (color) {
         case 'R': r0_sb_mcp.digitalWrite(_x2sb0, LOW); r0_sb_mcp.digitalWrite(_x2sb1, LOW); break;
         case 'B': r0_sb_mcp.digitalWrite(_x2sb0, LOW); r0_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
-        case 'Y': r0_sb_mcp.digitalWrite(_x2sb0, HIGH); r0_sb_mcp.digitalWrite(_x2sb1, LOW); break;
-        case 'G': r0_sb_mcp.digitalWrite(_x2sb0, HIGH); r0_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
+        case 'G': r0_sb_mcp.digitalWrite(_x2sb0, HIGH); r0_sb_mcp.digitalWrite(_x2sb1, LOW); break;
+        case 'Y': r0_sb_mcp.digitalWrite(_x2sb0, HIGH); r0_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
       }
       break;
     case 0x03:
       switch (color) {
         case 'R': r0_sb_mcp.digitalWrite(_x3sb0, LOW); r0_sb_mcp.digitalWrite(_x3sb1, LOW); break;
         case 'B': r0_sb_mcp.digitalWrite(_x3sb0, LOW); r0_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
-        case 'Y': r0_sb_mcp.digitalWrite(_x3sb0, HIGH); r0_sb_mcp.digitalWrite(_x3sb1, LOW); break;
-        case 'G': r0_sb_mcp.digitalWrite(_x3sb0, HIGH); r0_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
+        case 'G': r0_sb_mcp.digitalWrite(_x3sb0, HIGH); r0_sb_mcp.digitalWrite(_x3sb1, LOW); break;
+        case 'Y': r0_sb_mcp.digitalWrite(_x3sb0, HIGH); r0_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
       }
       break;
     case 0x04:
       switch (color) {
         case 'R': r0_sb_mcp.digitalWrite(_x4sb0, LOW); r0_sb_mcp.digitalWrite(_x4sb1, LOW); break;
         case 'B': r0_sb_mcp.digitalWrite(_x4sb0, LOW); r0_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
-        case 'Y': r0_sb_mcp.digitalWrite(_x4sb0, HIGH); r0_sb_mcp.digitalWrite(_x4sb1, LOW); break;
-        case 'G': r0_sb_mcp.digitalWrite(_x4sb0, HIGH); r0_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
+        case 'G': r0_sb_mcp.digitalWrite(_x4sb0, HIGH); r0_sb_mcp.digitalWrite(_x4sb1, LOW); break;
+        case 'Y': r0_sb_mcp.digitalWrite(_x4sb0, HIGH); r0_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
       }
       break;
     case 0x05:
       switch (color) {
         case 'R': r0_sb_mcp.digitalWrite(_x5sb0, LOW); r0_sb_mcp.digitalWrite(_x5sb1, LOW); break;
         case 'B': r0_sb_mcp.digitalWrite(_x5sb0, LOW); r0_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
-        case 'Y': r0_sb_mcp.digitalWrite(_x5sb0, HIGH); r0_sb_mcp.digitalWrite(_x5sb1, LOW); break;
-        case 'G': r0_sb_mcp.digitalWrite(_x5sb0, HIGH); r0_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
+        case 'G': r0_sb_mcp.digitalWrite(_x5sb0, HIGH); r0_sb_mcp.digitalWrite(_x5sb1, LOW); break;
+        case 'Y': r0_sb_mcp.digitalWrite(_x5sb0, HIGH); r0_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
       }
       break;
     case 0x06:
       switch (color) {
         case 'R': r0_sb_mcp.digitalWrite(_x6sb0, LOW); r0_sb_mcp.digitalWrite(_x6sb1, LOW); break;
         case 'B': r0_sb_mcp.digitalWrite(_x6sb0, LOW); r0_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
-        case 'Y': r0_sb_mcp.digitalWrite(_x6sb0, HIGH); r0_sb_mcp.digitalWrite(_x6sb1, LOW); break;
-        case 'G': r0_sb_mcp.digitalWrite(_x6sb0, HIGH); r0_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
+        case 'G': r0_sb_mcp.digitalWrite(_x6sb0, HIGH); r0_sb_mcp.digitalWrite(_x6sb1, LOW); break;
+        case 'Y': r0_sb_mcp.digitalWrite(_x6sb0, HIGH); r0_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
       }
       break;
     case 0x07:
       switch (color) {
         case 'R': r0_sb_mcp.digitalWrite(_x7sb0, LOW); r0_sb_mcp.digitalWrite(_x7sb1, LOW); break;
         case 'B': r0_sb_mcp.digitalWrite(_x7sb0, LOW); r0_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
-        case 'Y': r0_sb_mcp.digitalWrite(_x7sb0, HIGH); r0_sb_mcp.digitalWrite(_x7sb1, LOW); break;
-        case 'G': r0_sb_mcp.digitalWrite(_x7sb0, HIGH); r0_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
+        case 'G': r0_sb_mcp.digitalWrite(_x7sb0, HIGH); r0_sb_mcp.digitalWrite(_x7sb1, LOW); break;
+        case 'Y': r0_sb_mcp.digitalWrite(_x7sb0, HIGH); r0_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
       }
       break;
       
@@ -687,64 +676,64 @@ void HardwareAPI::changeLEDcolor(char hexTile, char color)
       switch (color) {
         case 'R': r1_sb_mcp.digitalWrite(_x0sb0, LOW); r1_sb_mcp.digitalWrite(_x0sb1, LOW); break;
         case 'B': r1_sb_mcp.digitalWrite(_x0sb0, LOW); r1_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
-        case 'Y': r1_sb_mcp.digitalWrite(_x0sb0, HIGH); r1_sb_mcp.digitalWrite(_x0sb1, LOW); break;
-        case 'G': r1_sb_mcp.digitalWrite(_x0sb0, HIGH); r1_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
+        case 'G': r1_sb_mcp.digitalWrite(_x0sb0, HIGH); r1_sb_mcp.digitalWrite(_x0sb1, LOW); break;
+        case 'Y': r1_sb_mcp.digitalWrite(_x0sb0, HIGH); r1_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
       }
       break;
     case 0x11:
       switch (color) {
         case 'R': r1_sb_mcp.digitalWrite(_x1sb0, LOW); r1_sb_mcp.digitalWrite(_x1sb1, LOW); break;
         case 'B': r1_sb_mcp.digitalWrite(_x1sb0, LOW); r1_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
-        case 'Y': r1_sb_mcp.digitalWrite(_x1sb0, HIGH); r1_sb_mcp.digitalWrite(_x1sb1, LOW); break;
-        case 'G': r1_sb_mcp.digitalWrite(_x1sb0, HIGH); r1_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
+        case 'G': r1_sb_mcp.digitalWrite(_x1sb0, HIGH); r1_sb_mcp.digitalWrite(_x1sb1, LOW); break;
+        case 'Y': r1_sb_mcp.digitalWrite(_x1sb0, HIGH); r1_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
       }
       break;
     case 0x12:
       switch (color) {
         case 'R': r1_sb_mcp.digitalWrite(_x2sb0, LOW); r1_sb_mcp.digitalWrite(_x2sb1, LOW); break;
         case 'B': r1_sb_mcp.digitalWrite(_x2sb0, LOW); r1_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
-        case 'Y': r1_sb_mcp.digitalWrite(_x2sb0, HIGH); r1_sb_mcp.digitalWrite(_x2sb1, LOW); break;
-        case 'G': r1_sb_mcp.digitalWrite(_x2sb0, HIGH); r1_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
+        case 'G': r1_sb_mcp.digitalWrite(_x2sb0, HIGH); r1_sb_mcp.digitalWrite(_x2sb1, LOW); break;
+        case 'Y': r1_sb_mcp.digitalWrite(_x2sb0, HIGH); r1_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
       }
       break;
     case 0x13:
       switch (color) {
         case 'R': r1_sb_mcp.digitalWrite(_x3sb0, LOW); r1_sb_mcp.digitalWrite(_x3sb1, LOW); break;
         case 'B': r1_sb_mcp.digitalWrite(_x3sb0, LOW); r1_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
-        case 'Y': r1_sb_mcp.digitalWrite(_x3sb0, HIGH); r1_sb_mcp.digitalWrite(_x3sb1, LOW); break;
-        case 'G': r1_sb_mcp.digitalWrite(_x3sb0, HIGH); r1_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
+        case 'G': r1_sb_mcp.digitalWrite(_x3sb0, HIGH); r1_sb_mcp.digitalWrite(_x3sb1, LOW); break;
+        case 'Y': r1_sb_mcp.digitalWrite(_x3sb0, HIGH); r1_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
       }
       break;
     case 0x14:
       switch (color) {
         case 'R': r1_sb_mcp.digitalWrite(_x4sb0, LOW); r1_sb_mcp.digitalWrite(_x4sb1, LOW); break;
         case 'B': r1_sb_mcp.digitalWrite(_x4sb0, LOW); r1_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
-        case 'Y': r1_sb_mcp.digitalWrite(_x4sb0, HIGH); r1_sb_mcp.digitalWrite(_x4sb1, LOW); break;
-        case 'G': r1_sb_mcp.digitalWrite(_x4sb0, HIGH); r1_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
+        case 'G': r1_sb_mcp.digitalWrite(_x4sb0, HIGH); r1_sb_mcp.digitalWrite(_x4sb1, LOW); break;
+        case 'Y': r1_sb_mcp.digitalWrite(_x4sb0, HIGH); r1_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
       }
       break;
     case 0x15:
       switch (color) {
         case 'R': r1_sb_mcp.digitalWrite(_x5sb0, LOW); r1_sb_mcp.digitalWrite(_x5sb1, LOW); break;
         case 'B': r1_sb_mcp.digitalWrite(_x5sb0, LOW); r1_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
-        case 'Y': r1_sb_mcp.digitalWrite(_x5sb0, HIGH); r1_sb_mcp.digitalWrite(_x5sb1, LOW); break;
-        case 'G': r1_sb_mcp.digitalWrite(_x5sb0, HIGH); r1_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
+        case 'G': r1_sb_mcp.digitalWrite(_x5sb0, HIGH); r1_sb_mcp.digitalWrite(_x5sb1, LOW); break;
+        case 'Y': r1_sb_mcp.digitalWrite(_x5sb0, HIGH); r1_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
       }
       break;
     case 0x16:
       switch (color) {
         case 'R': r1_sb_mcp.digitalWrite(_x6sb0, LOW); r1_sb_mcp.digitalWrite(_x6sb1, LOW); break;
         case 'B': r1_sb_mcp.digitalWrite(_x6sb0, LOW); r1_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
-        case 'Y': r1_sb_mcp.digitalWrite(_x6sb0, HIGH); r1_sb_mcp.digitalWrite(_x6sb1, LOW); break;
-        case 'G': r1_sb_mcp.digitalWrite(_x6sb0, HIGH); r1_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
+        case 'G': r1_sb_mcp.digitalWrite(_x6sb0, HIGH); r1_sb_mcp.digitalWrite(_x6sb1, LOW); break;
+        case 'Y': r1_sb_mcp.digitalWrite(_x6sb0, HIGH); r1_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
       }
       break;
     case 0x17:
       switch (color) {
         case 'R': r1_sb_mcp.digitalWrite(_x7sb0, LOW); r1_sb_mcp.digitalWrite(_x7sb1, LOW); break;
         case 'B': r1_sb_mcp.digitalWrite(_x7sb0, LOW); r1_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
-        case 'Y': r1_sb_mcp.digitalWrite(_x7sb0, HIGH); r1_sb_mcp.digitalWrite(_x7sb1, LOW); break;
-        case 'G': r1_sb_mcp.digitalWrite(_x7sb0, HIGH); r1_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
+        case 'G': r1_sb_mcp.digitalWrite(_x7sb0, HIGH); r1_sb_mcp.digitalWrite(_x7sb1, LOW); break;
+        case 'Y': r1_sb_mcp.digitalWrite(_x7sb0, HIGH); r1_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
       }
       break;
       
@@ -753,64 +742,64 @@ void HardwareAPI::changeLEDcolor(char hexTile, char color)
       switch (color) {
         case 'R': r2_sb_mcp.digitalWrite(_x0sb0, LOW); r2_sb_mcp.digitalWrite(_x0sb1, LOW); break;
         case 'B': r2_sb_mcp.digitalWrite(_x0sb0, LOW); r2_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
-        case 'Y': r2_sb_mcp.digitalWrite(_x0sb0, HIGH); r2_sb_mcp.digitalWrite(_x0sb1, LOW); break;
-        case 'G': r2_sb_mcp.digitalWrite(_x0sb0, HIGH); r2_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
+        case 'G': r2_sb_mcp.digitalWrite(_x0sb0, HIGH); r2_sb_mcp.digitalWrite(_x0sb1, LOW); break;
+        case 'Y': r2_sb_mcp.digitalWrite(_x0sb0, HIGH); r2_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
       }
       break;
     case 0x21:
       switch (color) {
         case 'R': r2_sb_mcp.digitalWrite(_x1sb0, LOW); r2_sb_mcp.digitalWrite(_x1sb1, LOW); break;
         case 'B': r2_sb_mcp.digitalWrite(_x1sb0, LOW); r2_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
-        case 'Y': r2_sb_mcp.digitalWrite(_x1sb0, HIGH); r2_sb_mcp.digitalWrite(_x1sb1, LOW); break;
-        case 'G': r2_sb_mcp.digitalWrite(_x1sb0, HIGH); r2_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
+        case 'G': r2_sb_mcp.digitalWrite(_x1sb0, HIGH); r2_sb_mcp.digitalWrite(_x1sb1, LOW); break;
+        case 'Y': r2_sb_mcp.digitalWrite(_x1sb0, HIGH); r2_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
       }
       break;
     case 0x22:
       switch (color) {
         case 'R': r2_sb_mcp.digitalWrite(_x2sb0, LOW); r2_sb_mcp.digitalWrite(_x2sb1, LOW); break;
         case 'B': r2_sb_mcp.digitalWrite(_x2sb0, LOW); r2_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
-        case 'Y': r2_sb_mcp.digitalWrite(_x2sb0, HIGH); r2_sb_mcp.digitalWrite(_x2sb1, LOW); break;
-        case 'G': r2_sb_mcp.digitalWrite(_x2sb0, HIGH); r2_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
+        case 'G': r2_sb_mcp.digitalWrite(_x2sb0, HIGH); r2_sb_mcp.digitalWrite(_x2sb1, LOW); break;
+        case 'Y': r2_sb_mcp.digitalWrite(_x2sb0, HIGH); r2_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
       }
       break;
     case 0x23:
       switch (color) {
         case 'R': r2_sb_mcp.digitalWrite(_x3sb0, LOW); r2_sb_mcp.digitalWrite(_x3sb1, LOW); break;
         case 'B': r2_sb_mcp.digitalWrite(_x3sb0, LOW); r2_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
-        case 'Y': r2_sb_mcp.digitalWrite(_x3sb0, HIGH); r2_sb_mcp.digitalWrite(_x3sb1, LOW); break;
-        case 'G': r2_sb_mcp.digitalWrite(_x3sb0, HIGH); r2_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
+        case 'G': r2_sb_mcp.digitalWrite(_x3sb0, HIGH); r2_sb_mcp.digitalWrite(_x3sb1, LOW); break;
+        case 'Y': r2_sb_mcp.digitalWrite(_x3sb0, HIGH); r2_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
       }
       break;
     case 0x24:
       switch (color) {
         case 'R': r2_sb_mcp.digitalWrite(_x4sb0, LOW); r2_sb_mcp.digitalWrite(_x4sb1, LOW); break;
         case 'B': r2_sb_mcp.digitalWrite(_x4sb0, LOW); r2_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
-        case 'Y': r2_sb_mcp.digitalWrite(_x4sb0, HIGH); r2_sb_mcp.digitalWrite(_x4sb1, LOW); break;
-        case 'G': r2_sb_mcp.digitalWrite(_x4sb0, HIGH); r2_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
+        case 'G': r2_sb_mcp.digitalWrite(_x4sb0, HIGH); r2_sb_mcp.digitalWrite(_x4sb1, LOW); break;
+        case 'Y': r2_sb_mcp.digitalWrite(_x4sb0, HIGH); r2_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
       }
       break;
     case 0x25:
       switch (color) {
         case 'R': r2_sb_mcp.digitalWrite(_x5sb0, LOW); r2_sb_mcp.digitalWrite(_x5sb1, LOW); break;
         case 'B': r2_sb_mcp.digitalWrite(_x5sb0, LOW); r2_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
-        case 'Y': r2_sb_mcp.digitalWrite(_x5sb0, HIGH); r2_sb_mcp.digitalWrite(_x5sb1, LOW); break;
-        case 'G': r2_sb_mcp.digitalWrite(_x5sb0, HIGH); r2_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
+        case 'G': r2_sb_mcp.digitalWrite(_x5sb0, HIGH); r2_sb_mcp.digitalWrite(_x5sb1, LOW); break;
+        case 'Y': r2_sb_mcp.digitalWrite(_x5sb0, HIGH); r2_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
       }
       break;
     case 0x26:
       switch (color) {
         case 'R': r2_sb_mcp.digitalWrite(_x6sb0, LOW); r2_sb_mcp.digitalWrite(_x6sb1, LOW); break;
         case 'B': r2_sb_mcp.digitalWrite(_x6sb0, LOW); r2_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
-        case 'Y': r2_sb_mcp.digitalWrite(_x6sb0, HIGH); r2_sb_mcp.digitalWrite(_x6sb1, LOW); break;
-        case 'G': r2_sb_mcp.digitalWrite(_x6sb0, HIGH); r2_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
+        case 'G': r2_sb_mcp.digitalWrite(_x6sb0, HIGH); r2_sb_mcp.digitalWrite(_x6sb1, LOW); break;
+        case 'Y': r2_sb_mcp.digitalWrite(_x6sb0, HIGH); r2_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
       }
       break;
     case 0x27:
       switch (color) {
         case 'R': r2_sb_mcp.digitalWrite(_x7sb0, LOW); r2_sb_mcp.digitalWrite(_x7sb1, LOW); break;
         case 'B': r2_sb_mcp.digitalWrite(_x7sb0, LOW); r2_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
-        case 'Y': r2_sb_mcp.digitalWrite(_x7sb0, HIGH); r2_sb_mcp.digitalWrite(_x7sb1, LOW); break;
-        case 'G': r2_sb_mcp.digitalWrite(_x7sb0, HIGH); r2_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
+        case 'G': r2_sb_mcp.digitalWrite(_x7sb0, HIGH); r2_sb_mcp.digitalWrite(_x7sb1, LOW); break;
+        case 'Y': r2_sb_mcp.digitalWrite(_x7sb0, HIGH); r2_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
       }
       break;
       
@@ -819,64 +808,64 @@ void HardwareAPI::changeLEDcolor(char hexTile, char color)
       switch (color) {
         case 'R': r3_sb_mcp.digitalWrite(_x0sb0, LOW); r3_sb_mcp.digitalWrite(_x0sb1, LOW); break;
         case 'B': r3_sb_mcp.digitalWrite(_x0sb0, LOW); r3_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
-        case 'Y': r3_sb_mcp.digitalWrite(_x0sb0, HIGH); r3_sb_mcp.digitalWrite(_x0sb1, LOW); break;
-        case 'G': r3_sb_mcp.digitalWrite(_x0sb0, HIGH); r3_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
+        case 'G': r3_sb_mcp.digitalWrite(_x0sb0, HIGH); r3_sb_mcp.digitalWrite(_x0sb1, LOW); break;
+        case 'Y': r3_sb_mcp.digitalWrite(_x0sb0, HIGH); r3_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
       }
       break;
     case 0x31:
       switch (color) {
         case 'R': r3_sb_mcp.digitalWrite(_x1sb0, LOW); r3_sb_mcp.digitalWrite(_x1sb1, LOW); break;
         case 'B': r3_sb_mcp.digitalWrite(_x1sb0, LOW); r3_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
-        case 'Y': r3_sb_mcp.digitalWrite(_x1sb0, HIGH); r3_sb_mcp.digitalWrite(_x1sb1, LOW); break;
-        case 'G': r3_sb_mcp.digitalWrite(_x1sb0, HIGH); r3_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
+        case 'G': r3_sb_mcp.digitalWrite(_x1sb0, HIGH); r3_sb_mcp.digitalWrite(_x1sb1, LOW); break;
+        case 'Y': r3_sb_mcp.digitalWrite(_x1sb0, HIGH); r3_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
       }
       break;
     case 0x32:
       switch (color) {
         case 'R': r3_sb_mcp.digitalWrite(_x2sb0, LOW); r3_sb_mcp.digitalWrite(_x2sb1, LOW); break;
         case 'B': r3_sb_mcp.digitalWrite(_x2sb0, LOW); r3_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
-        case 'Y': r3_sb_mcp.digitalWrite(_x2sb0, HIGH); r3_sb_mcp.digitalWrite(_x2sb1, LOW); break;
-        case 'G': r3_sb_mcp.digitalWrite(_x2sb0, HIGH); r3_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
+        case 'G': r3_sb_mcp.digitalWrite(_x2sb0, HIGH); r3_sb_mcp.digitalWrite(_x2sb1, LOW); break;
+        case 'Y': r3_sb_mcp.digitalWrite(_x2sb0, HIGH); r3_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
       }
       break;
     case 0x33:
       switch (color) {
         case 'R': r3_sb_mcp.digitalWrite(_x3sb0, LOW); r3_sb_mcp.digitalWrite(_x3sb1, LOW); break;
         case 'B': r3_sb_mcp.digitalWrite(_x3sb0, LOW); r3_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
-        case 'Y': r3_sb_mcp.digitalWrite(_x3sb0, HIGH); r3_sb_mcp.digitalWrite(_x3sb1, LOW); break;
-        case 'G': r3_sb_mcp.digitalWrite(_x3sb0, HIGH); r3_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
+        case 'G': r3_sb_mcp.digitalWrite(_x3sb0, HIGH); r3_sb_mcp.digitalWrite(_x3sb1, LOW); break;
+        case 'Y': r3_sb_mcp.digitalWrite(_x3sb0, HIGH); r3_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
       }
       break;
     case 0x34:
       switch (color) {
         case 'R': r3_sb_mcp.digitalWrite(_x4sb0, LOW); r3_sb_mcp.digitalWrite(_x4sb1, LOW); break;
         case 'B': r3_sb_mcp.digitalWrite(_x4sb0, LOW); r3_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
-        case 'Y': r3_sb_mcp.digitalWrite(_x4sb0, HIGH); r3_sb_mcp.digitalWrite(_x4sb1, LOW); break;
-        case 'G': r3_sb_mcp.digitalWrite(_x4sb0, HIGH); r3_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
+        case 'G': r3_sb_mcp.digitalWrite(_x4sb0, HIGH); r3_sb_mcp.digitalWrite(_x4sb1, LOW); break;
+        case 'Y': r3_sb_mcp.digitalWrite(_x4sb0, HIGH); r3_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
       }
       break;
     case 0x35:
       switch (color) {
         case 'R': r3_sb_mcp.digitalWrite(_x5sb0, LOW); r3_sb_mcp.digitalWrite(_x5sb1, LOW); break;
         case 'B': r3_sb_mcp.digitalWrite(_x5sb0, LOW); r3_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
-        case 'Y': r3_sb_mcp.digitalWrite(_x5sb0, HIGH); r3_sb_mcp.digitalWrite(_x5sb1, LOW); break;
-        case 'G': r3_sb_mcp.digitalWrite(_x5sb0, HIGH); r3_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
+        case 'G': r3_sb_mcp.digitalWrite(_x5sb0, HIGH); r3_sb_mcp.digitalWrite(_x5sb1, LOW); break;
+        case 'Y': r3_sb_mcp.digitalWrite(_x5sb0, HIGH); r3_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
       }
       break;
     case 0x36:
       switch (color) {
         case 'R': r3_sb_mcp.digitalWrite(_x6sb0, LOW); r3_sb_mcp.digitalWrite(_x6sb1, LOW); break;
         case 'B': r3_sb_mcp.digitalWrite(_x6sb0, LOW); r3_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
-        case 'Y': r3_sb_mcp.digitalWrite(_x6sb0, HIGH); r3_sb_mcp.digitalWrite(_x6sb1, LOW); break;
-        case 'G': r3_sb_mcp.digitalWrite(_x6sb0, HIGH); r3_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
+        case 'G': r3_sb_mcp.digitalWrite(_x6sb0, HIGH); r3_sb_mcp.digitalWrite(_x6sb1, LOW); break;
+        case 'Y': r3_sb_mcp.digitalWrite(_x6sb0, HIGH); r3_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
       }
       break;
     case 0x37:
       switch (color) {
         case 'R': r3_sb_mcp.digitalWrite(_x7sb0, LOW); r3_sb_mcp.digitalWrite(_x7sb1, LOW); break;
         case 'B': r3_sb_mcp.digitalWrite(_x7sb0, LOW); r3_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
-        case 'Y': r3_sb_mcp.digitalWrite(_x7sb0, HIGH); r3_sb_mcp.digitalWrite(_x7sb1, LOW); break;
-        case 'G': r3_sb_mcp.digitalWrite(_x7sb0, HIGH); r3_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
+        case 'G': r3_sb_mcp.digitalWrite(_x7sb0, HIGH); r3_sb_mcp.digitalWrite(_x7sb1, LOW); break;
+        case 'Y': r3_sb_mcp.digitalWrite(_x7sb0, HIGH); r3_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
       }
       break;
       
@@ -885,64 +874,64 @@ void HardwareAPI::changeLEDcolor(char hexTile, char color)
       switch (color) {
         case 'R': r4_sb_mcp.digitalWrite(_x0sb0, LOW); r4_sb_mcp.digitalWrite(_x0sb1, LOW); break;
         case 'B': r4_sb_mcp.digitalWrite(_x0sb0, LOW); r4_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
-        case 'Y': r4_sb_mcp.digitalWrite(_x0sb0, HIGH); r4_sb_mcp.digitalWrite(_x0sb1, LOW); break;
-        case 'G': r4_sb_mcp.digitalWrite(_x0sb0, HIGH); r4_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
+        case 'G': r4_sb_mcp.digitalWrite(_x0sb0, HIGH); r4_sb_mcp.digitalWrite(_x0sb1, LOW); break;
+        case 'Y': r4_sb_mcp.digitalWrite(_x0sb0, HIGH); r4_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
       }
       break;
     case 0x41:
       switch (color) {
         case 'R': r4_sb_mcp.digitalWrite(_x1sb0, LOW); r4_sb_mcp.digitalWrite(_x1sb1, LOW); break;
         case 'B': r4_sb_mcp.digitalWrite(_x1sb0, LOW); r4_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
-        case 'Y': r4_sb_mcp.digitalWrite(_x1sb0, HIGH); r4_sb_mcp.digitalWrite(_x1sb1, LOW); break;
-        case 'G': r4_sb_mcp.digitalWrite(_x1sb0, HIGH); r4_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
+        case 'G': r4_sb_mcp.digitalWrite(_x1sb0, HIGH); r4_sb_mcp.digitalWrite(_x1sb1, LOW); break;
+        case 'Y': r4_sb_mcp.digitalWrite(_x1sb0, HIGH); r4_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
       }
       break;
     case 0x42:
       switch (color) {
         case 'R': r4_sb_mcp.digitalWrite(_x2sb0, LOW); r4_sb_mcp.digitalWrite(_x2sb1, LOW); break;
         case 'B': r4_sb_mcp.digitalWrite(_x2sb0, LOW); r4_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
-        case 'Y': r4_sb_mcp.digitalWrite(_x2sb0, HIGH); r4_sb_mcp.digitalWrite(_x2sb1, LOW); break;
-        case 'G': r4_sb_mcp.digitalWrite(_x2sb0, HIGH); r4_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
+        case 'G': r4_sb_mcp.digitalWrite(_x2sb0, HIGH); r4_sb_mcp.digitalWrite(_x2sb1, LOW); break;
+        case 'Y': r4_sb_mcp.digitalWrite(_x2sb0, HIGH); r4_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
       }
       break;
     case 0x43:
       switch (color) {
         case 'R': r4_sb_mcp.digitalWrite(_x3sb0, LOW); r4_sb_mcp.digitalWrite(_x3sb1, LOW); break;
         case 'B': r4_sb_mcp.digitalWrite(_x3sb0, LOW); r4_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
-        case 'Y': r4_sb_mcp.digitalWrite(_x3sb0, HIGH); r4_sb_mcp.digitalWrite(_x3sb1, LOW); break;
-        case 'G': r4_sb_mcp.digitalWrite(_x3sb0, HIGH); r4_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
+        case 'G': r4_sb_mcp.digitalWrite(_x3sb0, HIGH); r4_sb_mcp.digitalWrite(_x3sb1, LOW); break;
+        case 'Y': r4_sb_mcp.digitalWrite(_x3sb0, HIGH); r4_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
       }
       break;
     case 0x44:
       switch (color) {
         case 'R': r4_sb_mcp.digitalWrite(_x4sb0, LOW); r4_sb_mcp.digitalWrite(_x4sb1, LOW); break;
         case 'B': r4_sb_mcp.digitalWrite(_x4sb0, LOW); r4_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
-        case 'Y': r4_sb_mcp.digitalWrite(_x4sb0, HIGH); r4_sb_mcp.digitalWrite(_x4sb1, LOW); break;
-        case 'G': r4_sb_mcp.digitalWrite(_x4sb0, HIGH); r4_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
+        case 'G': r4_sb_mcp.digitalWrite(_x4sb0, HIGH); r4_sb_mcp.digitalWrite(_x4sb1, LOW); break;
+        case 'Y': r4_sb_mcp.digitalWrite(_x4sb0, HIGH); r4_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
       }
       break;
     case 0x45:
       switch (color) {
         case 'R': r4_sb_mcp.digitalWrite(_x5sb0, LOW); r4_sb_mcp.digitalWrite(_x5sb1, LOW); break;
         case 'B': r4_sb_mcp.digitalWrite(_x5sb0, LOW); r4_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
-        case 'Y': r4_sb_mcp.digitalWrite(_x5sb0, HIGH); r4_sb_mcp.digitalWrite(_x5sb1, LOW); break;
-        case 'G': r4_sb_mcp.digitalWrite(_x5sb0, HIGH); r4_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
+        case 'G': r4_sb_mcp.digitalWrite(_x5sb0, HIGH); r4_sb_mcp.digitalWrite(_x5sb1, LOW); break;
+        case 'Y': r4_sb_mcp.digitalWrite(_x5sb0, HIGH); r4_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
       }
       break;
     case 0x46:
       switch (color) {
         case 'R': r4_sb_mcp.digitalWrite(_x6sb0, LOW); r4_sb_mcp.digitalWrite(_x6sb1, LOW); break;
         case 'B': r4_sb_mcp.digitalWrite(_x6sb0, LOW); r4_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
-        case 'Y': r4_sb_mcp.digitalWrite(_x6sb0, HIGH); r4_sb_mcp.digitalWrite(_x6sb1, LOW); break;
-        case 'G': r4_sb_mcp.digitalWrite(_x6sb0, HIGH); r4_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
+        case 'G': r4_sb_mcp.digitalWrite(_x6sb0, HIGH); r4_sb_mcp.digitalWrite(_x6sb1, LOW); break;
+        case 'Y': r4_sb_mcp.digitalWrite(_x6sb0, HIGH); r4_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
       }
       break;
     case 0x47:
       switch (color) {
         case 'R': r4_sb_mcp.digitalWrite(_x7sb0, LOW); r4_sb_mcp.digitalWrite(_x7sb1, LOW); break;
         case 'B': r4_sb_mcp.digitalWrite(_x7sb0, LOW); r4_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
-        case 'Y': r4_sb_mcp.digitalWrite(_x7sb0, HIGH); r4_sb_mcp.digitalWrite(_x7sb1, LOW); break;
-        case 'G': r4_sb_mcp.digitalWrite(_x7sb0, HIGH); r4_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
+        case 'G': r4_sb_mcp.digitalWrite(_x7sb0, HIGH); r4_sb_mcp.digitalWrite(_x7sb1, LOW); break;
+        case 'Y': r4_sb_mcp.digitalWrite(_x7sb0, HIGH); r4_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
       }
       break;
       
@@ -951,64 +940,64 @@ void HardwareAPI::changeLEDcolor(char hexTile, char color)
       switch (color) {
         case 'R': r5_sb_mcp.digitalWrite(_x0sb0, LOW); r5_sb_mcp.digitalWrite(_x0sb1, LOW); break;
         case 'B': r5_sb_mcp.digitalWrite(_x0sb0, LOW); r5_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
-        case 'Y': r5_sb_mcp.digitalWrite(_x0sb0, HIGH); r5_sb_mcp.digitalWrite(_x0sb1, LOW); break;
-        case 'G': r5_sb_mcp.digitalWrite(_x0sb0, HIGH); r5_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
+        case 'G': r5_sb_mcp.digitalWrite(_x0sb0, HIGH); r5_sb_mcp.digitalWrite(_x0sb1, LOW); break;
+        case 'Y': r5_sb_mcp.digitalWrite(_x0sb0, HIGH); r5_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
       }
       break;
     case 0x51:
       switch (color) {
         case 'R': r5_sb_mcp.digitalWrite(_x1sb0, LOW); r5_sb_mcp.digitalWrite(_x1sb1, LOW); break;
         case 'B': r5_sb_mcp.digitalWrite(_x1sb0, LOW); r5_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
-        case 'Y': r5_sb_mcp.digitalWrite(_x1sb0, HIGH); r5_sb_mcp.digitalWrite(_x1sb1, LOW); break;
-        case 'G': r5_sb_mcp.digitalWrite(_x1sb0, HIGH); r5_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
+        case 'G': r5_sb_mcp.digitalWrite(_x1sb0, HIGH); r5_sb_mcp.digitalWrite(_x1sb1, LOW); break;
+        case 'Y': r5_sb_mcp.digitalWrite(_x1sb0, HIGH); r5_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
       }
       break;
     case 0x52:
       switch (color) {
         case 'R': r5_sb_mcp.digitalWrite(_x2sb0, LOW); r5_sb_mcp.digitalWrite(_x2sb1, LOW); break;
         case 'B': r5_sb_mcp.digitalWrite(_x2sb0, LOW); r5_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
-        case 'Y': r5_sb_mcp.digitalWrite(_x2sb0, HIGH); r5_sb_mcp.digitalWrite(_x2sb1, LOW); break;
-        case 'G': r5_sb_mcp.digitalWrite(_x2sb0, HIGH); r5_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
+        case 'G': r5_sb_mcp.digitalWrite(_x2sb0, HIGH); r5_sb_mcp.digitalWrite(_x2sb1, LOW); break;
+        case 'Y': r5_sb_mcp.digitalWrite(_x2sb0, HIGH); r5_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
       }
       break;
     case 0x53:
       switch (color) {
         case 'R': r5_sb_mcp.digitalWrite(_x3sb0, LOW); r5_sb_mcp.digitalWrite(_x3sb1, LOW); break;
         case 'B': r5_sb_mcp.digitalWrite(_x3sb0, LOW); r5_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
-        case 'Y': r5_sb_mcp.digitalWrite(_x3sb0, HIGH); r5_sb_mcp.digitalWrite(_x3sb1, LOW); break;
-        case 'G': r5_sb_mcp.digitalWrite(_x3sb0, HIGH); r5_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
+        case 'G': r5_sb_mcp.digitalWrite(_x3sb0, HIGH); r5_sb_mcp.digitalWrite(_x3sb1, LOW); break;
+        case 'Y': r5_sb_mcp.digitalWrite(_x3sb0, HIGH); r5_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
       }
       break;
     case 0x54:
       switch (color) {
         case 'R': r5_sb_mcp.digitalWrite(_x4sb0, LOW); r5_sb_mcp.digitalWrite(_x4sb1, LOW); break;
         case 'B': r5_sb_mcp.digitalWrite(_x4sb0, LOW); r5_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
-        case 'Y': r5_sb_mcp.digitalWrite(_x4sb0, HIGH); r5_sb_mcp.digitalWrite(_x4sb1, LOW); break;
-        case 'G': r5_sb_mcp.digitalWrite(_x4sb0, HIGH); r5_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
+        case 'G': r5_sb_mcp.digitalWrite(_x4sb0, HIGH); r5_sb_mcp.digitalWrite(_x4sb1, LOW); break;
+        case 'Y': r5_sb_mcp.digitalWrite(_x4sb0, HIGH); r5_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
       }
       break;
     case 0x55:
       switch (color) {
         case 'R': r5_sb_mcp.digitalWrite(_x5sb0, LOW); r5_sb_mcp.digitalWrite(_x5sb1, LOW); break;
         case 'B': r5_sb_mcp.digitalWrite(_x5sb0, LOW); r5_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
-        case 'Y': r5_sb_mcp.digitalWrite(_x5sb0, HIGH); r5_sb_mcp.digitalWrite(_x5sb1, LOW); break;
-        case 'G': r5_sb_mcp.digitalWrite(_x5sb0, HIGH); r5_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
+        case 'G': r5_sb_mcp.digitalWrite(_x5sb0, HIGH); r5_sb_mcp.digitalWrite(_x5sb1, LOW); break;
+        case 'Y': r5_sb_mcp.digitalWrite(_x5sb0, HIGH); r5_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
       }
       break;
     case 0x56:
       switch (color) {
         case 'R': r5_sb_mcp.digitalWrite(_x6sb0, LOW); r5_sb_mcp.digitalWrite(_x6sb1, LOW); break;
         case 'B': r5_sb_mcp.digitalWrite(_x6sb0, LOW); r5_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
-        case 'Y': r5_sb_mcp.digitalWrite(_x6sb0, HIGH); r5_sb_mcp.digitalWrite(_x6sb1, LOW); break;
-        case 'G': r5_sb_mcp.digitalWrite(_x6sb0, HIGH); r5_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
+        case 'G': r5_sb_mcp.digitalWrite(_x6sb0, HIGH); r5_sb_mcp.digitalWrite(_x6sb1, LOW); break;
+        case 'Y': r5_sb_mcp.digitalWrite(_x6sb0, HIGH); r5_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
       }
       break;
     case 0x57:
       switch (color) {
         case 'R': r5_sb_mcp.digitalWrite(_x7sb0, LOW); r5_sb_mcp.digitalWrite(_x7sb1, LOW); break;
         case 'B': r5_sb_mcp.digitalWrite(_x7sb0, LOW); r5_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
-        case 'Y': r5_sb_mcp.digitalWrite(_x7sb0, HIGH); r5_sb_mcp.digitalWrite(_x7sb1, LOW); break;
-        case 'G': r5_sb_mcp.digitalWrite(_x7sb0, HIGH); r5_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
+        case 'G': r5_sb_mcp.digitalWrite(_x7sb0, HIGH); r5_sb_mcp.digitalWrite(_x7sb1, LOW); break;
+        case 'Y': r5_sb_mcp.digitalWrite(_x7sb0, HIGH); r5_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
       }
       break;
       
@@ -1017,64 +1006,64 @@ void HardwareAPI::changeLEDcolor(char hexTile, char color)
       switch (color) {
         case 'R': r6_sb_mcp.digitalWrite(_x0sb0, LOW); r6_sb_mcp.digitalWrite(_x0sb1, LOW); break;
         case 'B': r6_sb_mcp.digitalWrite(_x0sb0, LOW); r6_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
-        case 'Y': r6_sb_mcp.digitalWrite(_x0sb0, HIGH); r6_sb_mcp.digitalWrite(_x0sb1, LOW); break;
-        case 'G': r6_sb_mcp.digitalWrite(_x0sb0, HIGH); r6_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
+        case 'G': r6_sb_mcp.digitalWrite(_x0sb0, HIGH); r6_sb_mcp.digitalWrite(_x0sb1, LOW); break;
+        case 'Y': r6_sb_mcp.digitalWrite(_x0sb0, HIGH); r6_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
       }
       break;
     case 0x61:
       switch (color) {
         case 'R': r6_sb_mcp.digitalWrite(_x1sb0, LOW); r6_sb_mcp.digitalWrite(_x1sb1, LOW); break;
         case 'B': r6_sb_mcp.digitalWrite(_x1sb0, LOW); r6_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
-        case 'Y': r6_sb_mcp.digitalWrite(_x1sb0, HIGH); r6_sb_mcp.digitalWrite(_x1sb1, LOW); break;
-        case 'G': r6_sb_mcp.digitalWrite(_x1sb0, HIGH); r6_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
+        case 'G': r6_sb_mcp.digitalWrite(_x1sb0, HIGH); r6_sb_mcp.digitalWrite(_x1sb1, LOW); break;
+        case 'Y': r6_sb_mcp.digitalWrite(_x1sb0, HIGH); r6_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
       }
       break;
     case 0x62:
       switch (color) {
         case 'R': r6_sb_mcp.digitalWrite(_x2sb0, LOW); r6_sb_mcp.digitalWrite(_x2sb1, LOW); break;
         case 'B': r6_sb_mcp.digitalWrite(_x2sb0, LOW); r6_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
-        case 'Y': r6_sb_mcp.digitalWrite(_x2sb0, HIGH); r6_sb_mcp.digitalWrite(_x2sb1, LOW); break;
-        case 'G': r6_sb_mcp.digitalWrite(_x2sb0, HIGH); r6_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
+        case 'G': r6_sb_mcp.digitalWrite(_x2sb0, HIGH); r6_sb_mcp.digitalWrite(_x2sb1, LOW); break;
+        case 'Y': r6_sb_mcp.digitalWrite(_x2sb0, HIGH); r6_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
       }
       break;
     case 0x63:
       switch (color) {
         case 'R': r6_sb_mcp.digitalWrite(_x3sb0, LOW); r6_sb_mcp.digitalWrite(_x3sb1, LOW); break;
         case 'B': r6_sb_mcp.digitalWrite(_x3sb0, LOW); r6_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
-        case 'Y': r6_sb_mcp.digitalWrite(_x3sb0, HIGH); r6_sb_mcp.digitalWrite(_x3sb1, LOW); break;
-        case 'G': r6_sb_mcp.digitalWrite(_x3sb0, HIGH); r6_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
+        case 'G': r6_sb_mcp.digitalWrite(_x3sb0, HIGH); r6_sb_mcp.digitalWrite(_x3sb1, LOW); break;
+        case 'Y': r6_sb_mcp.digitalWrite(_x3sb0, HIGH); r6_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
       }
       break;
     case 0x64:
       switch (color) {
         case 'R': r6_sb_mcp.digitalWrite(_x4sb0, LOW); r6_sb_mcp.digitalWrite(_x4sb1, LOW); break;
         case 'B': r6_sb_mcp.digitalWrite(_x4sb0, LOW); r6_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
-        case 'Y': r6_sb_mcp.digitalWrite(_x4sb0, HIGH); r6_sb_mcp.digitalWrite(_x4sb1, LOW); break;
-        case 'G': r6_sb_mcp.digitalWrite(_x4sb0, HIGH); r6_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
+        case 'G': r6_sb_mcp.digitalWrite(_x4sb0, HIGH); r6_sb_mcp.digitalWrite(_x4sb1, LOW); break;
+        case 'Y': r6_sb_mcp.digitalWrite(_x4sb0, HIGH); r6_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
       }
       break;
     case 0x65:
       switch (color) {
         case 'R': r6_sb_mcp.digitalWrite(_x5sb0, LOW); r6_sb_mcp.digitalWrite(_x5sb1, LOW); break;
         case 'B': r6_sb_mcp.digitalWrite(_x5sb0, LOW); r6_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
-        case 'Y': r6_sb_mcp.digitalWrite(_x5sb0, HIGH); r6_sb_mcp.digitalWrite(_x5sb1, LOW); break;
-        case 'G': r6_sb_mcp.digitalWrite(_x5sb0, HIGH); r6_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
+        case 'G': r6_sb_mcp.digitalWrite(_x5sb0, HIGH); r6_sb_mcp.digitalWrite(_x5sb1, LOW); break;
+        case 'Y': r6_sb_mcp.digitalWrite(_x5sb0, HIGH); r6_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
       }
       break;
     case 0x66:
       switch (color) {
         case 'R': r6_sb_mcp.digitalWrite(_x6sb0, LOW); r6_sb_mcp.digitalWrite(_x6sb1, LOW); break;
         case 'B': r6_sb_mcp.digitalWrite(_x6sb0, LOW); r6_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
-        case 'Y': r6_sb_mcp.digitalWrite(_x6sb0, HIGH); r6_sb_mcp.digitalWrite(_x6sb1, LOW); break;
-        case 'G': r6_sb_mcp.digitalWrite(_x6sb0, HIGH); r6_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
+        case 'G': r6_sb_mcp.digitalWrite(_x6sb0, HIGH); r6_sb_mcp.digitalWrite(_x6sb1, LOW); break;
+        case 'Y': r6_sb_mcp.digitalWrite(_x6sb0, HIGH); r6_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
       }
       break;
     case 0x67:
       switch (color) {
         case 'R': r6_sb_mcp.digitalWrite(_x7sb0, LOW); r6_sb_mcp.digitalWrite(_x7sb1, LOW); break;
         case 'B': r6_sb_mcp.digitalWrite(_x7sb0, LOW); r6_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
-        case 'Y': r6_sb_mcp.digitalWrite(_x7sb0, HIGH); r6_sb_mcp.digitalWrite(_x7sb1, LOW); break;
-        case 'G': r6_sb_mcp.digitalWrite(_x7sb0, HIGH); r6_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
+        case 'G': r6_sb_mcp.digitalWrite(_x7sb0, HIGH); r6_sb_mcp.digitalWrite(_x7sb1, LOW); break;
+        case 'Y': r6_sb_mcp.digitalWrite(_x7sb0, HIGH); r6_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
       }
       break;
       
@@ -1083,64 +1072,64 @@ void HardwareAPI::changeLEDcolor(char hexTile, char color)
       switch (color) {
         case 'R': r7_sb_mcp.digitalWrite(_x0sb0, LOW); r7_sb_mcp.digitalWrite(_x0sb1, LOW); break;
         case 'B': r7_sb_mcp.digitalWrite(_x0sb0, LOW); r7_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
-        case 'Y': r7_sb_mcp.digitalWrite(_x0sb0, HIGH); r7_sb_mcp.digitalWrite(_x0sb1, LOW); break;
-        case 'G': r7_sb_mcp.digitalWrite(_x0sb0, HIGH); r7_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
+        case 'G': r7_sb_mcp.digitalWrite(_x0sb0, HIGH); r7_sb_mcp.digitalWrite(_x0sb1, LOW); break;
+        case 'Y': r7_sb_mcp.digitalWrite(_x0sb0, HIGH); r7_sb_mcp.digitalWrite(_x0sb1, HIGH); break;
       }
       break;
     case 0x71:
       switch (color) {
         case 'R': r7_sb_mcp.digitalWrite(_x1sb0, LOW); r7_sb_mcp.digitalWrite(_x1sb1, LOW); break;
         case 'B': r7_sb_mcp.digitalWrite(_x1sb0, LOW); r7_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
-        case 'Y': r7_sb_mcp.digitalWrite(_x1sb0, HIGH); r7_sb_mcp.digitalWrite(_x1sb1, LOW); break;
-        case 'G': r7_sb_mcp.digitalWrite(_x1sb0, HIGH); r7_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
+        case 'G': r7_sb_mcp.digitalWrite(_x1sb0, HIGH); r7_sb_mcp.digitalWrite(_x1sb1, LOW); break;
+        case 'Y': r7_sb_mcp.digitalWrite(_x1sb0, HIGH); r7_sb_mcp.digitalWrite(_x1sb1, HIGH); break;
       }
       break;
     case 0x72:
       switch (color) {
         case 'R': r7_sb_mcp.digitalWrite(_x2sb0, LOW); r7_sb_mcp.digitalWrite(_x2sb1, LOW); break;
         case 'B': r7_sb_mcp.digitalWrite(_x2sb0, LOW); r7_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
-        case 'Y': r7_sb_mcp.digitalWrite(_x2sb0, HIGH); r7_sb_mcp.digitalWrite(_x2sb1, LOW); break;
-        case 'G': r7_sb_mcp.digitalWrite(_x2sb0, HIGH); r7_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
+        case 'G': r7_sb_mcp.digitalWrite(_x2sb0, HIGH); r7_sb_mcp.digitalWrite(_x2sb1, LOW); break;
+        case 'Y': r7_sb_mcp.digitalWrite(_x2sb0, HIGH); r7_sb_mcp.digitalWrite(_x2sb1, HIGH); break;
       }
       break;
     case 0x73:
       switch (color) {
         case 'R': r7_sb_mcp.digitalWrite(_x3sb0, LOW); r7_sb_mcp.digitalWrite(_x3sb1, LOW); break;
         case 'B': r7_sb_mcp.digitalWrite(_x3sb0, LOW); r7_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
-        case 'Y': r7_sb_mcp.digitalWrite(_x3sb0, HIGH); r7_sb_mcp.digitalWrite(_x3sb1, LOW); break;
-        case 'G': r7_sb_mcp.digitalWrite(_x3sb0, HIGH); r7_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
+        case 'G': r7_sb_mcp.digitalWrite(_x3sb0, HIGH); r7_sb_mcp.digitalWrite(_x3sb1, LOW); break;
+        case 'Y': r7_sb_mcp.digitalWrite(_x3sb0, HIGH); r7_sb_mcp.digitalWrite(_x3sb1, HIGH); break;
       }
       break;
     case 0x74:
       switch (color) {
         case 'R': r7_sb_mcp.digitalWrite(_x4sb0, LOW); r7_sb_mcp.digitalWrite(_x4sb1, LOW); break;
         case 'B': r7_sb_mcp.digitalWrite(_x4sb0, LOW); r7_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
-        case 'Y': r7_sb_mcp.digitalWrite(_x4sb0, HIGH); r7_sb_mcp.digitalWrite(_x4sb1, LOW); break;
-        case 'G': r7_sb_mcp.digitalWrite(_x4sb0, HIGH); r7_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
+        case 'G': r7_sb_mcp.digitalWrite(_x4sb0, HIGH); r7_sb_mcp.digitalWrite(_x4sb1, LOW); break;
+        case 'Y': r7_sb_mcp.digitalWrite(_x4sb0, HIGH); r7_sb_mcp.digitalWrite(_x4sb1, HIGH); break;
       }
       break;
     case 0x75:
       switch (color) {
         case 'R': r7_sb_mcp.digitalWrite(_x5sb0, LOW); r7_sb_mcp.digitalWrite(_x5sb1, LOW); break;
         case 'B': r7_sb_mcp.digitalWrite(_x5sb0, LOW); r7_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
-        case 'Y': r7_sb_mcp.digitalWrite(_x5sb0, HIGH); r7_sb_mcp.digitalWrite(_x5sb1, LOW); break;
-        case 'G': r7_sb_mcp.digitalWrite(_x5sb0, HIGH); r7_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
+        case 'G': r7_sb_mcp.digitalWrite(_x5sb0, HIGH); r7_sb_mcp.digitalWrite(_x5sb1, LOW); break;
+        case 'Y': r7_sb_mcp.digitalWrite(_x5sb0, HIGH); r7_sb_mcp.digitalWrite(_x5sb1, HIGH); break;
       }
       break;
     case 0x76:
       switch (color) {
         case 'R': r7_sb_mcp.digitalWrite(_x6sb0, LOW); r7_sb_mcp.digitalWrite(_x6sb1, LOW); break;
         case 'B': r7_sb_mcp.digitalWrite(_x6sb0, LOW); r7_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
-        case 'Y': r7_sb_mcp.digitalWrite(_x6sb0, HIGH); r7_sb_mcp.digitalWrite(_x6sb1, LOW); break;
-        case 'G': r7_sb_mcp.digitalWrite(_x6sb0, HIGH); r7_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
+        case 'G': r7_sb_mcp.digitalWrite(_x6sb0, HIGH); r7_sb_mcp.digitalWrite(_x6sb1, LOW); break;
+        case 'Y': r7_sb_mcp.digitalWrite(_x6sb0, HIGH); r7_sb_mcp.digitalWrite(_x6sb1, HIGH); break;
       }
       break;
     case 0x77:
       switch (color) {
         case 'R': r7_sb_mcp.digitalWrite(_x7sb0, LOW); r7_sb_mcp.digitalWrite(_x7sb1, LOW); break;
         case 'B': r7_sb_mcp.digitalWrite(_x7sb0, LOW); r7_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
-        case 'Y': r7_sb_mcp.digitalWrite(_x7sb0, HIGH); r7_sb_mcp.digitalWrite(_x7sb1, LOW); break;
-        case 'G': r7_sb_mcp.digitalWrite(_x7sb0, HIGH); r7_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
+        case 'G': r7_sb_mcp.digitalWrite(_x7sb0, HIGH); r7_sb_mcp.digitalWrite(_x7sb1, LOW); break;
+        case 'Y': r7_sb_mcp.digitalWrite(_x7sb0, HIGH); r7_sb_mcp.digitalWrite(_x7sb1, HIGH); break;
       }
       break;
       

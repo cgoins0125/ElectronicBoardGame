@@ -7,6 +7,9 @@ void setup() {
 }
 
 void loop() {
+  api.PrintLCDL1("Off initially");
+  delay(5000);
+
   // Turn on LEDs to Green for row 1 and row 2
   api.PrintLCD("Current: Green", "Next: Red");
   for (uint8_t tile = 0x00; tile <= 0x07; tile++) {
