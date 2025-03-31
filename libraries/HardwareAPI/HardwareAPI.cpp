@@ -119,10 +119,10 @@ void HardwareAPI::initializeI2C() {
 
 void HardwareAPI::initializeMCP() {
   // Initialize mcps for I2C bus 0
-  r0r1_eb_mcp.begin_I2C(0x20, (TwoWire*)&Wire);
-  r2r3_eb_mcp.begin_I2C(0x21, (TwoWire*)&Wire);
-  r4r5_eb_mcp.begin_I2C(0x22, (TwoWire*)&Wire);
-  r6r7_eb_mcp.begin_I2C(0x23, (TwoWire*)&Wire);
+  r0r1_eb_mcp.begin_I2C(0x21, (TwoWire*)&Wire);
+  r2r3_eb_mcp.begin_I2C(0x22, (TwoWire*)&Wire);
+  r4r5_eb_mcp.begin_I2C(0x23, (TwoWire*)&Wire);
+  r6r7_eb_mcp.begin_I2C(0x24, (TwoWire*)&Wire);
 
   // Initialize mcps for I2C bus 1
   r0_sb_mcp.begin_I2C(0x20, (TwoWire*)&Wire1);
@@ -506,7 +506,7 @@ void HardwareAPI::turnOffLED(char hexTile)
   // Disable the LED using the active-low enable bit.
   switch (hexTile) {
     // Row 0 (0x00 - 0x07)
-    case 0x00: r0r1_eb_mcp.digitalWrite(_00eb, HIGH); break;
+    case 0x00: r0r1_eb_mcp.digitalWrite(_00eb, LOW); break;
     case 0x01: r0r1_eb_mcp.digitalWrite(_01eb, HIGH); break;
     case 0x02: r0r1_eb_mcp.digitalWrite(_02eb, HIGH); break;
     case 0x03: r0r1_eb_mcp.digitalWrite(_03eb, HIGH); break;
