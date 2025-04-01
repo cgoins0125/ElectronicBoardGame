@@ -32,6 +32,7 @@ class HardwareAPI {
     void turnOffLED(char hexTile);
     void changeLEDcolor(char hexTile, char color);
     void PrintLCD(const char c1[], const char c2[]);
+    void PrintLCD(const char c1[]);
     void PrintLCDL1(const char str[]);
     void PrintLCDL2(const char str[]);
     void ClearLCD();
@@ -56,10 +57,10 @@ class HardwareAPI {
     //A2, A1, A0 = 111 → Address 0x27
     
     //I2C bus 0
-    Adafruit_MCP23X17 r0r1_eb_mcp; //0x20
-    Adafruit_MCP23X17 r2r3_eb_mcp; //0x21
-    Adafruit_MCP23X17 r4r5_eb_mcp; //0x22
-    Adafruit_MCP23X17 r6r7_eb_mcp; //0x23
+    Adafruit_MCP23X17 r0r1_eb_mcp; //0x21
+    Adafruit_MCP23X17 r2r3_eb_mcp; //0x22
+    Adafruit_MCP23X17 r4r5_eb_mcp; //0x23
+    Adafruit_MCP23X17 r6r7_eb_mcp; //0x24
     //I2C bus 1
     Adafruit_MCP23X17 r0_sb_mcp; //0x20
     Adafruit_MCP23X17 r1_sb_mcp; //0x21
@@ -72,6 +73,8 @@ class HardwareAPI {
 
   	//declare lcd object for controlling the lcd
   	Adafruit_LiquidCrystal lcd{0};
+  	
+  	int LEDMaxOn, LEDOnCount;
   
 	// For each tile, the two sb are select bits on the demux and eb is the enable bit
 	int _x0sb0, _x0sb1, _x1sb0, _x1sb1, _x2sb0, _x2sb1, _x3sb0, _x3sb1;

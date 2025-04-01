@@ -26,6 +26,10 @@ Released into the public domain
 
 HardwareAPI::HardwareAPI()
 {
+
+  LEDOnCount = 0;
+  LEDMaxOn = 32;
+  
   _x0sb0 = 0; //A0
   _x0sb1 = 1; //A1 
   _x1sb0 = 2; //A2
@@ -280,75 +284,75 @@ void HardwareAPI::setMCPPortDir() {
   r7_sb_mcp.pinMode(_x7sb0, OUTPUT);
   r7_sb_mcp.pinMode(_x7sb1, OUTPUT);
   
-// Row 0 (0x00 - 0x07) - Using r0r1_eb_mcp for eb
-r0r1_eb_mcp.pinMode(_00eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_00eb, HIGH);
-r0r1_eb_mcp.pinMode(_01eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_01eb, HIGH);
-r0r1_eb_mcp.pinMode(_02eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_02eb, HIGH);
-r0r1_eb_mcp.pinMode(_03eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_03eb, HIGH);
-r0r1_eb_mcp.pinMode(_04eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_04eb, HIGH);
-r0r1_eb_mcp.pinMode(_05eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_05eb, HIGH);
-r0r1_eb_mcp.pinMode(_06eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_06eb, HIGH);
-r0r1_eb_mcp.pinMode(_07eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_07eb, HIGH);
+  // Row 0 (0x00 - 0x07) - Using r0r1_eb_mcp for eb
+  r0r1_eb_mcp.pinMode(_00eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_00eb, HIGH);
+  r0r1_eb_mcp.pinMode(_01eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_01eb, HIGH);
+  r0r1_eb_mcp.pinMode(_02eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_02eb, HIGH);
+  r0r1_eb_mcp.pinMode(_03eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_03eb, HIGH);
+  r0r1_eb_mcp.pinMode(_04eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_04eb, HIGH);
+  r0r1_eb_mcp.pinMode(_05eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_05eb, HIGH);
+  r0r1_eb_mcp.pinMode(_06eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_06eb, HIGH);
+  r0r1_eb_mcp.pinMode(_07eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_07eb, HIGH);
 
-// Row 1 (0x10 - 0x17) - Using r0r1_eb_mcp for eb
-r0r1_eb_mcp.pinMode(_10eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_10eb, HIGH);
-r0r1_eb_mcp.pinMode(_11eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_11eb, HIGH);
-r0r1_eb_mcp.pinMode(_12eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_12eb, HIGH);
-r0r1_eb_mcp.pinMode(_13eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_13eb, HIGH);
-r0r1_eb_mcp.pinMode(_14eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_14eb, HIGH);
-r0r1_eb_mcp.pinMode(_15eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_15eb, HIGH);
-r0r1_eb_mcp.pinMode(_16eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_16eb, HIGH);
-r0r1_eb_mcp.pinMode(_17eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_17eb, HIGH);
+  // Row 1 (0x10 - 0x17) - Using r0r1_eb_mcp for eb
+  r0r1_eb_mcp.pinMode(_10eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_10eb, HIGH);
+  r0r1_eb_mcp.pinMode(_11eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_11eb, HIGH);
+  r0r1_eb_mcp.pinMode(_12eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_12eb, HIGH);
+  r0r1_eb_mcp.pinMode(_13eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_13eb, HIGH);
+  r0r1_eb_mcp.pinMode(_14eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_14eb, HIGH);
+  r0r1_eb_mcp.pinMode(_15eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_15eb, HIGH);
+  r0r1_eb_mcp.pinMode(_16eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_16eb, HIGH);
+  r0r1_eb_mcp.pinMode(_17eb, OUTPUT); r0r1_eb_mcp.digitalWrite(_17eb, HIGH);
 
-// Row 2 (0x20 - 0x27) - Using r2r3_eb_mcp for eb
-r2r3_eb_mcp.pinMode(_20eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_20eb, HIGH);
-r2r3_eb_mcp.pinMode(_21eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_21eb, HIGH);
-r2r3_eb_mcp.pinMode(_22eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_22eb, HIGH);
-r2r3_eb_mcp.pinMode(_23eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_23eb, HIGH);
-r2r3_eb_mcp.pinMode(_24eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_24eb, HIGH);
-r2r3_eb_mcp.pinMode(_25eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_25eb, HIGH);
-r2r3_eb_mcp.pinMode(_26eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_26eb, HIGH);
-r2r3_eb_mcp.pinMode(_27eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_27eb, HIGH);
+  // Row 2 (0x20 - 0x27) - Using r2r3_eb_mcp for eb
+  r2r3_eb_mcp.pinMode(_20eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_20eb, HIGH);
+  r2r3_eb_mcp.pinMode(_21eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_21eb, HIGH);
+  r2r3_eb_mcp.pinMode(_22eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_22eb, HIGH);
+  r2r3_eb_mcp.pinMode(_23eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_23eb, HIGH);
+  r2r3_eb_mcp.pinMode(_24eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_24eb, HIGH);
+  r2r3_eb_mcp.pinMode(_25eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_25eb, HIGH);
+  r2r3_eb_mcp.pinMode(_26eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_26eb, HIGH);
+  r2r3_eb_mcp.pinMode(_27eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_27eb, HIGH);
 
-// Row 3 (0x30 - 0x37) - Using r2r3_eb_mcp for eb
-r2r3_eb_mcp.pinMode(_30eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_30eb, HIGH);
-r2r3_eb_mcp.pinMode(_31eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_31eb, HIGH);
-r2r3_eb_mcp.pinMode(_32eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_32eb, HIGH);
-r2r3_eb_mcp.pinMode(_33eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_33eb, HIGH);
-r2r3_eb_mcp.pinMode(_34eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_34eb, HIGH);
-r2r3_eb_mcp.pinMode(_35eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_35eb, HIGH);
-r2r3_eb_mcp.pinMode(_36eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_36eb, HIGH);
-r2r3_eb_mcp.pinMode(_37eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_37eb, HIGH);
+  // Row 3 (0x30 - 0x37) - Using r2r3_eb_mcp for eb
+  r2r3_eb_mcp.pinMode(_30eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_30eb, HIGH);
+  r2r3_eb_mcp.pinMode(_31eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_31eb, HIGH);
+  r2r3_eb_mcp.pinMode(_32eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_32eb, HIGH);
+  r2r3_eb_mcp.pinMode(_33eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_33eb, HIGH);
+  r2r3_eb_mcp.pinMode(_34eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_34eb, HIGH);
+  r2r3_eb_mcp.pinMode(_35eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_35eb, HIGH);
+  r2r3_eb_mcp.pinMode(_36eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_36eb, HIGH);
+  r2r3_eb_mcp.pinMode(_37eb, OUTPUT); r2r3_eb_mcp.digitalWrite(_37eb, HIGH);
 
-// Row 4 (0x40 - 0x47) - Using r4r5_eb_mcp for eb
-r4r5_eb_mcp.pinMode(_40eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_40eb, HIGH);
-r4r5_eb_mcp.pinMode(_41eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_41eb, HIGH);
-r4r5_eb_mcp.pinMode(_42eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_42eb, HIGH);
-r4r5_eb_mcp.pinMode(_43eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_43eb, HIGH);
-r4r5_eb_mcp.pinMode(_44eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_44eb, HIGH);
-r4r5_eb_mcp.pinMode(_45eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_45eb, HIGH);
-r4r5_eb_mcp.pinMode(_46eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_46eb, HIGH);
-r4r5_eb_mcp.pinMode(_47eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_47eb, HIGH);
+  // Row 4 (0x40 - 0x47) - Using r4r5_eb_mcp for eb
+  r4r5_eb_mcp.pinMode(_40eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_40eb, HIGH);
+  r4r5_eb_mcp.pinMode(_41eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_41eb, HIGH);
+  r4r5_eb_mcp.pinMode(_42eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_42eb, HIGH);
+  r4r5_eb_mcp.pinMode(_43eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_43eb, HIGH);
+  r4r5_eb_mcp.pinMode(_44eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_44eb, HIGH);
+  r4r5_eb_mcp.pinMode(_45eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_45eb, HIGH);
+  r4r5_eb_mcp.pinMode(_46eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_46eb, HIGH);
+  r4r5_eb_mcp.pinMode(_47eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_47eb, HIGH);
 
-// Row 5 (0x50 - 0x57) - Using r4r5_eb_mcp for eb
-r4r5_eb_mcp.pinMode(_50eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_50eb, HIGH);
-r4r5_eb_mcp.pinMode(_51eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_51eb, HIGH);
-r4r5_eb_mcp.pinMode(_52eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_52eb, HIGH);
-r4r5_eb_mcp.pinMode(_53eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_53eb, HIGH);
-r4r5_eb_mcp.pinMode(_54eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_54eb, HIGH);
-r4r5_eb_mcp.pinMode(_55eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_55eb, HIGH);
-r4r5_eb_mcp.pinMode(_56eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_56eb, HIGH);
-r4r5_eb_mcp.pinMode(_57eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_57eb, HIGH);
+  // Row 5 (0x50 - 0x57) - Using r4r5_eb_mcp for eb
+  r4r5_eb_mcp.pinMode(_50eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_50eb, HIGH);
+  r4r5_eb_mcp.pinMode(_51eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_51eb, HIGH);
+  r4r5_eb_mcp.pinMode(_52eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_52eb, HIGH);
+  r4r5_eb_mcp.pinMode(_53eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_53eb, HIGH);
+  r4r5_eb_mcp.pinMode(_54eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_54eb, HIGH);
+  r4r5_eb_mcp.pinMode(_55eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_55eb, HIGH);
+  r4r5_eb_mcp.pinMode(_56eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_56eb, HIGH);
+  r4r5_eb_mcp.pinMode(_57eb, OUTPUT); r4r5_eb_mcp.digitalWrite(_57eb, HIGH);
 
-// Row 6 (0x60 - 0x67) - Using r6r7_eb_mcp for eb
-r6r7_eb_mcp.pinMode(_60eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_60eb, HIGH);
-r6r7_eb_mcp.pinMode(_61eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_61eb, HIGH);
-r6r7_eb_mcp.pinMode(_62eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_62eb, HIGH);
-r6r7_eb_mcp.pinMode(_63eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_63eb, HIGH);
-r6r7_eb_mcp.pinMode(_64eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_64eb, HIGH);
-r6r7_eb_mcp.pinMode(_65eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_65eb, HIGH);
-r6r7_eb_mcp.pinMode(_66eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_66eb, HIGH);
-r6r7_eb_mcp.pinMode(_67eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_67eb, HIGH);
+  // Row 6 (0x60 - 0x67) - Using r6r7_eb_mcp for eb
+  r6r7_eb_mcp.pinMode(_60eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_60eb, HIGH);
+  r6r7_eb_mcp.pinMode(_61eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_61eb, HIGH);
+  r6r7_eb_mcp.pinMode(_62eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_62eb, HIGH);
+  r6r7_eb_mcp.pinMode(_63eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_63eb, HIGH);
+  r6r7_eb_mcp.pinMode(_64eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_64eb, HIGH);
+  r6r7_eb_mcp.pinMode(_65eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_65eb, HIGH);
+  r6r7_eb_mcp.pinMode(_66eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_66eb, HIGH);
+  r6r7_eb_mcp.pinMode(_67eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_67eb, HIGH);
 }
 
 void HardwareAPI::initializeLCD() {
@@ -392,90 +396,93 @@ void HardwareAPI::turnOnLED(char hexTile, char color)
 
   // Then enable the LED using the active-low enable bit.
   switch (hexTile) {
-    // Row 0 (0x00 - 0x07)
-    case 0x00: r0r1_eb_mcp.digitalWrite(_00eb, LOW); break;
-    case 0x01: r0r1_eb_mcp.digitalWrite(_01eb, LOW); break;
-    case 0x02: r0r1_eb_mcp.digitalWrite(_02eb, LOW); break;
-    case 0x03: r0r1_eb_mcp.digitalWrite(_03eb, LOW); break;
-    case 0x04: r0r1_eb_mcp.digitalWrite(_04eb, LOW); break;
-    case 0x05: r0r1_eb_mcp.digitalWrite(_05eb, LOW); break;
-    case 0x06: r0r1_eb_mcp.digitalWrite(_06eb, LOW); break;
-    case 0x07: r0r1_eb_mcp.digitalWrite(_07eb, LOW); break;
+      
+    // Row 0 (0x00 - 0x07) - using r0r1_eb_mcp
+    case 0x00: if (r0r1_eb_mcp.digitalRead(_00eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r0r1_eb_mcp.digitalWrite(_00eb, LOW); } break;
+    case 0x01: if (r0r1_eb_mcp.digitalRead(_01eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r0r1_eb_mcp.digitalWrite(_01eb, LOW); } break;
+    case 0x02: if (r0r1_eb_mcp.digitalRead(_02eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r0r1_eb_mcp.digitalWrite(_02eb, LOW); } break;
+    case 0x03: if (r0r1_eb_mcp.digitalRead(_03eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r0r1_eb_mcp.digitalWrite(_03eb, LOW); } break;
+    case 0x04: if (r0r1_eb_mcp.digitalRead(_04eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r0r1_eb_mcp.digitalWrite(_04eb, LOW); } break;
+    case 0x05: if (r0r1_eb_mcp.digitalRead(_05eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r0r1_eb_mcp.digitalWrite(_05eb, LOW); } break;
+    case 0x06: if (r0r1_eb_mcp.digitalRead(_06eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r0r1_eb_mcp.digitalWrite(_06eb, LOW); } break;
+    case 0x07: if (r0r1_eb_mcp.digitalRead(_07eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r0r1_eb_mcp.digitalWrite(_07eb, LOW); } break;
 
-    // Row 1 (0x10 - 0x17)
-    case 0x10: r0r1_eb_mcp.digitalWrite(_10eb, LOW); break;
-    case 0x11: r0r1_eb_mcp.digitalWrite(_11eb, LOW); break;
-    case 0x12: r0r1_eb_mcp.digitalWrite(_12eb, LOW); break;
-    case 0x13: r0r1_eb_mcp.digitalWrite(_13eb, LOW); break;
-    case 0x14: r0r1_eb_mcp.digitalWrite(_14eb, LOW); break;
-    case 0x15: r0r1_eb_mcp.digitalWrite(_15eb, LOW); break;
-    case 0x16: r0r1_eb_mcp.digitalWrite(_16eb, LOW); break;
-    case 0x17: r0r1_eb_mcp.digitalWrite(_17eb, LOW); break;
+    // Row 1 (0x10 - 0x17) - using r0r1_eb_mcp
+    case 0x10: if (r0r1_eb_mcp.digitalRead(_10eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r0r1_eb_mcp.digitalWrite(_10eb, LOW); } break;
+    case 0x11: if (r0r1_eb_mcp.digitalRead(_11eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r0r1_eb_mcp.digitalWrite(_11eb, LOW); } break;
+    case 0x12: if (r0r1_eb_mcp.digitalRead(_12eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r0r1_eb_mcp.digitalWrite(_12eb, LOW); } break;
+    case 0x13: if (r0r1_eb_mcp.digitalRead(_13eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r0r1_eb_mcp.digitalWrite(_13eb, LOW); } break;
+    case 0x14: if (r0r1_eb_mcp.digitalRead(_14eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r0r1_eb_mcp.digitalWrite(_14eb, LOW); } break;
+    case 0x15: if (r0r1_eb_mcp.digitalRead(_15eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r0r1_eb_mcp.digitalWrite(_15eb, LOW); } break;
+    case 0x16: if (r0r1_eb_mcp.digitalRead(_16eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r0r1_eb_mcp.digitalWrite(_16eb, LOW); } break;
+    case 0x17: if (r0r1_eb_mcp.digitalRead(_17eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r0r1_eb_mcp.digitalWrite(_17eb, LOW); } break;
 
-    // Row 2 (0x20 - 0x27)
-    case 0x20: r2r3_eb_mcp.digitalWrite(_20eb, LOW); break;
-    case 0x21: r2r3_eb_mcp.digitalWrite(_21eb, LOW); break;
-    case 0x22: r2r3_eb_mcp.digitalWrite(_22eb, LOW); break;
-    case 0x23: r2r3_eb_mcp.digitalWrite(_23eb, LOW); break;
-    case 0x24: r2r3_eb_mcp.digitalWrite(_24eb, LOW); break;
-    case 0x25: r2r3_eb_mcp.digitalWrite(_25eb, LOW); break;
-    case 0x26: r2r3_eb_mcp.digitalWrite(_26eb, LOW); break;
-    case 0x27: r2r3_eb_mcp.digitalWrite(_27eb, LOW); break;
+    // Row 2 (0x20 - 0x27) - using r2r3_eb_mcp
+    case 0x20: if (r2r3_eb_mcp.digitalRead(_20eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r2r3_eb_mcp.digitalWrite(_20eb, LOW); } break;
+    case 0x21: if (r2r3_eb_mcp.digitalRead(_21eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r2r3_eb_mcp.digitalWrite(_21eb, LOW); } break;
+    case 0x22: if (r2r3_eb_mcp.digitalRead(_22eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r2r3_eb_mcp.digitalWrite(_22eb, LOW); } break;
+    case 0x23: if (r2r3_eb_mcp.digitalRead(_23eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r2r3_eb_mcp.digitalWrite(_23eb, LOW); } break;
+    case 0x24: if (r2r3_eb_mcp.digitalRead(_24eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r2r3_eb_mcp.digitalWrite(_24eb, LOW); } break;
+    case 0x25: if (r2r3_eb_mcp.digitalRead(_25eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r2r3_eb_mcp.digitalWrite(_25eb, LOW); } break;
+    case 0x26: if (r2r3_eb_mcp.digitalRead(_26eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r2r3_eb_mcp.digitalWrite(_26eb, LOW); } break;
+    case 0x27: if (r2r3_eb_mcp.digitalRead(_27eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r2r3_eb_mcp.digitalWrite(_27eb, LOW); } break;
 
-    // Row 3 (0x30 - 0x37)
-    case 0x30: r2r3_eb_mcp.digitalWrite(_30eb, LOW); break;
-    case 0x31: r2r3_eb_mcp.digitalWrite(_31eb, LOW); break;
-    case 0x32: r2r3_eb_mcp.digitalWrite(_32eb, LOW); break;
-    case 0x33: r2r3_eb_mcp.digitalWrite(_33eb, LOW); break;
-    case 0x34: r2r3_eb_mcp.digitalWrite(_34eb, LOW); break;
-    case 0x35: r2r3_eb_mcp.digitalWrite(_35eb, LOW); break;
-    case 0x36: r2r3_eb_mcp.digitalWrite(_36eb, LOW); break;
-    case 0x37: r2r3_eb_mcp.digitalWrite(_37eb, LOW); break;
+    // Row 3 (0x30 - 0x37) - using r2r3_eb_mcp
+    case 0x30: if (r2r3_eb_mcp.digitalRead(_30eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r2r3_eb_mcp.digitalWrite(_30eb, LOW); } break;
+    case 0x31: if (r2r3_eb_mcp.digitalRead(_31eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r2r3_eb_mcp.digitalWrite(_31eb, LOW); } break;
+    case 0x32: if (r2r3_eb_mcp.digitalRead(_32eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r2r3_eb_mcp.digitalWrite(_32eb, LOW); } break;
+    case 0x33: if (r2r3_eb_mcp.digitalRead(_33eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r2r3_eb_mcp.digitalWrite(_33eb, LOW); } break;
+    case 0x34: if (r2r3_eb_mcp.digitalRead(_34eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r2r3_eb_mcp.digitalWrite(_34eb, LOW); } break;
+    case 0x35: if (r2r3_eb_mcp.digitalRead(_35eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r2r3_eb_mcp.digitalWrite(_35eb, LOW); } break;
+    case 0x36: if (r2r3_eb_mcp.digitalRead(_36eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r2r3_eb_mcp.digitalWrite(_36eb, LOW); } break;
+    case 0x37: if (r2r3_eb_mcp.digitalRead(_37eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r2r3_eb_mcp.digitalWrite(_37eb, LOW); } break;
 
-    // Row 4 (0x40 - 0x47)
-    case 0x40: r4r5_eb_mcp.digitalWrite(_40eb, LOW); break;
-    case 0x41: r4r5_eb_mcp.digitalWrite(_41eb, LOW); break;
-    case 0x42: r4r5_eb_mcp.digitalWrite(_42eb, LOW); break;
-    case 0x43: r4r5_eb_mcp.digitalWrite(_43eb, LOW); break;
-    case 0x44: r4r5_eb_mcp.digitalWrite(_44eb, LOW); break;
-    case 0x45: r4r5_eb_mcp.digitalWrite(_45eb, LOW); break;
-    case 0x46: r4r5_eb_mcp.digitalWrite(_46eb, LOW); break;
-    case 0x47: r4r5_eb_mcp.digitalWrite(_47eb, LOW); break;
+    // Row 4 (0x40 - 0x47) - using r4r5_eb_mcp
+    case 0x40: if (r4r5_eb_mcp.digitalRead(_40eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r4r5_eb_mcp.digitalWrite(_40eb, LOW); } break;
+    case 0x41: if (r4r5_eb_mcp.digitalRead(_41eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r4r5_eb_mcp.digitalWrite(_41eb, LOW); } break;
+    case 0x42: if (r4r5_eb_mcp.digitalRead(_42eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r4r5_eb_mcp.digitalWrite(_42eb, LOW); } break;
+    case 0x43: if (r4r5_eb_mcp.digitalRead(_43eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r4r5_eb_mcp.digitalWrite(_43eb, LOW); } break;
+    case 0x44: if (r4r5_eb_mcp.digitalRead(_44eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r4r5_eb_mcp.digitalWrite(_44eb, LOW); } break;
+    case 0x45: if (r4r5_eb_mcp.digitalRead(_45eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r4r5_eb_mcp.digitalWrite(_45eb, LOW); } break;
+    case 0x46: if (r4r5_eb_mcp.digitalRead(_46eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r4r5_eb_mcp.digitalWrite(_46eb, LOW); } break;
+    case 0x47: if (r4r5_eb_mcp.digitalRead(_47eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r4r5_eb_mcp.digitalWrite(_47eb, LOW); } break;
 
-    // Row 5 (0x50 - 0x57)
-    case 0x50: r4r5_eb_mcp.digitalWrite(_50eb, LOW); break;
-    case 0x51: r4r5_eb_mcp.digitalWrite(_51eb, LOW); break;
-    case 0x52: r4r5_eb_mcp.digitalWrite(_52eb, LOW); break;
-    case 0x53: r4r5_eb_mcp.digitalWrite(_53eb, LOW); break;
-    case 0x54: r4r5_eb_mcp.digitalWrite(_54eb, LOW); break;
-    case 0x55: r4r5_eb_mcp.digitalWrite(_55eb, LOW); break;
-    case 0x56: r4r5_eb_mcp.digitalWrite(_56eb, LOW); break;
-    case 0x57: r4r5_eb_mcp.digitalWrite(_57eb, LOW); break;
+    // Row 5 (0x50 - 0x57) - using r4r5_eb_mcp
+    case 0x50: if (r4r5_eb_mcp.digitalRead(_50eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r4r5_eb_mcp.digitalWrite(_50eb, LOW); } break;
+    case 0x51: if (r4r5_eb_mcp.digitalRead(_51eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r4r5_eb_mcp.digitalWrite(_51eb, LOW); } break;
+    case 0x52: if (r4r5_eb_mcp.digitalRead(_52eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r4r5_eb_mcp.digitalWrite(_52eb, LOW); } break;
+    case 0x53: if (r4r5_eb_mcp.digitalRead(_53eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r4r5_eb_mcp.digitalWrite(_53eb, LOW); } break;
+    case 0x54: if (r4r5_eb_mcp.digitalRead(_54eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r4r5_eb_mcp.digitalWrite(_54eb, LOW); } break;
+    case 0x55: if (r4r5_eb_mcp.digitalRead(_55eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r4r5_eb_mcp.digitalWrite(_55eb, LOW); } break;
+    case 0x56: if (r4r5_eb_mcp.digitalRead(_56eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r4r5_eb_mcp.digitalWrite(_56eb, LOW); } break;
+    case 0x57: if (r4r5_eb_mcp.digitalRead(_57eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r4r5_eb_mcp.digitalWrite(_57eb, LOW); } break;
 
-    // Row 6 (0x60 - 0x67)
-    case 0x60: r6r7_eb_mcp.digitalWrite(_60eb, LOW); break;
-    case 0x61: r6r7_eb_mcp.digitalWrite(_61eb, LOW); break;
-    case 0x62: r6r7_eb_mcp.digitalWrite(_62eb, LOW); break;
-    case 0x63: r6r7_eb_mcp.digitalWrite(_63eb, LOW); break;
-    case 0x64: r6r7_eb_mcp.digitalWrite(_64eb, LOW); break;
-    case 0x65: r6r7_eb_mcp.digitalWrite(_65eb, LOW); break;
-    case 0x66: r6r7_eb_mcp.digitalWrite(_66eb, LOW); break;
-    case 0x67: r6r7_eb_mcp.digitalWrite(_67eb, LOW); break;
+    // Row 6 (0x60 - 0x67) - using r6r7_eb_mcp
+    case 0x60: if (r6r7_eb_mcp.digitalRead(_60eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r6r7_eb_mcp.digitalWrite(_60eb, LOW); } break;
+    case 0x61: if (r6r7_eb_mcp.digitalRead(_61eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r6r7_eb_mcp.digitalWrite(_61eb, LOW); } break;
+    case 0x62: if (r6r7_eb_mcp.digitalRead(_62eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r6r7_eb_mcp.digitalWrite(_62eb, LOW); } break;
+    case 0x63: if (r6r7_eb_mcp.digitalRead(_63eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r6r7_eb_mcp.digitalWrite(_63eb, LOW); } break;
+    case 0x64: if (r6r7_eb_mcp.digitalRead(_64eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r6r7_eb_mcp.digitalWrite(_64eb, LOW); } break;
+    case 0x65: if (r6r7_eb_mcp.digitalRead(_65eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r6r7_eb_mcp.digitalWrite(_65eb, LOW); } break;
+    case 0x66: if (r6r7_eb_mcp.digitalRead(_66eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r6r7_eb_mcp.digitalWrite(_66eb, LOW); } break;
+    case 0x67: if (r6r7_eb_mcp.digitalRead(_67eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r6r7_eb_mcp.digitalWrite(_67eb, LOW); } break;
 
-    // Row 7 (0x70 - 0x77)
-    case 0x70: r6r7_eb_mcp.digitalWrite(_70eb, LOW); break;
-    case 0x71: r6r7_eb_mcp.digitalWrite(_71eb, LOW); break;
-    case 0x72: r6r7_eb_mcp.digitalWrite(_72eb, LOW); break;
-    case 0x73: r6r7_eb_mcp.digitalWrite(_73eb, LOW); break;
-    case 0x74: r6r7_eb_mcp.digitalWrite(_74eb, LOW); break;
-    case 0x75: r6r7_eb_mcp.digitalWrite(_75eb, LOW); break;
-    case 0x76: r6r7_eb_mcp.digitalWrite(_76eb, LOW); break;
-    case 0x77: r6r7_eb_mcp.digitalWrite(_77eb, LOW); break;
+    // Row 7 (0x70 - 0x77) - using r6r7_eb_mcp
+    case 0x70: if (r6r7_eb_mcp.digitalRead(_70eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r6r7_eb_mcp.digitalWrite(_70eb, LOW); } break;
+    case 0x71: if (r6r7_eb_mcp.digitalRead(_71eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r6r7_eb_mcp.digitalWrite(_71eb, LOW); } break;
+    case 0x72: if (r6r7_eb_mcp.digitalRead(_72eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r6r7_eb_mcp.digitalWrite(_72eb, LOW); } break;
+    case 0x73: if (r6r7_eb_mcp.digitalRead(_73eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r6r7_eb_mcp.digitalWrite(_73eb, LOW); } break;
+    case 0x74: if (r6r7_eb_mcp.digitalRead(_74eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r6r7_eb_mcp.digitalWrite(_74eb, LOW); } break;
+    case 0x75: if (r6r7_eb_mcp.digitalRead(_75eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r6r7_eb_mcp.digitalWrite(_75eb, LOW); } break;
+    case 0x76: if (r6r7_eb_mcp.digitalRead(_76eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r6r7_eb_mcp.digitalWrite(_76eb, LOW); } break;
+    case 0x77: if (r6r7_eb_mcp.digitalRead(_77eb) == HIGH && LEDOnCount <= LEDMaxOn) { LEDOnCount++; r6r7_eb_mcp.digitalWrite(_77eb, LOW); } break;
 
     default:
-        // Optionally handle an invalid tile value.
+       //Do nothing
         break;
-  }
+    }
+}
+
 }
 
 /* method: turnOffLED
@@ -492,87 +499,86 @@ params:
 */
 void HardwareAPI::turnOffLED(char hexTile) 
 {
-  // Disable the LED using the active-low enable bit.
   switch (hexTile) {
     // Row 0 (0x00 - 0x07)
-    case 0x00: r0r1_eb_mcp.digitalWrite(_00eb, HIGH); break;
-    case 0x01: r0r1_eb_mcp.digitalWrite(_01eb, HIGH); break;
-    case 0x02: r0r1_eb_mcp.digitalWrite(_02eb, HIGH); break;
-    case 0x03: r0r1_eb_mcp.digitalWrite(_03eb, HIGH); break;
-    case 0x04: r0r1_eb_mcp.digitalWrite(_04eb, HIGH); break;
-    case 0x05: r0r1_eb_mcp.digitalWrite(_05eb, HIGH); break;
-    case 0x06: r0r1_eb_mcp.digitalWrite(_06eb, HIGH); break;
-    case 0x07: r0r1_eb_mcp.digitalWrite(_07eb, HIGH); break;
+    case 0x00: if (r0r1_eb_mcp.digitalRead(_00eb) == LOW) { LEDOnCount--; r0r1_eb_mcp.digitalWrite(_00eb, HIGH); } break;
+    case 0x01: if (r0r1_eb_mcp.digitalRead(_01eb) == LOW) { LEDOnCount--; r0r1_eb_mcp.digitalWrite(_01eb, HIGH); } break;
+    case 0x02: if (r0r1_eb_mcp.digitalRead(_02eb) == LOW) { LEDOnCount--; r0r1_eb_mcp.digitalWrite(_02eb, HIGH); } break;
+    case 0x03: if (r0r1_eb_mcp.digitalRead(_03eb) == LOW) { LEDOnCount--; r0r1_eb_mcp.digitalWrite(_03eb, HIGH); } break;
+    case 0x04: if (r0r1_eb_mcp.digitalRead(_04eb) == LOW) { LEDOnCount--; r0r1_eb_mcp.digitalWrite(_04eb, HIGH); } break;
+    case 0x05: if (r0r1_eb_mcp.digitalRead(_05eb) == LOW) { LEDOnCount--; r0r1_eb_mcp.digitalWrite(_05eb, HIGH); } break;
+    case 0x06: if (r0r1_eb_mcp.digitalRead(_06eb) == LOW) { LEDOnCount--; r0r1_eb_mcp.digitalWrite(_06eb, HIGH); } break;
+    case 0x07: if (r0r1_eb_mcp.digitalRead(_07eb) == LOW) { LEDOnCount--; r0r1_eb_mcp.digitalWrite(_07eb, HIGH); } break;
 
     // Row 1 (0x10 - 0x17)
-    case 0x10: r0r1_eb_mcp.digitalWrite(_10eb, HIGH); break;
-    case 0x11: r0r1_eb_mcp.digitalWrite(_11eb, HIGH); break;
-    case 0x12: r0r1_eb_mcp.digitalWrite(_12eb, HIGH); break;
-    case 0x13: r0r1_eb_mcp.digitalWrite(_13eb, HIGH); break;
-    case 0x14: r0r1_eb_mcp.digitalWrite(_14eb, HIGH); break;
-    case 0x15: r0r1_eb_mcp.digitalWrite(_15eb, HIGH); break;
-    case 0x16: r0r1_eb_mcp.digitalWrite(_16eb, HIGH); break;
-    case 0x17: r0r1_eb_mcp.digitalWrite(_17eb, HIGH); break;
+    case 0x10: if (r0r1_eb_mcp.digitalRead(_10eb) == LOW) { LEDOnCount--; r0r1_eb_mcp.digitalWrite(_10eb, HIGH); } break;
+    case 0x11: if (r0r1_eb_mcp.digitalRead(_11eb) == LOW) { LEDOnCount--; r0r1_eb_mcp.digitalWrite(_11eb, HIGH); } break;
+    case 0x12: if (r0r1_eb_mcp.digitalRead(_12eb) == LOW) { LEDOnCount--; r0r1_eb_mcp.digitalWrite(_12eb, HIGH); } break;
+    case 0x13: if (r0r1_eb_mcp.digitalRead(_13eb) == LOW) { LEDOnCount--; r0r1_eb_mcp.digitalWrite(_13eb, HIGH); } break;
+    case 0x14: if (r0r1_eb_mcp.digitalRead(_14eb) == LOW) { LEDOnCount--; r0r1_eb_mcp.digitalWrite(_14eb, HIGH); } break;
+    case 0x15: if (r0r1_eb_mcp.digitalRead(_15eb) == LOW) { LEDOnCount--; r0r1_eb_mcp.digitalWrite(_15eb, HIGH); } break;
+    case 0x16: if (r0r1_eb_mcp.digitalRead(_16eb) == LOW) { LEDOnCount--; r0r1_eb_mcp.digitalWrite(_16eb, HIGH); } break;
+    case 0x17: if (r0r1_eb_mcp.digitalRead(_17eb) == LOW) { LEDOnCount--; r0r1_eb_mcp.digitalWrite(_17eb, HIGH); } break;
 
     // Row 2 (0x20 - 0x27)
-    case 0x20: r2r3_eb_mcp.digitalWrite(_20eb, HIGH); break;
-    case 0x21: r2r3_eb_mcp.digitalWrite(_21eb, HIGH); break;
-    case 0x22: r2r3_eb_mcp.digitalWrite(_22eb, HIGH); break;
-    case 0x23: r2r3_eb_mcp.digitalWrite(_23eb, HIGH); break;
-    case 0x24: r2r3_eb_mcp.digitalWrite(_24eb, HIGH); break;
-    case 0x25: r2r3_eb_mcp.digitalWrite(_25eb, HIGH); break;
-    case 0x26: r2r3_eb_mcp.digitalWrite(_26eb, HIGH); break;
-    case 0x27: r2r3_eb_mcp.digitalWrite(_27eb, HIGH); break;
+    case 0x20: if (r2r3_eb_mcp.digitalRead(_20eb) == LOW) { LEDOnCount--; r2r3_eb_mcp.digitalWrite(_20eb, HIGH); } break;
+    case 0x21: if (r2r3_eb_mcp.digitalRead(_21eb) == LOW) { LEDOnCount--; r2r3_eb_mcp.digitalWrite(_21eb, HIGH); } break;
+    case 0x22: if (r2r3_eb_mcp.digitalRead(_22eb) == LOW) { LEDOnCount--; r2r3_eb_mcp.digitalWrite(_22eb, HIGH); } break;
+    case 0x23: if (r2r3_eb_mcp.digitalRead(_23eb) == LOW) { LEDOnCount--; r2r3_eb_mcp.digitalWrite(_23eb, HIGH); } break;
+    case 0x24: if (r2r3_eb_mcp.digitalRead(_24eb) == LOW) { LEDOnCount--; r2r3_eb_mcp.digitalWrite(_24eb, HIGH); } break;
+    case 0x25: if (r2r3_eb_mcp.digitalRead(_25eb) == LOW) { LEDOnCount--; r2r3_eb_mcp.digitalWrite(_25eb, HIGH); } break;
+    case 0x26: if (r2r3_eb_mcp.digitalRead(_26eb) == LOW) { LEDOnCount--; r2r3_eb_mcp.digitalWrite(_26eb, HIGH); } break;
+    case 0x27: if (r2r3_eb_mcp.digitalRead(_27eb) == LOW) { LEDOnCount--; r2r3_eb_mcp.digitalWrite(_27eb, HIGH); } break;
 
-            // Row 3 (0x30 - 0x37)
-    case 0x30: r2r3_eb_mcp.digitalWrite(_30eb, HIGH); break;
-    case 0x31: r2r3_eb_mcp.digitalWrite(_31eb, HIGH); break;
-    case 0x32: r2r3_eb_mcp.digitalWrite(_32eb, HIGH); break;
-    case 0x33: r2r3_eb_mcp.digitalWrite(_33eb, HIGH); break;
-    case 0x34: r2r3_eb_mcp.digitalWrite(_34eb, HIGH); break;
-    case 0x35: r2r3_eb_mcp.digitalWrite(_35eb, HIGH); break;
-    case 0x36: r2r3_eb_mcp.digitalWrite(_36eb, HIGH); break;
-    case 0x37: r2r3_eb_mcp.digitalWrite(_37eb, HIGH); break;
+    // Row 3 (0x30 - 0x37) - using r2r3_eb_mcp
+    case 0x30: if (r2r3_eb_mcp.digitalRead(_30eb) == LOW) { LEDOnCount--; r2r3_eb_mcp.digitalWrite(_30eb, HIGH); } break;
+    case 0x31: if (r2r3_eb_mcp.digitalRead(_31eb) == LOW) { LEDOnCount--; r2r3_eb_mcp.digitalWrite(_31eb, HIGH); } break;
+    case 0x32: if (r2r3_eb_mcp.digitalRead(_32eb) == LOW) { LEDOnCount--; r2r3_eb_mcp.digitalWrite(_32eb, HIGH); } break;
+    case 0x33: if (r2r3_eb_mcp.digitalRead(_33eb) == LOW) { LEDOnCount--; r2r3_eb_mcp.digitalWrite(_33eb, HIGH); } break;
+    case 0x34: if (r2r3_eb_mcp.digitalRead(_34eb) == LOW) { LEDOnCount--; r2r3_eb_mcp.digitalWrite(_34eb, HIGH); } break;
+    case 0x35: if (r2r3_eb_mcp.digitalRead(_35eb) == LOW) { LEDOnCount--; r2r3_eb_mcp.digitalWrite(_35eb, HIGH); } break;
+    case 0x36: if (r2r3_eb_mcp.digitalRead(_36eb) == LOW) { LEDOnCount--; r2r3_eb_mcp.digitalWrite(_36eb, HIGH); } break;
+    case 0x37: if (r2r3_eb_mcp.digitalRead(_37eb) == LOW) { LEDOnCount--; r2r3_eb_mcp.digitalWrite(_37eb, HIGH); } break;
 
-    // Row 4 (0x40 - 0x47)
-    case 0x40: r4r5_eb_mcp.digitalWrite(_40eb, HIGH); break;
-    case 0x41: r4r5_eb_mcp.digitalWrite(_41eb, HIGH); break;
-    case 0x42: r4r5_eb_mcp.digitalWrite(_42eb, HIGH); break;
-    case 0x43: r4r5_eb_mcp.digitalWrite(_43eb, HIGH); break;
-    case 0x44: r4r5_eb_mcp.digitalWrite(_44eb, HIGH); break;
-    case 0x45: r4r5_eb_mcp.digitalWrite(_45eb, HIGH); break;
-    case 0x46: r4r5_eb_mcp.digitalWrite(_46eb, HIGH); break;
-    case 0x47: r4r5_eb_mcp.digitalWrite(_47eb, HIGH); break;
+    // Row 4 (0x40 - 0x47) - using r4r5_eb_mcp
+    case 0x40: if (r4r5_eb_mcp.digitalRead(_40eb) == LOW) { LEDOnCount--; r4r5_eb_mcp.digitalWrite(_40eb, HIGH); } break;
+    case 0x41: if (r4r5_eb_mcp.digitalRead(_41eb) == LOW) { LEDOnCount--; r4r5_eb_mcp.digitalWrite(_41eb, HIGH); } break;
+    case 0x42: if (r4r5_eb_mcp.digitalRead(_42eb) == LOW) { LEDOnCount--; r4r5_eb_mcp.digitalWrite(_42eb, HIGH); } break;
+    case 0x43: if (r4r5_eb_mcp.digitalRead(_43eb) == LOW) { LEDOnCount--; r4r5_eb_mcp.digitalWrite(_43eb, HIGH); } break;
+    case 0x44: if (r4r5_eb_mcp.digitalRead(_44eb) == LOW) { LEDOnCount--; r4r5_eb_mcp.digitalWrite(_44eb, HIGH); } break;
+    case 0x45: if (r4r5_eb_mcp.digitalRead(_45eb) == LOW) { LEDOnCount--; r4r5_eb_mcp.digitalWrite(_45eb, HIGH); } break;
+    case 0x46: if (r4r5_eb_mcp.digitalRead(_46eb) == LOW) { LEDOnCount--; r4r5_eb_mcp.digitalWrite(_46eb, HIGH); } break;
+    case 0x47: if (r4r5_eb_mcp.digitalRead(_47eb) == LOW) { LEDOnCount--; r4r5_eb_mcp.digitalWrite(_47eb, HIGH); } break;
 
-    // Row 5 (0x50 - 0x57)
-    case 0x50: r4r5_eb_mcp.digitalWrite(_50eb, HIGH); break;
-    case 0x51: r4r5_eb_mcp.digitalWrite(_51eb, HIGH); break;
-    case 0x52: r4r5_eb_mcp.digitalWrite(_52eb, HIGH); break;
-    case 0x53: r4r5_eb_mcp.digitalWrite(_53eb, HIGH); break;
-    case 0x54: r4r5_eb_mcp.digitalWrite(_54eb, HIGH); break;
-    case 0x55: r4r5_eb_mcp.digitalWrite(_55eb, HIGH); break;
-    case 0x56: r4r5_eb_mcp.digitalWrite(_56eb, HIGH); break;
-    case 0x57: r4r5_eb_mcp.digitalWrite(_57eb, HIGH); break;
+    // Row 5 (0x50 - 0x57) - using r4r5_eb_mcp
+    case 0x50: if (r4r5_eb_mcp.digitalRead(_50eb) == LOW) { LEDOnCount--; r4r5_eb_mcp.digitalWrite(_50eb, HIGH); } break;
+    case 0x51: if (r4r5_eb_mcp.digitalRead(_51eb) == LOW) { LEDOnCount--; r4r5_eb_mcp.digitalWrite(_51eb, HIGH); } break;
+    case 0x52: if (r4r5_eb_mcp.digitalRead(_52eb) == LOW) { LEDOnCount--; r4r5_eb_mcp.digitalWrite(_52eb, HIGH); } break;
+    case 0x53: if (r4r5_eb_mcp.digitalRead(_53eb) == LOW) { LEDOnCount--; r4r5_eb_mcp.digitalWrite(_53eb, HIGH); } break;
+    case 0x54: if (r4r5_eb_mcp.digitalRead(_54eb) == LOW) { LEDOnCount--; r4r5_eb_mcp.digitalWrite(_54eb, HIGH); } break;
+    case 0x55: if (r4r5_eb_mcp.digitalRead(_55eb) == LOW) { LEDOnCount--; r4r5_eb_mcp.digitalWrite(_55eb, HIGH); } break;
+    case 0x56: if (r4r5_eb_mcp.digitalRead(_56eb) == LOW) { LEDOnCount--; r4r5_eb_mcp.digitalWrite(_56eb, HIGH); } break;
+    case 0x57: if (r4r5_eb_mcp.digitalRead(_57eb) == LOW) { LEDOnCount--; r4r5_eb_mcp.digitalWrite(_57eb, HIGH); } break;
 
-    // Row 6 (0x60 - 0x67)
-    case 0x60: r6r7_eb_mcp.digitalWrite(_60eb, HIGH); break;
-    case 0x61: r6r7_eb_mcp.digitalWrite(_61eb, HIGH); break;
-    case 0x62: r6r7_eb_mcp.digitalWrite(_62eb, HIGH); break;
-    case 0x63: r6r7_eb_mcp.digitalWrite(_63eb, HIGH); break;
-    case 0x64: r6r7_eb_mcp.digitalWrite(_64eb, HIGH); break;
-    case 0x65: r6r7_eb_mcp.digitalWrite(_65eb, HIGH); break;
-    case 0x66: r6r7_eb_mcp.digitalWrite(_66eb, HIGH); break;
-    case 0x67: r6r7_eb_mcp.digitalWrite(_67eb, HIGH); break;
+    // Row 6 (0x60 - 0x67) - using r6r7_eb_mcp
+    case 0x60: if (r6r7_eb_mcp.digitalRead(_60eb) == LOW) { LEDOnCount--; r6r7_eb_mcp.digitalWrite(_60eb, HIGH); } break;
+    case 0x61: if (r6r7_eb_mcp.digitalRead(_61eb) == LOW) { LEDOnCount--; r6r7_eb_mcp.digitalWrite(_61eb, HIGH); } break;
+    case 0x62: if (r6r7_eb_mcp.digitalRead(_62eb) == LOW) { LEDOnCount--; r6r7_eb_mcp.digitalWrite(_62eb, HIGH); } break;
+    case 0x63: if (r6r7_eb_mcp.digitalRead(_63eb) == LOW) { LEDOnCount--; r6r7_eb_mcp.digitalWrite(_63eb, HIGH); } break;
+    case 0x64: if (r6r7_eb_mcp.digitalRead(_64eb) == LOW) { LEDOnCount--; r6r7_eb_mcp.digitalWrite(_64eb, HIGH); } break;
+    case 0x65: if (r6r7_eb_mcp.digitalRead(_65eb) == LOW) { LEDOnCount--; r6r7_eb_mcp.digitalWrite(_65eb, HIGH); } break;
+    case 0x66: if (r6r7_eb_mcp.digitalRead(_66eb) == LOW) { LEDOnCount--; r6r7_eb_mcp.digitalWrite(_66eb, HIGH); } break;
+    case 0x67: if (r6r7_eb_mcp.digitalRead(_67eb) == LOW) { LEDOnCount--; r6r7_eb_mcp.digitalWrite(_67eb, HIGH); } break;
 
-    // Row 7 (0x70 - 0x77)
-    case 0x70: r6r7_eb_mcp.digitalWrite(_70eb, HIGH); break;
-    case 0x71: r6r7_eb_mcp.digitalWrite(_71eb, HIGH); break;
-    case 0x72: r6r7_eb_mcp.digitalWrite(_72eb, HIGH); break;
-    case 0x73: r6r7_eb_mcp.digitalWrite(_73eb, HIGH); break;
-    case 0x74: r6r7_eb_mcp.digitalWrite(_74eb, HIGH); break;
-    case 0x75: r6r7_eb_mcp.digitalWrite(_75eb, HIGH); break;
-    case 0x76: r6r7_eb_mcp.digitalWrite(_76eb, HIGH); break;
-    case 0x77: r6r7_eb_mcp.digitalWrite(_77eb, HIGH); break;
+    // Row 7 (0x70 - 0x77) - using r6r7_eb_mcp
+    case 0x70: if (r6r7_eb_mcp.digitalRead(_70eb) == LOW) { LEDOnCount--; r6r7_eb_mcp.digitalWrite(_70eb, HIGH); } break;
+    case 0x71: if (r6r7_eb_mcp.digitalRead(_71eb) == LOW) { LEDOnCount--; r6r7_eb_mcp.digitalWrite(_71eb, HIGH); } break;
+    case 0x72: if (r6r7_eb_mcp.digitalRead(_72eb) == LOW) { LEDOnCount--; r6r7_eb_mcp.digitalWrite(_72eb, HIGH); } break;
+    case 0x73: if (r6r7_eb_mcp.digitalRead(_73eb) == LOW) { LEDOnCount--; r6r7_eb_mcp.digitalWrite(_73eb, HIGH); } break;
+    case 0x74: if (r6r7_eb_mcp.digitalRead(_74eb) == LOW) { LEDOnCount--; r6r7_eb_mcp.digitalWrite(_74eb, HIGH); } break;
+    case 0x75: if (r6r7_eb_mcp.digitalRead(_75eb) == LOW) { LEDOnCount--; r6r7_eb_mcp.digitalWrite(_75eb, HIGH); } break;
+    case 0x76: if (r6r7_eb_mcp.digitalRead(_76eb) == LOW) { LEDOnCount--; r6r7_eb_mcp.digitalWrite(_76eb, HIGH); } break;
+    case 0x77: if (r6r7_eb_mcp.digitalRead(_77eb) == LOW) { LEDOnCount--; r6r7_eb_mcp.digitalWrite(_77eb, HIGH); } break;
 
     default:
         // Optionally handle an invalid tile value.
@@ -1151,6 +1157,18 @@ void HardwareAPI::PrintLCD(const char c1[], const char c2[])
   lcd.print(c1);
   lcd.setCursor(0, 1);
   lcd.print(c2);
+}
+
+/* method: PrintLCD
+function: Prints text to top line of the LCD and clears both lines.
+params:
+  	- c1: A character array to be printed on the first line of the LCD.
+*/
+void HardwareAPI::PrintLCD(const char c1[]) 
+{
+  ClearLCD();
+  lcd.setCursor(0, 0);
+  lcd.print(c1);
 }
 
 /* method: PrintLCDL1
