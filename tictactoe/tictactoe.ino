@@ -12,7 +12,7 @@ char currentPlayer = 'X';
 void setup() {
     interrupts();
     for (port = 0 ; port <= 65 ; port++) {
-      if (port != 20 || port != 21) {
+      if (port != 20 && port != 21) {
         pinMode(port, INPUT_PULLUP);
         LowPower.attachInterruptWakeup(digitalPinToInterrupt(port), handleInterrupt, RISING); //Only trigger interrupts when magnet is brought close
       }
