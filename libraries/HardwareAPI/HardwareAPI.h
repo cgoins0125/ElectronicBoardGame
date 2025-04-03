@@ -49,7 +49,6 @@ class HardwareAPI {
     void initializeMCP();
     void initializeLCD();
     void setMCPPortDir();
-    void setArduinoPortInterrupts();
 
     //declare mcp objects
     //A2, A1, A0 = 000 → Address 0x20 (default)

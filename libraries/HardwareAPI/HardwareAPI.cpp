@@ -440,16 +440,6 @@ void HardwareAPI::setMCPPortDir()
   r6r7_eb_mcp.pinMode(_67eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_67eb, HIGH);
 }
 
-void HardwareAPI::setArduinoPortInterrupts() 
-{
-    for (port = 0 ; port <= 65 ; port++) {
-        if (port != 20 || port != 21) {
-            pinMode(port, INPUT_PULLUP);
-            LowPower.attachInterruptWakeup(digitalPinToInterrupt(port), handleInterrupt, CHANGE);
-        }
-    }
-}
-
 void HardwareAPI::initializeLCD() 
 {
   lcd.begin(16, 2);
