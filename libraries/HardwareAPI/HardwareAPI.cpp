@@ -18,7 +18,6 @@ DEVELOPER USAGE NOTES:
 #include "Adafruit_LiquidCrystal.h"
 #include "Wire.h"
 #include "Adafruit_MCP23X17.h"
-#include "ArduinoLowPower.h"
 
 /*
   Hexadecimal board layout (rank 8 at the top, rank 1 at the bottom):
@@ -39,78 +38,78 @@ HardwareAPI::HardwareAPI()
   LED_ON_COUNT = 0;
   LED_MAX_ON = 32;
   
-  portTileMap[0]  = 0x00;
-  portTileMap[1]  = 0x01;
-  portTileMap[2]  = 0x02;
-  portTileMap[3]  = 0x03;
-  portTileMap[4]  = 0x04;
-  portTileMap[5]  = 0x05;
-  portTileMap[6]  = 0x06;
-  portTileMap[7]  = 0x07;
+  port_tile_map[0]  = 0x00;
+  port_tile_map[1]  = 0x01;
+  port_tile_map[2]  = 0x02;
+  port_tile_map[3]  = 0x03;
+  port_tile_map[4]  = 0x04;
+  port_tile_map[5]  = 0x05;
+  port_tile_map[6]  = 0x06;
+  port_tile_map[7]  = 0x07;
 
-  portTileMap[8]  = 0x10;
-  portTileMap[9]  = 0x11;
-  portTileMap[10] = 0x12;
-  portTileMap[11] = 0x13;
-  portTileMap[12] = 0x14;
-  portTileMap[13] = 0x15;
-  portTileMap[14] = 0x16;
-  portTileMap[15] = 0x17;
+  port_tile_map[8]  = 0x10;
+  port_tile_map[9]  = 0x11;
+  port_tile_map[10] = 0x12;
+  port_tile_map[11] = 0x13;
+  port_tile_map[12] = 0x14;
+  port_tile_map[13] = 0x15;
+  port_tile_map[14] = 0x16;
+  port_tile_map[15] = 0x17;
 
-  portTileMap[16] = 0x20;
-  portTileMap[17] = 0x21;
-  portTileMap[18] = 0x22;
-  portTileMap[19] = 0x23;
+  port_tile_map[16] = 0x20;
+  port_tile_map[17] = 0x21;
+  port_tile_map[18] = 0x22;
+  port_tile_map[19] = 0x23;
   // Skipping 20 and 21 for I2C
-  portTileMap[22] = 0x24;
-  portTileMap[23] = 0x25;
-  portTileMap[24] = 0x26;
-  portTileMap[25] = 0x27;
+  port_tile_map[22] = 0x24;
+  port_tile_map[23] = 0x25;
+  port_tile_map[24] = 0x26;
+  port_tile_map[25] = 0x27;
 
-  portTileMap[26] = 0x30;
-  portTileMap[27] = 0x31;
-  portTileMap[28] = 0x32;
-  portTileMap[29] = 0x33;
-  portTileMap[30] = 0x34;
-  portTileMap[31] = 0x35;
-  portTileMap[32] = 0x36;
-  portTileMap[33] = 0x37;
+  port_tile_map[26] = 0x30;
+  port_tile_map[27] = 0x31;
+  port_tile_map[28] = 0x32;
+  port_tile_map[29] = 0x33;
+  port_tile_map[30] = 0x34;
+  port_tile_map[31] = 0x35;
+  port_tile_map[32] = 0x36;
+  port_tile_map[33] = 0x37;
 
-  portTileMap[34] = 0x40;
-  portTileMap[35] = 0x41;
-  portTileMap[36] = 0x42;
-  portTileMap[37] = 0x43;
-  portTileMap[38] = 0x44;
-  portTileMap[39] = 0x45;
-  portTileMap[40] = 0x46;
-  portTileMap[41] = 0x47;
+  port_tile_map[34] = 0x40;
+  port_tile_map[35] = 0x41;
+  port_tile_map[36] = 0x42;
+  port_tile_map[37] = 0x43;
+  port_tile_map[38] = 0x44;
+  port_tile_map[39] = 0x45;
+  port_tile_map[40] = 0x46;
+  port_tile_map[41] = 0x47;
 
-  portTileMap[42] = 0x50;
-  portTileMap[43] = 0x51;
-  portTileMap[44] = 0x52;
-  portTileMap[45] = 0x53;
-  portTileMap[46] = 0x54;
-  portTileMap[47] = 0x55;
-  portTileMap[48] = 0x56;
-  portTileMap[49] = 0x57;
+  port_tile_map[42] = 0x50;
+  port_tile_map[43] = 0x51;
+  port_tile_map[44] = 0x52;
+  port_tile_map[45] = 0x53;
+  port_tile_map[46] = 0x54;
+  port_tile_map[47] = 0x55;
+  port_tile_map[48] = 0x56;
+  port_tile_map[49] = 0x57;
 
-  portTileMap[50] = 0x60;
-  portTileMap[51] = 0x61;
-  portTileMap[52] = 0x62;
-  portTileMap[53] = 0x63;
-  portTileMap[54] = 0x64;
-  portTileMap[55] = 0x65;
-  portTileMap[56] = 0x66;
-  portTileMap[57] = 0x67;
+  port_tile_map[50] = 0x60;
+  port_tile_map[51] = 0x61;
+  port_tile_map[52] = 0x62;
+  port_tile_map[53] = 0x63;
+  port_tile_map[54] = 0x64;
+  port_tile_map[55] = 0x65;
+  port_tile_map[56] = 0x66;
+  port_tile_map[57] = 0x67;
 
-  portTileMap[58] = 0x70;
-  portTileMap[59] = 0x71;
-  portTileMap[60] = 0x72;
-  portTileMap[61] = 0x73;
-  portTileMap[62] = 0x74;
-  portTileMap[63] = 0x75;
-  portTileMap[64] = 0x76;
-  portTileMap[65] = 0x77;
+  port_tile_map[58] = 0x70;
+  port_tile_map[59] = 0x71;
+  port_tile_map[60] = 0x72;
+  port_tile_map[61] = 0x73;
+  port_tile_map[62] = 0x74;
+  port_tile_map[63] = 0x75;
+  port_tile_map[64] = 0x76;
+  port_tile_map[65] = 0x77;
   
   _x0sb0 = 0; //A0
   _x0sb1 = 1; //A1 
@@ -454,7 +453,6 @@ void HardwareAPI::begin()
   initializeLCD();
   initializeMCP();
   setMCPPortDir();
-  setArduinoPortInterrupts();
 }
 
 /* method: turnOnLED
@@ -586,13 +584,16 @@ params:
         * The size of the tile array - cannot use sizeOf() because array decays to a pointer when passed as an argument
     - color:
         * The color that the specified LEDs should be changed to
-*/
-void HardwareAPI::turnOnMultipleTiles(char tiles[], int size, char color) 
+        
+        *******Implementation is in .h
+        
+void HardwareAPI::turnOnMultipleTiles(const std::array<char, N>& tiles, char color) 
 {
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < N; i++) {
         turnOnLED(tiles[i], color);
     }
 }
+*/
 
 /* method: turnOnMultipleTiles
 function: Turns on multiple LEDs to the same color.
@@ -617,9 +618,9 @@ params:
     - color:
         * The color that the specified LEDs should be changed to
 */
-void HardwareAPI::turnOnMultipleTiles(std::map<char, char> tile_color_map) {
+void HardwareAPI::turnOnMultipleTiles(const std::map<char, char> tile_color_map) {
     for (const auto &pair : tile_color_map) {
-        gameBoard.turnOnLED(pair.first, pair.second);
+        turnOnLED(pair.first, pair.second);
     }
 }
 
@@ -634,13 +635,16 @@ params:
       	* Examples:
         	- "a1" corresponds to 0x00 (file a = 0x0, rank 1 = 0x0)
         	- "h8" corresponds to 0x77 (file h = 0x7, rank 8 = 0x7)
-*/
-void HardwareAPI::turnOffMultipleTiles(char tiles[], int size) 
+        	
+        	**** Implementation is in .h
+        	
+void HardwareAPI::turnOffMultipleTiles(const std::array<char, N>& tiles) 
 {
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < N; i++) {
         turnOffLED(tiles[i], color);
     }
 }
+*/
 
 /* method: turnOffLED
 function: Turns off the LED for a specified tile.
@@ -1478,13 +1482,14 @@ bool HardwareAPI::isTileOn(char hexTile)
        return false;
         break;
 
+    }
 }
 
 /* method: getInterruptTile
 function: finds which tile triggered an interrupt
 return: char hexTile that triggered an interrupt
 */
-char HardwareAPI::getIntteruptTile()
+char HardwareAPI::getInterruptTile()
 {
     int triggeredPin = -1;
     for (int i = 0; i <= 65; i++) {
@@ -1493,6 +1498,16 @@ char HardwareAPI::getIntteruptTile()
             break;
         }
     }
-    if (triggeredPin == -1) {return -1;} 
-    else {return pin_tile_interrupt_map[triggeredPin];}
+    if (triggeredPin == -1) {return 0xFF;} 
+    else {return port_tile_map[triggeredPin];}
+}
+
+int HardwareAPI::getTilePort(char hexTile) 
+{
+    for (const auto& pair : port_tile_map) {
+        if (pair.second == hexTile) {
+            return pair.first;
+        }
+    }
+    return -1;
 }

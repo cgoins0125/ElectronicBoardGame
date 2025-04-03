@@ -11,6 +11,7 @@ Released into the public domain
 #include "Adafruit_LiquidCrystal.h"
 #include "Wire.h"
 #include "Adafruit_MCP23X17.h"
+#include <map>
 
 /*
   Hexadecimal board layout (rank 8 at the top, rank 1 at the bottom):
@@ -30,8 +31,21 @@ class HardwareAPI {
     void begin();
     void turnOnLED(char hexTile, char color);
     void turnOffLED(char hexTile);
-    void turnOnMultipleTiles(char tiles[], int size, char color);
-    void turnOffMultipleTiles(char tiles[], int size);
+    template <size_t N>
+    void turnOnMultipleTiles(const std::array<char, N>& tiles, char color) 
+    {
+        for (size_t i = 0; i < N; i++) {
+            turnOnLED(tiles[i], color);
+        }
+    };
+    void turnOnMultipleTiles(const std::map<char, char> tile_color_map);
+    template <size_t N>
+    void turnOffMultipleTiles(const std::array<char, N>& tiles) 
+    {
+        for (size_t i = 0; i < N; i++) {
+            turnOffLED(tiles[i]);
+        }
+    };
     void changeLEDcolor(char hexTile, char color);
     void printLCD(const char c1[], const char c2[]);
     void printLCD(const char c1[]);
@@ -42,6 +56,7 @@ class HardwareAPI {
     void clearLCDL2();
     bool isTileOn(char hexTile);
     char getInterruptTile();
+    int getTilePort(char hexTile);
     
   private:
     //private methods
@@ -93,7 +108,7 @@ class HardwareAPI {
     int _60eb, _61eb, _62eb, _63eb, _64eb, _65eb, _66eb, _67eb;
     int _70eb, _71eb, _72eb, _73eb, _74eb, _75eb, _76eb, _77eb;
     
-    std::map<int, char> pin_tile_interrupt_map;
+    std::map<int, char> port_tile_map;
 
 };
 

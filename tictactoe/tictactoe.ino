@@ -1,5 +1,4 @@
 #include "HardwareAPI.h"
-#include "ArduinoLowPower.h"
 
 HardwareAPI gameBoard;
 
@@ -7,32 +6,34 @@ char board[3][3] = {{' ', ' ', ' '},
                      {' ', ' ', ' '},
                      {' ', ' ', ' '}};
 
-char currentPlayer = 'X'; 
+char currentPlayer = 'X';
+
+std::array<char, 9> validHexTiles = {0x00,0x01,0x02,0x10,0x11,0x12,0x20,0x21,0x22};
 
 void setup() {
     interrupts();
-    for (port = 0 ; port <= 65 ; port++) {
-      if (port != 20 && port != 21) {
-        pinMode(port, INPUT_PULLUP);
-        LowPower.attachInterruptWakeup(digitalPinToInterrupt(port), handleInterrupt, RISING); //Only trigger interrupts when magnet is brought close
-      }
-    }
     gameBoard.begin();
-    gameBoard.turnOnMultipleTiles([0x00,0x01,0x02,0x10,0x11,0x12,0x20,0x21,0x22],9,'G')
+    for (char tile : validHexTiles) {
+        int port = gameBoard.getTilePort(tile);
+        if (port == -1) break;
+        pinMode(port, INPUT_PULLUP);
+        attachInterrupt(digitalPinToInterrupt(port), handleInterrupt, RISING); //Only trigger interrupts when magnet is brought close
+      }
+    gameBoard.turnOnMultipleTiles(validHexTiles,'G'); 
     gameBoard.printLCD("Tic Tac Toe", "Player X Start");
 }
 
 void loop() {
-    sleep(SLEEP_MODE_IDLE);
+    delay(1000);
 }
 
 void handleInterrupt() {
     char tile = gameBoard.getInterruptTile(); // Wait for player selection
-    if (tile == -1) return; // No input
+    if (tile == 0xFF) return; // No input
     if (!isValidTile(tile)) return; //invalid tile
     noInterrupts(); //pause interrupts
-    int row = (tile >> 4) & 0x0F; //Get the first hex digit of valid tile
-    int col = tile & 0x0F; //Get the second hex digit of valid tile
+    int row = (tile >> 4) & 0x0F; //Get the first hex digit of valid tile with bitwishe shift to the right & a bit mask on shifted bits
+    int col = tile & 0x0F; //Get the second hex digit of valid tile using a bit mask on 4 LSBs
     
     if (board[row][col] == ' ') {
         board[row][col] = currentPlayer;
@@ -49,9 +50,9 @@ void handleInterrupt() {
         } else {
             toggleCurrentPlayer();
             gameBoard.printLCD("Player Turn", (currentPlayer == 'X') ? "Player X" : "Player O");
-            interrupts();
         }
-    }
+    } 
+    interrupts();
 }
 
 bool isWinner() {
@@ -68,7 +69,7 @@ void flashWinningBoard() {
   for (int i = 0; i < 5; i++) { // Flash 5 times
     for (int row = 0; row < 3; row++) {
       for (int col = 0; col < 3; col++) {
-        char tile = (row << 4) | col;
+        char tile = (row << 4) | col; //create hex value from two ints
         gameBoard.turnOnLED(tile, (i % 2 == 0) ? 'R' : 'B');
       }
     }
@@ -93,6 +94,7 @@ void resetGame() {
     }
     gameBoard.clearLCD();
     interrupts();
+    gameBoard.turnOnMultipleTiles(validHexTiles,'G'); 
     gameBoard.printLCD("Tic Tac Toe", "Player X Start");
     currentPlayer = 'X';
 }
@@ -102,9 +104,18 @@ void toggleCurrentPlayer() {
 }
 
 bool isValidTile(char hexTile) {
-  int row = (tile >> 4) & 0x0F; //Get the first hex digit of valid tile
-  int col = tile & 0x0F; //Get the second hex digit of valid tile
-  return (gameBoard[row][col] == ' ' && (hexTile == 0x20 || hexTile == 0x21 || hexTile == 0x22 ||
-      hexTile == 0x10 || hexTile == 0x311|| hexTile == 0x12 ||
-      hexTile == 0x00 || hexTile == 0x01 || hexTile == 0x02));
+  int row = (hexTile >> 4) & 0x0F; //Get the first hex digit of valid tile
+  int col = hexTile & 0x0F; //Get the second hex digit of valid tile
+
+  if (row >= 3 || col >= 3) {return false;}
+
+  bool isValid = false;
+  for (char validTile : validHexTiles) {
+    if (validTile == hexTile) {
+      isValid = true;
+      break;
+    }
+  }
+  
+  return (board[row][col] == ' ' && isValid);
 }
