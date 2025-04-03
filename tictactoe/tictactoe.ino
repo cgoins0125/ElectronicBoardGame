@@ -106,5 +106,5 @@ bool isValidTile(char hexTile) {
   int col = tile & 0x0F; //Get the second hex digit of valid tile
   return (gameBoard[row][col] == ' ' && (hexTile == 0x20 || hexTile == 0x21 || hexTile == 0x22 ||
       hexTile == 0x10 || hexTile == 0x311|| hexTile == 0x12 ||
-      hexTile == 0x00 || hexTile == 0x01 || hexTile == 0x02))
+      hexTile == 0x00 || hexTile == 0x01 || hexTile == 0x02));
 }
