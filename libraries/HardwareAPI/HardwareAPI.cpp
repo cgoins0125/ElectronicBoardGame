@@ -5,13 +5,8 @@ Released into the public domain
 
 DEVELOPER USAGE NOTES:
     The game code utilizing this API MUST implement a method for handling interrupts.
-    ex)
-        void handleInterrupt() 
-        {
-            char interruptHexTile = getInterruptTile();
-            //handle interrupt quickly
-        }
-*/
+    Please see provided examples for help
+    */
 
 #include "Arduino.h"
 #include "HardwareAPI.h"
@@ -574,16 +569,20 @@ function: Turns on multiple LEDs to the same color.
 details:
   	- Turns all specified LEDs to the same color
 params:
-  	- tiles[]:
+  	- std::array<char, N>& tiles:
 		* Board is represented using the "0x88" system.
       	* Pass chars representing the tile, with valid values between 0x00 and 0x77.
       	* Examples:
         	- "a1" corresponds to 0x00 (file a = 0x0, rank 1 = 0x0)
         	- "h8" corresponds to 0x77 (file h = 0x7, rank 8 = 0x7)
-    - size:
-        * The size of the tile array - cannot use sizeOf() because array decays to a pointer when passed as an argument
+            - std::array<char, 9> tiles = {0x00,0x01,0x02,0x10,0x11,0x12,0x20,0x21,0x22};
     - color:
         * The color that the specified LEDs should be changed to
+        * Enumeration: ['R', 'G', 'B', 'Y']
+        	- 'R' - Red
+        	- 'G' - Green
+        	- 'B' - Blue
+        	- 'Y' - Yellow
         
         *******Implementation is in .h
         
@@ -606,17 +605,23 @@ params:
       	* Examples:
         	- "a1" corresponds to 0x00 (file a = 0x0, rank 1 = 0x0)
         	- "h8" corresponds to 0x77 (file h = 0x7, rank 8 = 0x7)
+    - color:
+        * The color that the specified LEDs should be changed to
         * The value for each tile should be the char representing the color
         * Enumeration: ['R', 'G', 'B', 'Y']
         	- 'R' - Red
         	- 'G' - Green
         	- 'B' - Blue
         	- 'Y' - Yellow
-        * Example:
-    - size:
-        * The size of the tile array - cannot use sizeOf() because array decays to a pointer when passed as an argument
-    - color:
-        * The color that the specified LEDs should be changed to
+        	
+* Example:
+    std::map<uint8_t, char> tile_color_map;
+    // Assign tiles (in hex) to specific colors ('R', 'G', 'B', 'Y')
+    tile_color_map[0x00] = 'R';  // Tile 0x00 (a1) turned on with Red
+    tile_color_map[0x10] = 'G';  // Tile 0x10 (b2) turned on with Green
+    tile_color_map[0x20] = 'B';  // Tile 0x20 (c3) turned on with Blue
+    tile_color_map[0x30] = 'Y';  // Tile 0x30 (d4) turned on with Yellow
+
 */
 void HardwareAPI::turnOnMultipleTiles(const std::map<char, char> tile_color_map) {
     for (const auto &pair : tile_color_map) {

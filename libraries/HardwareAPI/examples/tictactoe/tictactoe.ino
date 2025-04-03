@@ -1,40 +1,52 @@
 #include "HardwareAPI.h"
 
+//Instantiate the gameBoard object
 HardwareAPI gameBoard;
 
+//These are the tiles being used for tic tac toe - edit this for game being programmed - be sure to specify the size (9 tiles used for this game)
+std::array<char, 9> validHexTiles = {0x00,0x01,0x02,0x10,0x11,0x12,0x20,0x21,0x22};
+
+//tic tac toe specific variables for keeping up with Xs and Os
 char board[3][3] = {{' ', ' ', ' '},
                      {' ', ' ', ' '},
                      {' ', ' ', ' '}};
-
 char currentPlayer = 'X';
 
-std::array<char, 9> validHexTiles = {0x00,0x01,0x02,0x10,0x11,0x12,0x20,0x21,0x22};
-
 void setup() {
+    /* copy the following lines exactly only changing interrupt trigger as needed */
     interrupts();
     gameBoard.begin();
-    for (char tile : validHexTiles) {
-        int port = gameBoard.getTilePort(tile);
+    for (char tile : validHexTiles) { //Loop over the tiles needed for the game
+        int port = gameBoard.getTilePort(tile); //get port that is mapped to the tile
         if (port == -1) break;
-        pinMode(port, INPUT_PULLUP);
-        attachInterrupt(digitalPinToInterrupt(port), handleInterrupt, RISING); //Only trigger interrupts when magnet is brought close
+        pinMode(port, INPUT_PULLUP); 
+        /*
+         * RISING: Only trigger interrupts when game piece is brought close to tile
+         * FALLING: Only trigger interrupts when game piece is taken away from tile
+         * CHANGING: trigger interrupts when game piece is brought close to or taken away from tile
+        */
+        attachInterrupt(digitalPinToInterrupt(port), handleInterrupt, RISING);
       }
+
+    //This method turns all valid tiles green for tic tac toe - **note maximum on tile are 32.
     gameBoard.turnOnMultipleTiles(validHexTiles,'G'); 
     gameBoard.printLCD("Tic Tac Toe", "Player X Start");
 }
 
 void loop() {
+    //do nothing unless player has triggered an interrupt 
     delay(1000);
 }
 
 void handleInterrupt() {
     char tile = gameBoard.getInterruptTile(); // Wait for player selection
-    if (tile == 0xFF) return; // No input
-    if (!isValidTile(tile)) return; //invalid tile
-    noInterrupts(); //pause interrupts
+    if (tile == 0xFF) return; //interupt tile was not found
+    if (!isValidTile(tile)) return; //invalid tile for tic tac toe - this method was created below and is not part of the API
+    noInterrupts(); //pause interrupts while handling this one
     int row = (tile >> 4) & 0x0F; //Get the first hex digit of valid tile with bitwishe shift to the right & a bit mask on shifted bits
     int col = tile & 0x0F; //Get the second hex digit of valid tile using a bit mask on 4 LSBs
     
+    //tic tac toe logic below
     if (board[row][col] == ' ') {
         board[row][col] = currentPlayer;
         gameBoard.changeLEDcolor(tile, (currentPlayer == 'X') ? 'R' : 'B');
@@ -51,7 +63,8 @@ void handleInterrupt() {
             toggleCurrentPlayer();
             gameBoard.printLCD("Player Turn", (currentPlayer == 'X') ? "Player X" : "Player O");
         }
-    } 
+    }
+    //re-enable interrupts after this one was handled
     interrupts();
 }
 
@@ -93,7 +106,6 @@ void resetGame() {
         }
     }
     gameBoard.clearLCD();
-    interrupts();
     gameBoard.turnOnMultipleTiles(validHexTiles,'G'); 
     gameBoard.printLCD("Tic Tac Toe", "Player X Start");
     currentPlayer = 'X';
