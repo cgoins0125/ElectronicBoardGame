@@ -30,21 +30,26 @@ class HardwareAPI {
     void begin();
     void turnOnLED(char hexTile, char color);
     void turnOffLED(char hexTile);
+    void turnOnMultipleTiles(char tiles[], int size, char color);
+    void turnOffMultipleTiles(char tiles[], int size);
     void changeLEDcolor(char hexTile, char color);
-    void PrintLCD(const char c1[], const char c2[]);
-    void PrintLCD(const char c1[]);
-    void PrintLCDL1(const char str[]);
-    void PrintLCDL2(const char str[]);
-    void ClearLCD();
-    void ClearLCDL1();
-    void ClearLCDL2();
+    void printLCD(const char c1[], const char c2[]);
+    void printLCD(const char c1[]);
+    void printLCDL1(const char str[]);
+    void printLCDL2(const char str[]);
+    void clearLCD();
+    void clearLCDL1();
+    void clearLCDL2();
+    bool isTileOn(char hexTile);
+    char getInterruptTile();
     
   private:
     //private methods
     void initializeI2C();
     void initializeMCP();
     void initializeLCD();
-    void setMCPPortDir();  
+    void setMCPPortDir();
+    void setArduinoPortInterrupts();
 
     //declare mcp objects
     //A2, A1, A0 = 000 → Address 0x20 (default)
@@ -74,7 +79,7 @@ class HardwareAPI {
   	//declare lcd object for controlling the lcd
   	Adafruit_LiquidCrystal lcd{0};
   	
-  	int LEDMaxOn, LEDOnCount;
+  	int LED_MAX_ON, LED_ON_COUNT;
   
 	// For each tile, the two sb are select bits on the demux and eb is the enable bit
 	int _x0sb0, _x0sb1, _x1sb0, _x1sb1, _x2sb0, _x2sb1, _x3sb0, _x3sb1;
@@ -88,6 +93,8 @@ class HardwareAPI {
     int _50eb, _51eb, _52eb, _53eb, _54eb, _55eb, _56eb, _57eb;
     int _60eb, _61eb, _62eb, _63eb, _64eb, _65eb, _66eb, _67eb;
     int _70eb, _71eb, _72eb, _73eb, _74eb, _75eb, _76eb, _77eb;
+    
+    std::map<int, char> pin_tile_interrupt_map;
 
 };
 
