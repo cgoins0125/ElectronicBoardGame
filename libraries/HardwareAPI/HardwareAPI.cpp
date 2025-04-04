@@ -43,7 +43,7 @@ HardwareAPI::HardwareAPI()
   port_tile_map[7]  = 0x07;
 
   port_tile_map[8]  = 0x10;
-  port_tile_map[9]  = 0x11;
+  port_tile_map[67] = 0x11;
   port_tile_map[10] = 0x12;
   port_tile_map[11] = 0x13;
   port_tile_map[12] = 0x14;
@@ -52,7 +52,7 @@ HardwareAPI::HardwareAPI()
   port_tile_map[15] = 0x17;
 
   port_tile_map[16] = 0x20;
-  port_tile_map[17] = 0x21;
+  port_tile_map[68] = 0x21;
   port_tile_map[18] = 0x22;
   port_tile_map[19] = 0x23;
   // Skipping 20 and 21 for I2C
@@ -623,11 +623,13 @@ params:
     tile_color_map[0x30] = 'Y';  // Tile 0x30 (d4) turned on with Yellow
 
 */
+/*
 void HardwareAPI::turnOnMultipleTiles(const std::map<char, char> tile_color_map) {
     for (const auto &pair : tile_color_map) {
         turnOnLED(pair.first, pair.second);
     }
 }
+*/
 
 /* method: turnOffMultipleTiles
 function: Turns off the LED for multiple tiles.
@@ -1497,8 +1499,8 @@ return: char hexTile that triggered an interrupt
 char HardwareAPI::getInterruptTile()
 {
     int triggeredPin = -1;
-    for (int i = 0; i <= 65; i++) {
-        if (digitalRead(i) == LOW && i != 20 && i != 21) {
+    for (int i = 0; i <= 68; i++) {
+        if (digitalRead(i) == LOW && i != 20 && i != 21 && i != 9 && i != 17 && i != 66) {
             triggeredPin = i;
             break;
         }
@@ -1507,11 +1509,16 @@ char HardwareAPI::getInterruptTile()
     else {return port_tile_map[triggeredPin];}
 }
 
+
 int HardwareAPI::getTilePort(char hexTile) 
 {
-    for (const auto& pair : port_tile_map) {
-        if (pair.second == hexTile) {
-            return pair.first;
+    for (int i = 0 ; i <= 68 ; i++) {
+        if (i == 9) i++ ;
+        if (i == 17) i++ ;
+        if (i == 66) i++ ;
+        if (i == 20) i = 22;
+        if (port_tile_map.at(i) == hexTile) {
+            return i;
         }
     }
     return -1;

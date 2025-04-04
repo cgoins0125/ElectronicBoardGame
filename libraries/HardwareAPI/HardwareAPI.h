@@ -38,7 +38,7 @@ class HardwareAPI {
             turnOnLED(tiles[i], color);
         }
     };
-    void turnOnMultipleTiles(const std::map<char, char> tile_color_map);
+    //void turnOnMultipleTiles(const std::map<char, char> tile_color_map); - NOT WORKING
     template <size_t N>
     void turnOffMultipleTiles(const std::array<char, N>& tiles) 
     {
