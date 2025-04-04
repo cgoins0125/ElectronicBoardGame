@@ -120,8 +120,11 @@ void setup() {
 void loop() {
     //do nothing unless player has triggered an interrupt 
     if (interruptDetected) {
+      noInterrupts();
       handleInterrupts(interruptTile);
       interruptDetected = false;
+      interruptTile = 0xFF;
+      interrupts();
     }
 }
 
