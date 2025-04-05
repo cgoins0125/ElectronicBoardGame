@@ -56,6 +56,12 @@ class HardwareAPI {
     void clearLCDL2();
     bool isTileOn(char hexTile);
     int getTilePort(char hexTile);
+    //Pretty Lights
+    void runSpiralPattern(char color);
+    void runRowSweepPattern(char color);
+    void runDiagonalPattern(char color);
+    void runRandomBlinkPattern(char color);
+
     
   private:
     //private methods

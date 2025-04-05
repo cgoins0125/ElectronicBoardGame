@@ -1505,3 +1505,71 @@ int HardwareAPI::getTilePort(char hexTile)
     }
     return -1;
 }
+
+void HardwareAPI::runSpiralPattern(char color) {
+  const char tiles[] = {
+    0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
+    0x17, 0x27, 0x37, 0x47, 0x57, 0x67, 0x77,
+    0x76, 0x75, 0x74, 0x73, 0x72, 0x71, 0x70,
+    0x60, 0x50, 0x40, 0x30, 0x20, 0x10,
+    0x11, 0x12, 0x13, 0x14, 0x15, 0x16,
+    0x26, 0x36, 0x46, 0x56, 0x66,
+    0x65, 0x64, 0x63, 0x62, 0x61,
+    0x51, 0x41, 0x31, 0x21,
+    0x22, 0x23, 0x24, 0x25,
+    0x35, 0x45, 0x55, 0x54, 0x53, 0x52,
+    0x42, 0x32
+  };
+
+  for (char tile : tiles) {
+    turnOnLED(tile, color);
+    delay(100);
+  }
+
+  for (char tile : tiles) {
+    turnOffLED(tile);
+  }
+}
+
+void HardwareAPI::runRowSweepPattern(char color) {
+  for (int row = 0; row < 8; row++) {
+    std::array<char, 8> tiles;
+    for (int col = 0; col < 8; col++) {
+      tiles[col] = hexTile(row, col);
+    }
+    turnOnMultipleTiles(tiles, color);
+    delay(300);
+    turnOffMultipleTiles(tiles);
+  }
+}
+
+void HardwareAPI::runDiagonalPattern(char color) {
+  for (int d = 0; d < 8; d++) {
+    for (int i = 0; i <= d; i++) {
+      int row = i;
+      int col = d - i;
+      turnOnLED(hexTile(row, col), color);
+    }
+    delay(300);
+    for (int i = 0; i <= d; i++) {
+      int row = i;
+      int col = d - i;
+      turnOffLED(hexTile(row, col));
+    }
+  }
+}
+
+void HardwareAPI::runRandomBlinkPattern(char color) {
+  for (int i = 0; i < 20; i++) {
+    int row = random(0, 8);
+    int col = random(0, 8);
+    char tile = hexTile(row, col);
+    turnOnLED(tile, color);
+    delay(100);
+    turnOffLED(tile);
+  }
+}
+
+char HardwareAPI::hexTile(int row, int col) {
+  return (char)((row << 4) | col);
+}
