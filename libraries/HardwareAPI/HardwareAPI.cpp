@@ -31,6 +31,242 @@ DEVELOPER USAGE NOTES:
 void (*ISR_map[69])(void); // Array to hold ISR function pointers
 HardwareAPI* HardwareAPI::_instance = nullptr;
 
+HardwareAPI::HardwareAPI() 
+{
+  
+  interruptTile = 0xFF;
+  interruptDetected = false;
+  
+  LED_ON_COUNT = 0;
+  LED_MAX_ON = 32;
+  
+  // Assign ISRs to the ISR_map array for each port
+  ISR_map[0] = HardwareAPI::ISR_0;
+  ISR_map[1] = HardwareAPI::ISR_1;
+  ISR_map[2] = HardwareAPI::ISR_2;
+  ISR_map[3] = HardwareAPI::ISR_3;
+  ISR_map[4] = HardwareAPI::ISR_4;
+  ISR_map[5] = HardwareAPI::ISR_5;
+  ISR_map[6] = HardwareAPI::ISR_6;
+  ISR_map[7] = HardwareAPI::ISR_7;
+  ISR_map[8] = HardwareAPI::ISR_8;
+  ISR_map[67] = HardwareAPI::ISR_67; //Port 9 broken for interrupts
+  ISR_map[10] = HardwareAPI::ISR_10;
+  ISR_map[11] = HardwareAPI::ISR_11;
+  ISR_map[12] = HardwareAPI::ISR_12;
+  ISR_map[13] = HardwareAPI::ISR_13;
+  ISR_map[14] = HardwareAPI::ISR_14;
+  ISR_map[15] = HardwareAPI::ISR_15;
+  ISR_map[16] = HardwareAPI::ISR_16;
+  ISR_map[68] = HardwareAPI::ISR_68; // Port 17 broken for interrupts
+  ISR_map[18] = HardwareAPI::ISR_18;
+  ISR_map[19] = HardwareAPI::ISR_19;
+  //Skip 20 and 21
+  ISR_map[22] = HardwareAPI::ISR_22;
+  ISR_map[23] = HardwareAPI::ISR_23;
+  ISR_map[24] = HardwareAPI::ISR_24;
+  ISR_map[25] = HardwareAPI::ISR_25;
+  ISR_map[26] = HardwareAPI::ISR_26;
+  ISR_map[27] = HardwareAPI::ISR_27;
+  ISR_map[28] = HardwareAPI::ISR_28;
+  ISR_map[29] = HardwareAPI::ISR_29;
+  ISR_map[30] = HardwareAPI::ISR_30;
+  ISR_map[31] = HardwareAPI::ISR_31;
+  ISR_map[32] = HardwareAPI::ISR_32;
+  ISR_map[33] = HardwareAPI::ISR_33;
+  ISR_map[34] = HardwareAPI::ISR_34;
+  ISR_map[35] = HardwareAPI::ISR_35;
+  ISR_map[36] = HardwareAPI::ISR_36;
+  ISR_map[37] = HardwareAPI::ISR_37;
+  ISR_map[38] = HardwareAPI::ISR_38;
+  ISR_map[39] = HardwareAPI::ISR_39;
+  ISR_map[40] = HardwareAPI::ISR_40;
+  ISR_map[41] = HardwareAPI::ISR_41;
+  ISR_map[42] = HardwareAPI::ISR_42;
+  ISR_map[43] = HardwareAPI::ISR_43;
+  ISR_map[44] = HardwareAPI::ISR_44;
+  ISR_map[45] = HardwareAPI::ISR_45;
+  ISR_map[46] = HardwareAPI::ISR_46;
+  ISR_map[47] = HardwareAPI::ISR_47;
+  ISR_map[48] = HardwareAPI::ISR_48;
+  ISR_map[49] = HardwareAPI::ISR_49;
+  ISR_map[50] = HardwareAPI::ISR_50;
+  ISR_map[51] = HardwareAPI::ISR_51;
+  ISR_map[52] = HardwareAPI::ISR_52;
+  ISR_map[53] = HardwareAPI::ISR_53;
+  ISR_map[54] = HardwareAPI::ISR_54;
+  ISR_map[55] = HardwareAPI::ISR_55;
+  ISR_map[56] = HardwareAPI::ISR_56;
+  ISR_map[57] = HardwareAPI::ISR_57;
+  ISR_map[58] = HardwareAPI::ISR_58;
+  ISR_map[59] = HardwareAPI::ISR_59;
+  ISR_map[60] = HardwareAPI::ISR_60;
+  ISR_map[61] = HardwareAPI::ISR_61;
+  ISR_map[62] = HardwareAPI::ISR_62;
+  ISR_map[63] = HardwareAPI::ISR_63;
+  ISR_map[64] = HardwareAPI::ISR_64;
+  ISR_map[65] = HardwareAPI::ISR_65; //Port 66 broken for interrupts
+  
+  port_tile_map[0]  = 0x00;
+  port_tile_map[1]  = 0x01;
+  port_tile_map[2]  = 0x02;
+  port_tile_map[3]  = 0x03;
+  port_tile_map[4]  = 0x04;
+  port_tile_map[5]  = 0x05;
+  port_tile_map[6]  = 0x06;
+  port_tile_map[7]  = 0x07;
+
+  port_tile_map[8]  = 0x10;
+  port_tile_map[67] = 0x11;
+  port_tile_map[10] = 0x12;
+  port_tile_map[11] = 0x13;
+  port_tile_map[12] = 0x14;
+  port_tile_map[13] = 0x15;
+  port_tile_map[14] = 0x16;
+  port_tile_map[15] = 0x17;
+
+  port_tile_map[16] = 0x20;
+  port_tile_map[68] = 0x21;
+  port_tile_map[18] = 0x22;
+  port_tile_map[19] = 0x23;
+  // Skipping 20 and 21 for I2C
+  port_tile_map[22] = 0x24;
+  port_tile_map[23] = 0x25;
+  port_tile_map[24] = 0x26;
+  port_tile_map[25] = 0x27;
+
+  port_tile_map[26] = 0x30;
+  port_tile_map[27] = 0x31;
+  port_tile_map[28] = 0x32;
+  port_tile_map[29] = 0x33;
+  port_tile_map[30] = 0x34;
+  port_tile_map[31] = 0x35;
+  port_tile_map[32] = 0x36;
+  port_tile_map[33] = 0x37;
+
+  port_tile_map[34] = 0x40;
+  port_tile_map[35] = 0x41;
+  port_tile_map[36] = 0x42;
+  port_tile_map[37] = 0x43;
+  port_tile_map[38] = 0x44;
+  port_tile_map[39] = 0x45;
+  port_tile_map[40] = 0x46;
+  port_tile_map[41] = 0x47;
+
+  port_tile_map[42] = 0x50;
+  port_tile_map[43] = 0x51;
+  port_tile_map[44] = 0x52;
+  port_tile_map[45] = 0x53;
+  port_tile_map[46] = 0x54;
+  port_tile_map[47] = 0x55;
+  port_tile_map[48] = 0x56;
+  port_tile_map[49] = 0x57;
+
+  port_tile_map[50] = 0x60;
+  port_tile_map[51] = 0x61;
+  port_tile_map[52] = 0x62;
+  port_tile_map[53] = 0x63;
+  port_tile_map[54] = 0x64;
+  port_tile_map[55] = 0x65;
+  port_tile_map[56] = 0x66;
+  port_tile_map[57] = 0x67;
+
+  port_tile_map[58] = 0x70;
+  port_tile_map[59] = 0x71;
+  port_tile_map[60] = 0x72;
+  port_tile_map[61] = 0x73;
+  port_tile_map[62] = 0x74;
+  port_tile_map[63] = 0x75;
+  port_tile_map[64] = 0x76;
+  port_tile_map[65] = 0x77;
+  
+  _x0sb0 = 0; //A0
+  _x0sb1 = 1; //A1 
+  _x1sb0 = 2; //A2
+  _x1sb1 = 3; //A3
+  _x2sb0 = 4; //A4
+  _x2sb1 = 5; //A5
+  _x3sb0 = 6; //A6 
+  _x3sb1 = 7; //A7
+  _x4sb0 = 8; //B0
+  _x4sb1 = 9; //B1
+  _x5sb0 = 10; //B2
+  _x5sb1 = 11; //B3
+  _x6sb0 = 12; //B4 
+  _x6sb1 = 13; //B5
+  _x7sb0 = 14; //B6 
+  _x7sb1 = 15; //B7
+  
+  _00eb  = 0;
+  _01eb  = 1;
+  _02eb  = 2;
+  _03eb  = 3;
+  _04eb  = 4;
+  _05eb  = 5;
+  _06eb  = 6;
+  _07eb  = 7;
+  _10eb  = 8;
+  _11eb  = 9;
+  _12eb  = 10;
+  _13eb  = 11;
+  _14eb  = 12;
+  _15eb  = 13;
+  _16eb  = 14;
+  _17eb  = 15;
+
+  _20eb  = 0;
+  _21eb  = 1;
+  _22eb  = 2;
+  _23eb  = 3;
+  _24eb  = 4;
+  _25eb  = 5;
+  _26eb  = 6;
+  _27eb  = 7;
+  _30eb  = 8;
+  _31eb  = 9;
+  _32eb  = 10;
+  _33eb  = 11;
+  _34eb  = 12;
+  _35eb  = 13;
+  _36eb  = 14;
+  _37eb  = 15;
+
+  _40eb  = 0;
+  _41eb  = 1;
+  _42eb  = 2;
+  _43eb  = 3;
+  _44eb  = 4;
+  _45eb  = 5;
+  _46eb  = 6;
+  _47eb  = 7;
+  _50eb  = 8;
+  _51eb  = 9;
+  _52eb  = 10;
+  _53eb  = 11;
+  _54eb  = 12;
+  _55eb  = 13;
+  _56eb  = 14;
+  _57eb  = 15;
+
+  _60eb  = 0;
+  _61eb  = 1;
+  _62eb  = 2;
+  _63eb  = 3;
+  _64eb  = 4;
+  _65eb  = 5;
+  _66eb  = 6;
+  _67eb  = 7;
+  _70eb  = 8;
+  _71eb  = 9;
+  _72eb  = 10;
+  _73eb  = 11;
+  _74eb  = 12;
+  _75eb  = 13;
+  _76eb  = 14;
+  _77eb  = 15;
+
+}
+
 HardwareAPI::HardwareAPI(const std::vector<char>& validTiles)
 {
 

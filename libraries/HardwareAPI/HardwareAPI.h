@@ -29,6 +29,7 @@ Released into the public domain
 class HardwareAPI {
   public:
     HardwareAPI(const std::vector<char>& validTiles);
+    HardwareAPI(); //overloaded constructor that does not enable any interrupts
     void begin();
     void turnOnLED(char hexTile, char color);
     void turnOffLED(char hexTile);
@@ -36,6 +37,12 @@ class HardwareAPI {
     {
       for (char tile : tiles) {
           turnOnLED(tile, color);
+      }
+    };
+    void changeMultipleTileColors(const std::vector<char>& tiles, char color)
+    {
+      for (char tile : tiles) {
+          changeLEDcolor(tile, color);
       }
     };
     //void turnOnMultipleTiles(const std::map<char, char> tile_color_map); - NOT WORKING
