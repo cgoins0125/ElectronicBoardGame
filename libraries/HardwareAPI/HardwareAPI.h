@@ -11,6 +11,7 @@ Released into the public domain
 #include "Adafruit_LiquidCrystal.h"
 #include "Wire.h"
 #include "Adafruit_MCP23X17.h"
+#include <map>
 
 /*
   Hexadecimal board layout (rank 8 at the top, rank 1 at the bottom):
@@ -30,20 +31,44 @@ class HardwareAPI {
     void begin();
     void turnOnLED(char hexTile, char color);
     void turnOffLED(char hexTile);
+    template <size_t N>
+    void turnOnMultipleTiles(const std::array<char, N>& tiles, char color) 
+    {
+        for (size_t i = 0; i < N; i++) {
+            turnOnLED(tiles[i], color);
+        }
+    };
+    //void turnOnMultipleTiles(const std::map<char, char> tile_color_map); - NOT WORKING
+    template <size_t N>
+    void turnOffMultipleTiles(const std::array<char, N>& tiles) 
+    {
+        for (size_t i = 0; i < N; i++) {
+            turnOffLED(tiles[i]);
+        }
+    };
     void changeLEDcolor(char hexTile, char color);
-    void PrintLCD(const char c1[], const char c2[]);
-    void PrintLCDL1(const char str[]);
-    void PrintLCDL2(const char str[]);
-    void ClearLCD();
-    void ClearLCDL1();
-    void ClearLCDL2();
+    void printLCD(const char c1[], const char c2[]);
+    void printLCD(const char c1[]);
+    void printLCDL1(const char str[]);
+    void printLCDL2(const char str[]);
+    void clearLCD();
+    void clearLCDL1();
+    void clearLCDL2();
+    bool isTileOn(char hexTile);
+    int getTilePort(char hexTile);
+    //Pretty Lights
+    void runSpiralPattern(char color);
+    void runRowSweepPattern(char color);
+    void runDiagonalPattern(char color);
+    void runRandomBlinkPattern(char color);
+
     
   private:
     //private methods
     void initializeI2C();
     void initializeMCP();
     void initializeLCD();
-    void setMCPPortDir();  
+    void setMCPPortDir();
 
     //declare mcp objects
     //A2, A1, A0 = 000 → Address 0x20 (default)
@@ -56,10 +81,10 @@ class HardwareAPI {
     //A2, A1, A0 = 111 → Address 0x27
     
     //I2C bus 0
-    Adafruit_MCP23X17 r0r1_eb_mcp; //0x20
-    Adafruit_MCP23X17 r2r3_eb_mcp; //0x21
-    Adafruit_MCP23X17 r4r5_eb_mcp; //0x22
-    Adafruit_MCP23X17 r6r7_eb_mcp; //0x23
+    Adafruit_MCP23X17 r0r1_eb_mcp; //0x21
+    Adafruit_MCP23X17 r2r3_eb_mcp; //0x22
+    Adafruit_MCP23X17 r4r5_eb_mcp; //0x23
+    Adafruit_MCP23X17 r6r7_eb_mcp; //0x24
     //I2C bus 1
     Adafruit_MCP23X17 r0_sb_mcp; //0x20
     Adafruit_MCP23X17 r1_sb_mcp; //0x21
@@ -72,6 +97,8 @@ class HardwareAPI {
 
   	//declare lcd object for controlling the lcd
   	Adafruit_LiquidCrystal lcd{0};
+  	
+  	int LED_MAX_ON, LED_ON_COUNT;
   
 	// For each tile, the two sb are select bits on the demux and eb is the enable bit
 	int _x0sb0, _x0sb1, _x1sb0, _x1sb1, _x2sb0, _x2sb1, _x3sb0, _x3sb1;
@@ -85,6 +112,8 @@ class HardwareAPI {
     int _50eb, _51eb, _52eb, _53eb, _54eb, _55eb, _56eb, _57eb;
     int _60eb, _61eb, _62eb, _63eb, _64eb, _65eb, _66eb, _67eb;
     int _70eb, _71eb, _72eb, _73eb, _74eb, _75eb, _76eb, _77eb;
+    
+    std::map<int, char> port_tile_map;
 
 };
 
