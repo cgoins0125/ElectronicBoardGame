@@ -12,6 +12,7 @@ Released into the public domain
 #include "Wire.h"
 #include "Adafruit_MCP23X17.h"
 #include <map>
+#include <vector>
 
 /*
   Hexadecimal board layout (rank 8 at the top, rank 1 at the bottom):
@@ -27,24 +28,22 @@ Released into the public domain
 */
 class HardwareAPI {
   public:
-    HardwareAPI();
+    HardwareAPI(const std::vector<char>& validTiles);
     void begin();
     void turnOnLED(char hexTile, char color);
     void turnOffLED(char hexTile);
-    template <size_t N>
-    void turnOnMultipleTiles(const std::array<char, N>& tiles, char color) 
+    void turnOnMultipleTiles(const std::vector<char>& tiles, char color)
     {
-        for (size_t i = 0; i < N; i++) {
-            turnOnLED(tiles[i], color);
-        }
+      for (char tile : tiles) {
+          turnOnLED(tile, color);
+      }
     };
     //void turnOnMultipleTiles(const std::map<char, char> tile_color_map); - NOT WORKING
-    template <size_t N>
-    void turnOffMultipleTiles(const std::array<char, N>& tiles) 
+    void turnOffMultipleTiles(const std::vector<char>& tiles)
     {
-        for (size_t i = 0; i < N; i++) {
-            turnOffLED(tiles[i]);
-        }
+      for (char tile : tiles) {
+        turnOffLED(tile);
+      }
     };
     void changeLEDcolor(char hexTile, char color);
     void printLCD(const char c1[], const char c2[]);
@@ -56,11 +55,96 @@ class HardwareAPI {
     void clearLCDL2();
     bool isTileOn(char hexTile);
     int getTilePort(char hexTile);
+    char hexTile(int row, int col);
+    
     //Pretty Lights
     void runSpiralPattern(char color);
     void runRowSweepPattern(char color);
     void runDiagonalPattern(char color);
     void runRandomBlinkPattern(char color);
+    
+    // Getters and setters
+    void setInterruptTile(char tile);
+    char getInterruptTile() const;
+    void setInterruptDetected(bool state);
+    bool isInterruptDetected() const;
+    int getRow(char tile);
+    int getCol(char tile);
+    
+    //For ISRs
+    static void setInstance(HardwareAPI* instance);
+    static void ISR_0();
+    static void ISR_1();
+    static void ISR_2();
+    static void ISR_3();
+    static void ISR_4();
+    static void ISR_5();
+    static void ISR_6();
+    static void ISR_7();
+
+    static void ISR_8();
+    static void ISR_67();
+    static void ISR_10();
+    static void ISR_11();
+    static void ISR_12();
+    static void ISR_13();
+    static void ISR_14();
+    static void ISR_15();
+
+    static void ISR_16();
+    static void ISR_68();
+    static void ISR_18();
+    static void ISR_19();
+    // Skipping ISR_20 and ISR_21 for I2C
+    static void ISR_22();
+    static void ISR_23();
+    static void ISR_24();
+    static void ISR_25();
+
+    static void ISR_26();
+    static void ISR_27();
+    static void ISR_28();
+    static void ISR_29();
+    static void ISR_30();
+    static void ISR_31();
+    static void ISR_32();
+    static void ISR_33();
+
+    static void ISR_34();
+    static void ISR_35();
+    static void ISR_36();
+    static void ISR_37();
+    static void ISR_38();
+    static void ISR_39();
+    static void ISR_40();
+    static void ISR_41();
+
+    static void ISR_42();
+    static void ISR_43();
+    static void ISR_44();
+    static void ISR_45();
+    static void ISR_46();
+    static void ISR_47();
+    static void ISR_48();
+    static void ISR_49();
+
+    static void ISR_50();
+    static void ISR_51();
+    static void ISR_52();
+    static void ISR_53();
+    static void ISR_54();
+    static void ISR_55();
+    static void ISR_56();
+    static void ISR_57();
+
+    static void ISR_58();
+    static void ISR_59();
+    static void ISR_60();
+    static void ISR_61();
+    static void ISR_62();
+    static void ISR_63();
+    static void ISR_64();
+    static void ISR_65();
 
     
   private:
@@ -69,6 +153,7 @@ class HardwareAPI {
     void initializeMCP();
     void initializeLCD();
     void setMCPPortDir();
+    void setupISRs();
 
     //declare mcp objects
     //A2, A1, A0 = 000 → Address 0x20 (default)
@@ -101,7 +186,7 @@ class HardwareAPI {
   	int LED_MAX_ON, LED_ON_COUNT;
   
 	// For each tile, the two sb are select bits on the demux and eb is the enable bit
-	int _x0sb0, _x0sb1, _x1sb0, _x1sb1, _x2sb0, _x2sb1, _x3sb0, _x3sb1;
+	  int _x0sb0, _x0sb1, _x1sb0, _x1sb1, _x2sb0, _x2sb1, _x3sb0, _x3sb1;
     int _x4sb0, _x4sb1, _x5sb0, _x5sb1, _x6sb0, _x6sb1, _x7sb0, _x7sb1;
     
     int _00eb, _01eb, _02eb, _03eb, _04eb, _05eb, _06eb, _07eb;
@@ -114,6 +199,13 @@ class HardwareAPI {
     int _70eb, _71eb, _72eb, _73eb, _74eb, _75eb, _76eb, _77eb;
     
     std::map<int, char> port_tile_map;
+    
+    volatile bool interruptDetected;
+    volatile char interruptTile;
+    
+    std::vector<char> validHexTiles;
+    
+    static HardwareAPI* _instance;
 
 };
 
