@@ -1841,7 +1841,7 @@ int HardwareAPI::getTilePort(char hexTile)
         if (i == 9) i++ ; //Port 9 broken
         if (i == 17) i++ ; //Port 17 broken
         if (i == 66) i++ ; //Port 66 broken
-        if (i == 20) i = 22; //Port 20 broken
+        if (i == 20) i = 22; //Port 20 and 21 used for I2C
         if (port_tile_map.at(i) == hexTile) {
             return i;
         }
