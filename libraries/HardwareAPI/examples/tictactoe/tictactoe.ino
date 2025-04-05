@@ -4,7 +4,7 @@
 std::vector<char> validHexTiles = {0x00,0x01,0x02,0x10,0x11,0x12,0x20,0x21,0x22};
 
 //Instantiate the gameBoard object
-HardwareAPI gameBoard(validHexTiles);\
+HardwareAPI gameBoard(validHexTiles);
 
 //tic tac toe specific variables for keeping up with Xs and Os
 char board[3][3] = {{' ', ' ', ' '},

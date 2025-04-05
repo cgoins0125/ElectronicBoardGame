@@ -34,6 +34,8 @@ HardwareAPI* HardwareAPI::_instance = nullptr;
 HardwareAPI::HardwareAPI(const std::vector<char>& validTiles)
 {
 
+  validHexTiles = validTiles;
+
   interruptTile = 0xFF;
   interruptDetected = false;
   
@@ -506,6 +508,16 @@ void HardwareAPI::setMCPPortDir()
   r6r7_eb_mcp.pinMode(_65eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_65eb, HIGH);
   r6r7_eb_mcp.pinMode(_66eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_66eb, HIGH);
   r6r7_eb_mcp.pinMode(_67eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_67eb, HIGH);
+  
+  // Row 7 (0x70 - 0x77) - Using r6r7_eb_mcp for eb
+  r6r7_eb_mcp.pinMode(_70eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_70eb, HIGH);
+  r6r7_eb_mcp.pinMode(_71eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_71eb, HIGH);
+  r6r7_eb_mcp.pinMode(_72eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_72eb, HIGH);
+  r6r7_eb_mcp.pinMode(_73eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_73eb, HIGH);
+  r6r7_eb_mcp.pinMode(_74eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_74eb, HIGH);
+  r6r7_eb_mcp.pinMode(_75eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_75eb, HIGH);
+  r6r7_eb_mcp.pinMode(_76eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_76eb, HIGH);
+  r6r7_eb_mcp.pinMode(_77eb, OUTPUT); r6r7_eb_mcp.digitalWrite(_77eb, HIGH);
 }
 
 void HardwareAPI::setupISRs()
@@ -542,6 +554,7 @@ void HardwareAPI::begin()
   initializeLCD();
   initializeMCP();
   setMCPPortDir();
+  setupISRs();
 }
 
 /* method: turnOnLED
