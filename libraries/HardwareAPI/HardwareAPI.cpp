@@ -594,7 +594,7 @@ void HardwareAPI::turnOnMultipleTiles(const std::array<char, N>& tiles, char col
 }
 */
 
-/* method: turnOnMultipleTiles
+/* method: turnOnMultipleTiles - 
 function: Turns on multiple LEDs to the same color.
 details:
   	- Turns each specified LED to the specified color
@@ -1492,31 +1492,13 @@ bool HardwareAPI::isTileOn(char hexTile)
     }
 }
 
-/* method: getInterruptTile
-function: finds which tile triggered an interrupt
-return: char hexTile that triggered an interrupt
-*/
-char HardwareAPI::getInterruptTile()
-{
-    int triggeredPin = -1;
-    for (int i = 0; i <= 68; i++) {
-        if (digitalRead(i) == LOW && i != 20 && i != 21 && i != 9 && i != 17 && i != 66) {
-            triggeredPin = i;
-            break;
-        }
-    }
-    if (triggeredPin == -1) {return 0xFF;} 
-    else {return port_tile_map[triggeredPin];}
-}
-
-
 int HardwareAPI::getTilePort(char hexTile) 
 {
     for (int i = 0 ; i <= 68 ; i++) {
-        if (i == 9) i++ ;
-        if (i == 17) i++ ;
-        if (i == 66) i++ ;
-        if (i == 20) i = 22;
+        if (i == 9) i++ ; //Port 9 broken
+        if (i == 17) i++ ; //Port 17 broken
+        if (i == 66) i++ ; //Port 66 broken
+        if (i == 20) i = 22; //Port 20 broken
         if (port_tile_map.at(i) == hexTile) {
             return i;
         }

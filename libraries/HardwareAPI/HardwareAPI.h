@@ -55,7 +55,6 @@ class HardwareAPI {
     void clearLCDL1();
     void clearLCDL2();
     bool isTileOn(char hexTile);
-    char getInterruptTile();
     int getTilePort(char hexTile);
     
   private:
