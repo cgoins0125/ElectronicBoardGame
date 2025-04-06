@@ -573,14 +573,14 @@ void HardwareAPI::setupISRs()
         pinMode(port, INPUT_PULLUP);
 
         /*
-         * RISING: Only trigger interrupts when game piece is brought close to tile
-         * FALLING: Only trigger interrupts when game piece is taken away from tile
+         * FALLING: Only trigger interrupts when game piece is brought close to tile
+         * RISING: Only trigger interrupts when game piece is taken away from tile
          * CHANGING: trigger interrupts when game piece is brought close to or taken away from tile
         */
         if (digitalPinToInterrupt(port) == NOT_AN_INTERRUPT) {
           continue;
         } else {
-        attachInterrupt(digitalPinToInterrupt(port), ISR_map[port], RISING);}
+        attachInterrupt(digitalPinToInterrupt(port), ISR_map[port], FALLING);}
     }
 }
 
