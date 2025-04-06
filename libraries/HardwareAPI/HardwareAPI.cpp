@@ -32,18 +32,8 @@ void (*ISR_map[100])(void); // Array to hold ISR function pointers
 HardwareAPI* HardwareAPI::_instance = nullptr;
 //arduino::HardwareSerial *serialPort = nullptr;
 
-
-HardwareAPI::HardwareAPI() 
-//    : serialPort(nullptr)
+void HardwareAPI::setVars()
 {
-
-}
-
-HardwareAPI::HardwareAPI(const std::vector<char>& validTiles)
-  //: serialPort(nullptr)
-{
-  validHexTiles = validTiles;
-  
   interruptTile = 0xFF;
   interruptDetected = false;
   
@@ -308,6 +298,21 @@ HardwareAPI::HardwareAPI(const std::vector<char>& validTiles)
   _75eb  = 13;
   _76eb  = 14;
   _77eb  = 15;
+
+}
+
+HardwareAPI::HardwareAPI() 
+//    : serialPort(nullptr)
+{
+  setVars();
+
+}
+
+HardwareAPI::HardwareAPI(const std::vector<char>& validTiles)
+  //: serialPort(nullptr)
+{
+  validHexTiles = validTiles;
+  setVars();
 }
 
 /*

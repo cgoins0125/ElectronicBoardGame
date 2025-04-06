@@ -195,7 +195,7 @@ class HardwareAPI {
     
   private:
     //private methods
-    //void setVars();
+    void setVars();
     void initializeI2C();
     void initializeMCP();
     void initializeLCD();
