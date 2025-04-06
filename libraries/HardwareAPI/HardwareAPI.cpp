@@ -28,257 +28,29 @@ DEVELOPER USAGE NOTES:
  	 A	   B     C     D     E     F     G     H
 */
 
-void (*ISR_map[69])(void); // Array to hold ISR function pointers
+void (*ISR_map[100])(void); // Array to hold ISR function pointers
 HardwareAPI* HardwareAPI::_instance = nullptr;
+//arduino::HardwareSerial *serialPort = nullptr;
+
 
 HardwareAPI::HardwareAPI() 
+//    : serialPort(nullptr)
 {
-  
-  interruptTile = 0xFF;
-  interruptDetected = false;
-  
-  LED_ON_COUNT = 0;
-  LED_MAX_ON = 32;
-  
-  // Assign ISRs to the ISR_map array for each port
-  ISR_map[0] = HardwareAPI::ISR_0;
-  ISR_map[1] = HardwareAPI::ISR_1;
-  ISR_map[2] = HardwareAPI::ISR_2;
-  ISR_map[3] = HardwareAPI::ISR_3;
-  ISR_map[4] = HardwareAPI::ISR_4;
-  ISR_map[5] = HardwareAPI::ISR_5;
-  ISR_map[6] = HardwareAPI::ISR_6;
-  ISR_map[7] = HardwareAPI::ISR_7;
-  ISR_map[8] = HardwareAPI::ISR_8;
-  ISR_map[67] = HardwareAPI::ISR_67; //Port 9 broken for interrupts
-  ISR_map[10] = HardwareAPI::ISR_10;
-  ISR_map[11] = HardwareAPI::ISR_11;
-  ISR_map[12] = HardwareAPI::ISR_12;
-  ISR_map[13] = HardwareAPI::ISR_13;
-  ISR_map[14] = HardwareAPI::ISR_14;
-  ISR_map[15] = HardwareAPI::ISR_15;
-  ISR_map[16] = HardwareAPI::ISR_16;
-  ISR_map[68] = HardwareAPI::ISR_68; // Port 17 broken for interrupts
-  ISR_map[18] = HardwareAPI::ISR_18;
-  ISR_map[19] = HardwareAPI::ISR_19;
-  //Skip 20 and 21
-  ISR_map[22] = HardwareAPI::ISR_22;
-  ISR_map[23] = HardwareAPI::ISR_23;
-  ISR_map[24] = HardwareAPI::ISR_24;
-  ISR_map[25] = HardwareAPI::ISR_25;
-  ISR_map[26] = HardwareAPI::ISR_26;
-  ISR_map[27] = HardwareAPI::ISR_27;
-  ISR_map[28] = HardwareAPI::ISR_28;
-  ISR_map[29] = HardwareAPI::ISR_29;
-  ISR_map[30] = HardwareAPI::ISR_30;
-  ISR_map[31] = HardwareAPI::ISR_31;
-  ISR_map[32] = HardwareAPI::ISR_32;
-  ISR_map[33] = HardwareAPI::ISR_33;
-  ISR_map[34] = HardwareAPI::ISR_34;
-  ISR_map[35] = HardwareAPI::ISR_35;
-  ISR_map[36] = HardwareAPI::ISR_36;
-  ISR_map[37] = HardwareAPI::ISR_37;
-  ISR_map[38] = HardwareAPI::ISR_38;
-  ISR_map[39] = HardwareAPI::ISR_39;
-  ISR_map[40] = HardwareAPI::ISR_40;
-  ISR_map[41] = HardwareAPI::ISR_41;
-  ISR_map[42] = HardwareAPI::ISR_42;
-  ISR_map[43] = HardwareAPI::ISR_43;
-  ISR_map[44] = HardwareAPI::ISR_44;
-  ISR_map[45] = HardwareAPI::ISR_45;
-  ISR_map[46] = HardwareAPI::ISR_46;
-  ISR_map[47] = HardwareAPI::ISR_47;
-  ISR_map[48] = HardwareAPI::ISR_48;
-  ISR_map[49] = HardwareAPI::ISR_49;
-  ISR_map[50] = HardwareAPI::ISR_50;
-  ISR_map[51] = HardwareAPI::ISR_51;
-  ISR_map[52] = HardwareAPI::ISR_52;
-  ISR_map[53] = HardwareAPI::ISR_53;
-  ISR_map[54] = HardwareAPI::ISR_54;
-  ISR_map[55] = HardwareAPI::ISR_55;
-  ISR_map[56] = HardwareAPI::ISR_56;
-  ISR_map[57] = HardwareAPI::ISR_57;
-  ISR_map[58] = HardwareAPI::ISR_58;
-  ISR_map[59] = HardwareAPI::ISR_59;
-  ISR_map[60] = HardwareAPI::ISR_60;
-  ISR_map[61] = HardwareAPI::ISR_61;
-  ISR_map[62] = HardwareAPI::ISR_62;
-  ISR_map[63] = HardwareAPI::ISR_63;
-  ISR_map[64] = HardwareAPI::ISR_64;
-  ISR_map[65] = HardwareAPI::ISR_65; //Port 66 broken for interrupts
-  
-  port_tile_map[0]  = 0x00;
-  port_tile_map[1]  = 0x01;
-  port_tile_map[2]  = 0x02;
-  port_tile_map[3]  = 0x03;
-  port_tile_map[4]  = 0x04;
-  port_tile_map[5]  = 0x05;
-  port_tile_map[6]  = 0x06;
-  port_tile_map[7]  = 0x07;
-
-  port_tile_map[8]  = 0x10;
-  port_tile_map[67] = 0x11;
-  port_tile_map[10] = 0x12;
-  port_tile_map[11] = 0x13;
-  port_tile_map[12] = 0x14;
-  port_tile_map[13] = 0x15;
-  port_tile_map[14] = 0x16;
-  port_tile_map[15] = 0x17;
-
-  port_tile_map[16] = 0x20;
-  port_tile_map[68] = 0x21;
-  port_tile_map[18] = 0x22;
-  port_tile_map[19] = 0x23;
-  // Skipping 20 and 21 for I2C
-  port_tile_map[22] = 0x24;
-  port_tile_map[23] = 0x25;
-  port_tile_map[24] = 0x26;
-  port_tile_map[25] = 0x27;
-
-  port_tile_map[26] = 0x30;
-  port_tile_map[27] = 0x31;
-  port_tile_map[28] = 0x32;
-  port_tile_map[29] = 0x33;
-  port_tile_map[30] = 0x34;
-  port_tile_map[31] = 0x35;
-  port_tile_map[32] = 0x36;
-  port_tile_map[33] = 0x37;
-
-  port_tile_map[34] = 0x40;
-  port_tile_map[35] = 0x41;
-  port_tile_map[36] = 0x42;
-  port_tile_map[37] = 0x43;
-  port_tile_map[38] = 0x44;
-  port_tile_map[39] = 0x45;
-  port_tile_map[40] = 0x46;
-  port_tile_map[41] = 0x47;
-
-  port_tile_map[42] = 0x50;
-  port_tile_map[43] = 0x51;
-  port_tile_map[44] = 0x52;
-  port_tile_map[45] = 0x53;
-  port_tile_map[46] = 0x54;
-  port_tile_map[47] = 0x55;
-  port_tile_map[48] = 0x56;
-  port_tile_map[49] = 0x57;
-
-  port_tile_map[50] = 0x60;
-  port_tile_map[51] = 0x61;
-  port_tile_map[52] = 0x62;
-  port_tile_map[53] = 0x63;
-  port_tile_map[54] = 0x64;
-  port_tile_map[55] = 0x65;
-  port_tile_map[56] = 0x66;
-  port_tile_map[57] = 0x67;
-
-  port_tile_map[58] = 0x70;
-  port_tile_map[59] = 0x71;
-  port_tile_map[60] = 0x72;
-  port_tile_map[61] = 0x73;
-  port_tile_map[62] = 0x74;
-  port_tile_map[63] = 0x75;
-  port_tile_map[64] = 0x76;
-  port_tile_map[65] = 0x77;
-  
-  _x0sb0 = 0; //A0
-  _x0sb1 = 1; //A1 
-  _x1sb0 = 2; //A2
-  _x1sb1 = 3; //A3
-  _x2sb0 = 4; //A4
-  _x2sb1 = 5; //A5
-  _x3sb0 = 6; //A6 
-  _x3sb1 = 7; //A7
-  _x4sb0 = 8; //B0
-  _x4sb1 = 9; //B1
-  _x5sb0 = 10; //B2
-  _x5sb1 = 11; //B3
-  _x6sb0 = 12; //B4 
-  _x6sb1 = 13; //B5
-  _x7sb0 = 14; //B6 
-  _x7sb1 = 15; //B7
-  
-  _00eb  = 0;
-  _01eb  = 1;
-  _02eb  = 2;
-  _03eb  = 3;
-  _04eb  = 4;
-  _05eb  = 5;
-  _06eb  = 6;
-  _07eb  = 7;
-  _10eb  = 8;
-  _11eb  = 9;
-  _12eb  = 10;
-  _13eb  = 11;
-  _14eb  = 12;
-  _15eb  = 13;
-  _16eb  = 14;
-  _17eb  = 15;
-
-  _20eb  = 0;
-  _21eb  = 1;
-  _22eb  = 2;
-  _23eb  = 3;
-  _24eb  = 4;
-  _25eb  = 5;
-  _26eb  = 6;
-  _27eb  = 7;
-  _30eb  = 8;
-  _31eb  = 9;
-  _32eb  = 10;
-  _33eb  = 11;
-  _34eb  = 12;
-  _35eb  = 13;
-  _36eb  = 14;
-  _37eb  = 15;
-
-  _40eb  = 0;
-  _41eb  = 1;
-  _42eb  = 2;
-  _43eb  = 3;
-  _44eb  = 4;
-  _45eb  = 5;
-  _46eb  = 6;
-  _47eb  = 7;
-  _50eb  = 8;
-  _51eb  = 9;
-  _52eb  = 10;
-  _53eb  = 11;
-  _54eb  = 12;
-  _55eb  = 13;
-  _56eb  = 14;
-  _57eb  = 15;
-
-  _60eb  = 0;
-  _61eb  = 1;
-  _62eb  = 2;
-  _63eb  = 3;
-  _64eb  = 4;
-  _65eb  = 5;
-  _66eb  = 6;
-  _67eb  = 7;
-  _70eb  = 8;
-  _71eb  = 9;
-  _72eb  = 10;
-  _73eb  = 11;
-  _74eb  = 12;
-  _75eb  = 13;
-  _76eb  = 14;
-  _77eb  = 15;
 
 }
 
 HardwareAPI::HardwareAPI(const std::vector<char>& validTiles)
+  //: serialPort(nullptr)
 {
-
   validHexTiles = validTiles;
-
+  
   interruptTile = 0xFF;
   interruptDetected = false;
   
   LED_ON_COUNT = 0;
   LED_MAX_ON = 32;
   
-  // Assign ISRs to the ISR_map array for each port
+   // Assign ISRs to the ISR_map array for each port
   ISR_map[0] = HardwareAPI::ISR_0;
   ISR_map[1] = HardwareAPI::ISR_1;
   ISR_map[2] = HardwareAPI::ISR_2;
@@ -288,7 +60,7 @@ HardwareAPI::HardwareAPI(const std::vector<char>& validTiles)
   ISR_map[6] = HardwareAPI::ISR_6;
   ISR_map[7] = HardwareAPI::ISR_7;
   ISR_map[8] = HardwareAPI::ISR_8;
-  ISR_map[67] = HardwareAPI::ISR_67; //Port 9 broken for interrupts
+  ISR_map[9] = HardwareAPI::ISR_9;
   ISR_map[10] = HardwareAPI::ISR_10;
   ISR_map[11] = HardwareAPI::ISR_11;
   ISR_map[12] = HardwareAPI::ISR_12;
@@ -296,10 +68,11 @@ HardwareAPI::HardwareAPI(const std::vector<char>& validTiles)
   ISR_map[14] = HardwareAPI::ISR_14;
   ISR_map[15] = HardwareAPI::ISR_15;
   ISR_map[16] = HardwareAPI::ISR_16;
-  ISR_map[68] = HardwareAPI::ISR_68; // Port 17 broken for interrupts
+  ISR_map[17] = HardwareAPI::ISR_17;
   ISR_map[18] = HardwareAPI::ISR_18;
   ISR_map[19] = HardwareAPI::ISR_19;
-  //Skip 20 and 21
+  ISR_map[20] = HardwareAPI::ISR_20;
+  ISR_map[21] = HardwareAPI::ISR_21;
   ISR_map[22] = HardwareAPI::ISR_22;
   ISR_map[23] = HardwareAPI::ISR_23;
   ISR_map[24] = HardwareAPI::ISR_24;
@@ -343,7 +116,41 @@ HardwareAPI::HardwareAPI(const std::vector<char>& validTiles)
   ISR_map[62] = HardwareAPI::ISR_62;
   ISR_map[63] = HardwareAPI::ISR_63;
   ISR_map[64] = HardwareAPI::ISR_64;
-  ISR_map[65] = HardwareAPI::ISR_65; //Port 66 broken for interrupts
+  ISR_map[65] = HardwareAPI::ISR_65;
+  ISR_map[66] = HardwareAPI::ISR_66;
+  ISR_map[67] = HardwareAPI::ISR_67;
+  ISR_map[68] = HardwareAPI::ISR_68;
+  ISR_map[69] = HardwareAPI::ISR_69;
+  ISR_map[70] = HardwareAPI::ISR_70;
+  ISR_map[71] = HardwareAPI::ISR_71;
+  ISR_map[72] = HardwareAPI::ISR_72;
+  ISR_map[73] = HardwareAPI::ISR_73;
+  ISR_map[74] = HardwareAPI::ISR_74;
+  ISR_map[75] = HardwareAPI::ISR_75;
+  ISR_map[76] = HardwareAPI::ISR_76;
+  ISR_map[77] = HardwareAPI::ISR_77;
+  ISR_map[78] = HardwareAPI::ISR_78;
+  ISR_map[79] = HardwareAPI::ISR_79;
+  ISR_map[80] = HardwareAPI::ISR_80;
+  ISR_map[81] = HardwareAPI::ISR_81;
+  ISR_map[82] = HardwareAPI::ISR_82;
+  ISR_map[83] = HardwareAPI::ISR_83;
+  ISR_map[84] = HardwareAPI::ISR_84;
+  ISR_map[85] = HardwareAPI::ISR_85;
+  ISR_map[86] = HardwareAPI::ISR_86;
+  ISR_map[87] = HardwareAPI::ISR_87;
+  ISR_map[88] = HardwareAPI::ISR_88;
+  ISR_map[89] = HardwareAPI::ISR_89;
+  ISR_map[90] = HardwareAPI::ISR_90;
+  ISR_map[91] = HardwareAPI::ISR_91;
+  ISR_map[92] = HardwareAPI::ISR_92;
+  ISR_map[93] = HardwareAPI::ISR_93;
+  ISR_map[94] = HardwareAPI::ISR_94;
+  ISR_map[95] = HardwareAPI::ISR_95;
+  ISR_map[96] = HardwareAPI::ISR_96;
+  ISR_map[97] = HardwareAPI::ISR_97;
+  ISR_map[98] = HardwareAPI::ISR_98;
+  ISR_map[99] = HardwareAPI::ISR_99;
   
   port_tile_map[0]  = 0x00;
   port_tile_map[1]  = 0x01;
@@ -351,7 +158,7 @@ HardwareAPI::HardwareAPI(const std::vector<char>& validTiles)
   port_tile_map[3]  = 0x03;
   port_tile_map[4]  = 0x04;
   port_tile_map[5]  = 0x05;
-  port_tile_map[6]  = 0x06;
+  port_tile_map[27]  = 0x06;
   port_tile_map[7]  = 0x07;
 
   port_tile_map[8]  = 0x10;
@@ -366,34 +173,33 @@ HardwareAPI::HardwareAPI(const std::vector<char>& validTiles)
   port_tile_map[16] = 0x20;
   port_tile_map[68] = 0x21;
   port_tile_map[18] = 0x22;
-  port_tile_map[19] = 0x23;
-  // Skipping 20 and 21 for I2C
-  port_tile_map[22] = 0x24;
+  port_tile_map[83] = 0x23;
+  port_tile_map[9] = 0x24;
   port_tile_map[23] = 0x25;
   port_tile_map[24] = 0x26;
   port_tile_map[25] = 0x27;
 
   port_tile_map[26] = 0x30;
-  port_tile_map[27] = 0x31;
+  port_tile_map[71] = 0x31;
   port_tile_map[28] = 0x32;
   port_tile_map[29] = 0x33;
   port_tile_map[30] = 0x34;
-  port_tile_map[31] = 0x35;
+  port_tile_map[95] = 0x35;
   port_tile_map[32] = 0x36;
-  port_tile_map[33] = 0x37;
+  port_tile_map[70] = 0x37;
 
-  port_tile_map[34] = 0x40;
-  port_tile_map[35] = 0x41;
+  port_tile_map[69] = 0x40;
+  port_tile_map[90] = 0x41;
   port_tile_map[36] = 0x42;
   port_tile_map[37] = 0x43;
   port_tile_map[38] = 0x44;
   port_tile_map[39] = 0x45;
-  port_tile_map[40] = 0x46;
+  port_tile_map[35] = 0x46;
   port_tile_map[41] = 0x47;
 
   port_tile_map[42] = 0x50;
   port_tile_map[43] = 0x51;
-  port_tile_map[44] = 0x52;
+  port_tile_map[73] = 0x52;
   port_tile_map[45] = 0x53;
   port_tile_map[46] = 0x54;
   port_tile_map[47] = 0x55;
@@ -403,21 +209,21 @@ HardwareAPI::HardwareAPI(const std::vector<char>& validTiles)
   port_tile_map[50] = 0x60;
   port_tile_map[51] = 0x61;
   port_tile_map[52] = 0x62;
-  port_tile_map[53] = 0x63;
+  port_tile_map[82] = 0x63;
   port_tile_map[54] = 0x64;
   port_tile_map[55] = 0x65;
   port_tile_map[56] = 0x66;
-  port_tile_map[57] = 0x67;
+  port_tile_map[66] = 0x67;
 
   port_tile_map[58] = 0x70;
   port_tile_map[59] = 0x71;
   port_tile_map[60] = 0x72;
   port_tile_map[61] = 0x73;
   port_tile_map[62] = 0x74;
-  port_tile_map[63] = 0x75;
+  port_tile_map[22] = 0x75;
   port_tile_map[64] = 0x76;
   port_tile_map[65] = 0x77;
-  
+    
   _x0sb0 = 0; //A0
   _x0sb1 = 1; //A1 
   _x1sb0 = 2; //A2
@@ -503,6 +309,16 @@ HardwareAPI::HardwareAPI(const std::vector<char>& validTiles)
   _76eb  = 14;
   _77eb  = 15;
 }
+
+/*
+HardwareAPI::HardwareAPI(const std::vector<char>& validTiles, arduino::HardwareSerial* serial)
+      : validHexTiles(validTiles), serialPort(serial) 
+  {
+      setVars();
+      serialPort->begin(9600);
+      while(!serialPort);
+  }
+*/
 
 void HardwareAPI::initializeI2C() 
 {
@@ -773,6 +589,8 @@ void HardwareAPI::setupISRs()
           continue;
         } else {
         attachInterrupt(digitalPinToInterrupt(port), ISR_map[port], RISING);}
+        //serialPort->print("Interrupt attached to port ");
+        //serialPort->println(port);
     }
 }
 
@@ -1837,6 +1655,16 @@ bool HardwareAPI::isTileOn(char hexTile)
 
 int HardwareAPI::getTilePort(char hexTile) 
 {
+    for (const auto& pair : port_tile_map)
+    {
+      if (pair.second == hexTile)
+        {
+          return pair.first;
+        }
+      return 0xFF;
+    }
+    
+    /*
     for (int i = 0 ; i <= 68 ; i++) {
         if (i == 9) i++ ; //Port 9 broken
         if (i == 17) i++ ; //Port 17 broken
@@ -1847,6 +1675,12 @@ int HardwareAPI::getTilePort(char hexTile)
         }
     }
     return -1;
+    */
+}
+
+char HardwareAPI::getHexTile(int port) 
+{
+    return port_tile_map[port];
 }
 
 void HardwareAPI::runSpiralPattern(char color) 
@@ -1862,16 +1696,26 @@ void HardwareAPI::runSpiralPattern(char color)
     0x51, 0x41, 0x31, 0x21,
     0x22, 0x23, 0x24, 0x25,
     0x35, 0x45, 0x55, 0x54, 0x53, 0x52,
-    0x42, 0x32
+    0x42, 0x32, 0x33, 0x34, 0x44, 0x43
   };
 
+  int i = 0;
   for (char tile : tiles) {
     turnOnLED(tile, color);
-    delay(100);
+    i++;
+    if (i >= LED_MAX_ON-1)
+    {
+      turnOffLED(tiles[i-LED_MAX_ON]);
+    }
+    if (i < 63)
+    {
+      delay(100);
+    }
   }
 
-  for (char tile : tiles) {
-    turnOffLED(tile);
+  for (i = 31 ; i < 64 ; i++) {
+    turnOffLED(tiles[i]);
+    delay(100);
   }
 }
 
@@ -1901,13 +1745,14 @@ void HardwareAPI::runRowSweepPattern(char color)
     for (char color : colors) {
       
       // Turn on the LEDs in the current row with the current color
-      changeMultipleTileColors(currentRow, color)
+      changeMultipleTileColors(currentRow, color);
       
       // Wait for 1 seconds
       delay(500);
     }
     // Turn off all LEDs for the current row before moving to the next row
     turnOffMultipleTiles(currentRow);
+  }
 }
 
 void HardwareAPI::runDiagonalPattern(char color) 
@@ -1926,10 +1771,10 @@ void HardwareAPI::runDiagonalPattern(char color)
   std::vector<char> d12tiles = {0x74, 0x65, 0x56, 0x47};
   std::vector<char> d13tiles = {0x75, 0x66, 0x57};
   std::vector<char> d14tiles = {0x76, 0x67};
-  std::vector<char> d15tiles = {0x76};
-  std::vector<std::vector<char>> lowerDiagonals = {d1tiles, d2tiles, d3tiles, d4tiles, d5tiles, d6tiles, d7tiles, d8tiles, d9tiles, d10tiles, d11tiles, d12tiles, d13tiles, d14tiles};
+  std::vector<char> d15tiles = {0x77};
+  std::vector<std::vector<char>> diagonals = {d1tiles, d2tiles, d3tiles, d4tiles, d5tiles, d6tiles, d7tiles, d8tiles, d9tiles, d10tiles, d11tiles, d12tiles, d13tiles, d14tiles, d15tiles};
   
-  for (int time = 1000 ; time > 0 ; time -= 100) 
+  for (int time = 300 ; time > 0 ; time -= 100) 
   {
     for (auto& currentDiagonal : diagonals) {
       //Turn each tile green
@@ -1937,7 +1782,7 @@ void HardwareAPI::runDiagonalPattern(char color)
       //Wait a sec
       delay(time);
       
-      turnOffMultipleTiles(currentRow); 
+      turnOffMultipleTiles(currentDiagonal); 
     }
     // Turn off all LEDs for the current row before moving to the next row 
   }
@@ -1983,75 +1828,105 @@ void HardwareAPI::setInstance(HardwareAPI* instance) {
 ISRs
 -------------------------------------------------
 */
-void HardwareAPI::ISR_0() { if (_instance) { _instance->setInterruptTile(0x00); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_1() { if (_instance) { _instance->setInterruptTile(0x01); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_2() { if (_instance) { _instance->setInterruptTile(0x02); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_3() { if (_instance) { _instance->setInterruptTile(0x03); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_4() { if (_instance) { _instance->setInterruptTile(0x04); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_5() { if (_instance) { _instance->setInterruptTile(0x05); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_6() { if (_instance) { _instance->setInterruptTile(0x06); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_7() { if (_instance) { _instance->setInterruptTile(0x07); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_0()  { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(0));  _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_1()  { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(1));  _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_2()  { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(2));  _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_3()  { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(3));  _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_4()  { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(4));  _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_5()  { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(5));  _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_6()  { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(6));  _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_7()  { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(7));  _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_8()  { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(8));  _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_9()  { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(9));  _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_10() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(10)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_11() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(11)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_12() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(12)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_13() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(13)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_14() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(14)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_15() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(15)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_16() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(16)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_17() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(17)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_18() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(18)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_19() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(19)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_20() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(20)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_21() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(21)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_22() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(22)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_23() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(23)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_24() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(24)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_25() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(25)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_26() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(26)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_27() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(27)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_28() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(28)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_29() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(29)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_30() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(30)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_31() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(31)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_32() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(32)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_33() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(33)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_34() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(34)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_35() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(35)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_36() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(36)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_37() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(37)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_38() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(38)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_39() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(39)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_40() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(40)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_41() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(41)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_42() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(42)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_43() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(43)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_44() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(44)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_45() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(45)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_46() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(46)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_47() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(47)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_48() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(48)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_49() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(49)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_50() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(50)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_51() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(51)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_52() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(52)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_53() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(53)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_54() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(54)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_55() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(55)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_56() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(56)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_57() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(57)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_58() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(58)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_59() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(59)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_60() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(60)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_61() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(61)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_62() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(62)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_63() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(63)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_64() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(64)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_65() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(65)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_66() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(66)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_67() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(67)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_68() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(68)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_69() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(69)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_70() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(70)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_71() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(71)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_72() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(72)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_73() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(73)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_74() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(74)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_75() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(75)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_76() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(76)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_77() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(77)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_78() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(78)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_79() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(79)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_80() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(80)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_81() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(81)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_82() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(82)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_83() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(83)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_84() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(84)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_85() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(85)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_86() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(86)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_87() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(87)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_88() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(88)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_89() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(89)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_90() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(90)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_91() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(91)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_92() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(92)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_93() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(93)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_94() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(94)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_95() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(95)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_96() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(96)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_97() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(97)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_98() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(98)); _instance->setInterruptDetected(true); }}
+void HardwareAPI::ISR_99() { if (_instance) { _instance->setInterruptTile(_instance->getHexTile(99)); _instance->setInterruptDetected(true); }}
 
-void HardwareAPI::ISR_8() { if (_instance) { _instance->setInterruptTile(0x10); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_67() { if (_instance) { _instance->setInterruptTile(0x11); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_10() { if (_instance) { _instance->setInterruptTile(0x12); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_11() { if (_instance) { _instance->setInterruptTile(0x13); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_12() { if (_instance) { _instance->setInterruptTile(0x14); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_13() { if (_instance) { _instance->setInterruptTile(0x15); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_14() { if (_instance) { _instance->setInterruptTile(0x16); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_15() { if (_instance) { _instance->setInterruptTile(0x17); _instance->setInterruptDetected(true); }}
 
-void HardwareAPI::ISR_16() { if (_instance) { _instance->setInterruptTile(0x20); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_68() { if (_instance) { _instance->setInterruptTile(0x21); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_18() { if (_instance) { _instance->setInterruptTile(0x22); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_19() { if (_instance) { _instance->setInterruptTile(0x23); _instance->setInterruptDetected(true); }}
-// Skipping ISR_20 and ISR_21 for I2C
-void HardwareAPI::ISR_22() { if (_instance) { _instance->setInterruptTile(0x24); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_23() { if (_instance) { _instance->setInterruptTile(0x25); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_24() { if (_instance) { _instance->setInterruptTile(0x26); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_25() { if (_instance) { _instance->setInterruptTile(0x27); _instance->setInterruptDetected(true); }}
-
-void HardwareAPI::ISR_26() { if (_instance) { _instance->setInterruptTile(0x30); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_27() { if (_instance) { _instance->setInterruptTile(0x31); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_28() { if (_instance) { _instance->setInterruptTile(0x32); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_29() { if (_instance) { _instance->setInterruptTile(0x33); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_30() { if (_instance) { _instance->setInterruptTile(0x34); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_31() { if (_instance) { _instance->setInterruptTile(0x35); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_32() { if (_instance) { _instance->setInterruptTile(0x36); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_33() { if (_instance) { _instance->setInterruptTile(0x37); _instance->setInterruptDetected(true); }}
-
-void HardwareAPI::ISR_34() { if (_instance) { _instance->setInterruptTile(0x40); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_35() { if (_instance) { _instance->setInterruptTile(0x41); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_36() { if (_instance) { _instance->setInterruptTile(0x42); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_37() { if (_instance) { _instance->setInterruptTile(0x43); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_38() { if (_instance) { _instance->setInterruptTile(0x44); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_39() { if (_instance) { _instance->setInterruptTile(0x45); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_40() { if (_instance) { _instance->setInterruptTile(0x46); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_41() { if (_instance) { _instance->setInterruptTile(0x47); _instance->setInterruptDetected(true); }}
-
-void HardwareAPI::ISR_42() { if (_instance) { _instance->setInterruptTile(0x50); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_43() { if (_instance) { _instance->setInterruptTile(0x51); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_44() { if (_instance) { _instance->setInterruptTile(0x52); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_45() { if (_instance) { _instance->setInterruptTile(0x53); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_46() { if (_instance) { _instance->setInterruptTile(0x54); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_47() { if (_instance) { _instance->setInterruptTile(0x55); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_48() { if (_instance) { _instance->setInterruptTile(0x56); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_49() { if (_instance) { _instance->setInterruptTile(0x57); _instance->setInterruptDetected(true); }}
-
-void HardwareAPI::ISR_50() { if (_instance) { _instance->setInterruptTile(0x60); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_51() { if (_instance) { _instance->setInterruptTile(0x61); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_52() { if (_instance) { _instance->setInterruptTile(0x62); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_53() { if (_instance) { _instance->setInterruptTile(0x63); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_54() { if (_instance) { _instance->setInterruptTile(0x64); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_55() { if (_instance) { _instance->setInterruptTile(0x65); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_56() { if (_instance) { _instance->setInterruptTile(0x66); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_57() { if (_instance) { _instance->setInterruptTile(0x67); _instance->setInterruptDetected(true); }}
-
-void HardwareAPI::ISR_58() { if (_instance) { _instance->setInterruptTile(0x70); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_59() { if (_instance) { _instance->setInterruptTile(0x71); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_60() { if (_instance) { _instance->setInterruptTile(0x72); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_61() { if (_instance) { _instance->setInterruptTile(0x73); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_62() { if (_instance) { _instance->setInterruptTile(0x74); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_63() { if (_instance) { _instance->setInterruptTile(0x75); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_64() { if (_instance) { _instance->setInterruptTile(0x76); _instance->setInterruptDetected(true); }}
-void HardwareAPI::ISR_65() { if (_instance) { _instance->setInterruptTile(0x77); _instance->setInterruptDetected(true); }}
