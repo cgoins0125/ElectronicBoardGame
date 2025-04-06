@@ -68,7 +68,6 @@ class HardwareAPI {
     void runSpiralPattern(char color);
     void runRowSweepPattern(char color);
     void runDiagonalPattern(char color);
-    void runRandomBlinkPattern(char color);
     
     // Getters and setters
     void setInterruptTile(char tile);
@@ -80,6 +79,7 @@ class HardwareAPI {
     
     //For ISRs
     static void setInstance(HardwareAPI* instance);
+// ISR declarations from 0 to 100
     static void ISR_0();
     static void ISR_1();
     static void ISR_2();
@@ -90,7 +90,7 @@ class HardwareAPI {
     static void ISR_7();
 
     static void ISR_8();
-    static void ISR_67();
+    static void ISR_9();
     static void ISR_10();
     static void ISR_11();
     static void ISR_12();
@@ -99,10 +99,11 @@ class HardwareAPI {
     static void ISR_15();
 
     static void ISR_16();
-    static void ISR_68();
+    static void ISR_17();
     static void ISR_18();
     static void ISR_19();
-    // Skipping ISR_20 and ISR_21 for I2C
+    static void ISR_20(); // Used for I2C
+    static void ISR_21(); // Used for I2C
     static void ISR_22();
     static void ISR_23();
     static void ISR_24();
@@ -153,14 +154,54 @@ class HardwareAPI {
     static void ISR_64();
     static void ISR_65();
 
+    static void ISR_66();
+    static void ISR_67();
+    static void ISR_68();
+    static void ISR_69();
+    static void ISR_70();
+    static void ISR_71();
+    static void ISR_72();
+    static void ISR_73();
+
+    static void ISR_74();
+    static void ISR_75();
+    static void ISR_76();
+    static void ISR_77();
+    static void ISR_78();
+    static void ISR_79();
+    static void ISR_80();
+    static void ISR_81();
+
+    static void ISR_82();
+    static void ISR_83();
+    static void ISR_84();
+    static void ISR_85();
+    static void ISR_86();
+    static void ISR_87();
+    static void ISR_88();
+    static void ISR_89();
+
+    static void ISR_90();
+    static void ISR_91();
+    static void ISR_92();
+    static void ISR_93();
+    static void ISR_94();
+    static void ISR_95();
+    static void ISR_96();
+    static void ISR_97();
+
+    static void ISR_98();
+    static void ISR_99();
     
   private:
     //private methods
+    void setVars();
     void initializeI2C();
     void initializeMCP();
     void initializeLCD();
     void setMCPPortDir();
     void setupISRs();
+    char getHexTile(int port);
 
     //declare mcp objects
     //A2, A1, A0 = 000 → Address 0x20 (default)
