@@ -30,7 +30,6 @@ DEVELOPER USAGE NOTES:
 
 void (*ISR_map[100])(void); // Array to hold ISR function pointers
 HardwareAPI* HardwareAPI::_instance = nullptr;
-//arduino::HardwareSerial *serialPort = nullptr;
 
 void HardwareAPI::setVars()
 {
@@ -40,7 +39,7 @@ void HardwareAPI::setVars()
   LED_ON_COUNT = 0;
   LED_MAX_ON = 32;
   
-  // Assign ISRs to the ISR_map array for each port
+   // Assign ISRs to the ISR_map array for each port
   ISR_map[0] = HardwareAPI::ISR_0;
   ISR_map[1] = HardwareAPI::ISR_1;
   ISR_map[2] = HardwareAPI::ISR_2;
@@ -302,28 +301,16 @@ void HardwareAPI::setVars()
 }
 
 HardwareAPI::HardwareAPI() 
-//    : serialPort(nullptr)
 {
   setVars();
 
 }
 
 HardwareAPI::HardwareAPI(const std::vector<char>& validTiles)
-  //: serialPort(nullptr)
 {
   validHexTiles = validTiles;
   setVars();
 }
-
-/*
-HardwareAPI::HardwareAPI(const std::vector<char>& validTiles, arduino::HardwareSerial* serial)
-      : validHexTiles(validTiles), serialPort(serial) 
-  {
-      setVars();
-      serialPort->begin(9600);
-      while(!serialPort);
-  }
-*/
 
 void HardwareAPI::initializeI2C() 
 {
@@ -594,8 +581,6 @@ void HardwareAPI::setupISRs()
           continue;
         } else {
         attachInterrupt(digitalPinToInterrupt(port), ISR_map[port], RISING);}
-        //serialPort->print("Interrupt attached to port ");
-        //serialPort->println(port);
     }
 }
 
@@ -1666,7 +1651,6 @@ int HardwareAPI::getTilePort(char hexTile)
         {
           return pair.first;
         }
-      return 0xFF;
     }
     
     /*

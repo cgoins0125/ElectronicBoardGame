@@ -29,7 +29,6 @@ Released into the public domain
 class HardwareAPI {
   public:
     HardwareAPI(const std::vector<char>& validTiles);
-    //HardwareAPI(const std::vector<char>& validTiles, HardwareSerial* serial); //for debugging
     HardwareAPI(); //overloaded constructor that does not enable any interrupts
     void begin();
     void turnOnLED(char hexTile, char color);
@@ -80,6 +79,7 @@ class HardwareAPI {
     
     //For ISRs
     static void setInstance(HardwareAPI* instance);
+// ISR declarations from 0 to 100
     static void ISR_0();
     static void ISR_1();
     static void ISR_2();
@@ -233,7 +233,7 @@ class HardwareAPI {
   	
   	int LED_MAX_ON, LED_ON_COUNT;
   
-	  // For each tile, the two sb are select bits on the demux and eb is the enable bit
+	// For each tile, the two sb are select bits on the demux and eb is the enable bit
 	  int _x0sb0, _x0sb1, _x1sb0, _x1sb1, _x2sb0, _x2sb1, _x3sb0, _x3sb1;
     int _x4sb0, _x4sb1, _x5sb0, _x5sb1, _x6sb0, _x6sb1, _x7sb0, _x7sb1;
     
@@ -254,7 +254,6 @@ class HardwareAPI {
     std::vector<char> validHexTiles;
     
     static HardwareAPI* _instance;
-    //arduino::HardwareSerial *serialPort = nullptr;
 
 };
 
