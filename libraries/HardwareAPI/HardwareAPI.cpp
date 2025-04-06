@@ -40,7 +40,7 @@ void HardwareAPI::setVars()
   LED_ON_COUNT = 0;
   LED_MAX_ON = 32;
   
-   // Assign ISRs to the ISR_map array for each port
+  // Assign ISRs to the ISR_map array for each port
   ISR_map[0] = HardwareAPI::ISR_0;
   ISR_map[1] = HardwareAPI::ISR_1;
   ISR_map[2] = HardwareAPI::ISR_2;
