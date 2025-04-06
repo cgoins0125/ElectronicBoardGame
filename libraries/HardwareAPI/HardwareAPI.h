@@ -66,9 +66,8 @@ class HardwareAPI {
     
     //Pretty Lights
     void runSpiralPattern(char color);
-    void runRowSweepPattern(char color);
+    void runRowSweepPattern();
     void runDiagonalPattern(char color);
-    void runRandomBlinkPattern(char color);
     
     // Getters and setters
     void setInterruptTile(char tile);
