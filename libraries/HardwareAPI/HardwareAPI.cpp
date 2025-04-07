@@ -1915,12 +1915,14 @@ void HardwareAPI::runDiagonalPattern()
 void HardwareAPI::displayHeart(char color) {
     clearBoard();
     std::vector<char> tiles = {
-        0x11, 0x12, 0x15, 0x16,
-        0x20, 0x13, 0x14, 0x17,
-        0x21, 0x22, 0x25, 0x26,
-        0x32, 0x33, 0x34, 0x35,
-        0x43, 0x44,
-        0x54
+        0x13, 0x14,
+        0x22, 0x25,
+        0x31, 0x36,
+        0x40, 0x47,
+        0x50, 0x57,
+        0x61, 0x66,
+        0x62, 0x65,
+        0x53, 0x54
     };
     turnOnMultipleTiles(tiles, color);
 }
@@ -1929,116 +1931,102 @@ void HardwareAPI::displaySmiley(char color)
 {
     clearBoard();
     std::vector<char> tiles = {
-        0x12, 0x15,       // eyes
-        0x33, 0x34, 0x35  // smile
+        0x12, 0x13, 0x14, 0x15,
+        0x21, 0x26,
+        0x31, 0x36,
+        0x52, 0x55,
+        0x62, 0x65
     };
     turnOnMultipleTiles(tiles, color);
-}
-
-void HardwareAPI::displayXPattern(char color) 
-{
-    clearBoard();
-    std::vector<char> tiles;
-    for (int i = 0; i < 8; ++i) {
-        tiles.push_back(getHexTile(i, i));
-        tiles.push_back(getHexTile(i, 7 - i));
-    }
-    turnOnMultipleTiles(tiles, color);
-}
-
-void HardwareAPI::displayLetter(char letter, char color) {
-    std::map<char, std::vector<std::string>> font = {
-        { 'A', {"00111100", "01000010", "10000001", "10000001", "11111111", "10000001", "10000001", "10000001"} },
-        { 'B', {"11111110", "10000001", "10000001", "11111110", "10000001", "10000001", "10000001", "11111110"} },
-        { 'C', {"00111110", "01000001", "10000000", "10000000", "10000000", "10000000", "01000001", "00111110"} },
-        { 'D', {"11111100", "10000010", "10000001", "10000001", "10000001", "10000001", "10000010", "11111100"} },
-        { 'E', {"11111111", "10000000", "10000000", "11111110", "10000000", "10000000", "10000000", "11111111"} },
-        { 'F', {"11111111", "10000000", "10000000", "11111110", "10000000", "10000000", "10000000", "10000000"} },
-        { 'G', {"00111110", "01000001", "10000000", "10000000", "10001111", "10000001", "01000001", "00111110"} },
-        { 'H', {"10000001", "10000001", "10000001", "11111111", "10000001", "10000001", "10000001", "10000001"} },
-        { 'I', {"00111100", "00011000", "00011000", "00011000", "00011000", "00011000", "00011000", "00111100"} },
-        { 'J', {"00011111", "00000100", "00000100", "00000100", "00000100", "10000100", "01001000", "00110000"} },
-        { 'K', {"10000010", "10000100", "10001000", "11110000", "10001000", "10000100", "10000010", "10000001"} },
-        { 'L', {"10000000", "10000000", "10000000", "10000000", "10000000", "10000000", "10000000", "11111111"} },
-        { 'M', {"10000001", "11000011", "10100101", "10011001", "10000001", "10000001", "10000001", "10000001"} },
-        { 'N', {"10000001", "11000001", "10100001", "10010001", "10001001", "10000101", "10000011", "10000001"} },
-        { 'O', {"00111100", "01000010", "10000001", "10000001", "10000001", "10000001", "01000010", "00111100"} },
-        { 'P', {"11111110", "10000001", "10000001", "11111110", "10000000", "10000000", "10000000", "10000000"} },
-        { 'Q', {"00111100", "01000010", "10000001", "10000001", "10000001", "10010001", "01000010", "00111101"} },
-        { 'R', {"11111110", "10000001", "10000001", "11111110", "10001000", "10000100", "10000010", "10000001"} },
-        { 'S', {"00111110", "01000001", "10000000", "01000000", "00111100", "00000010", "10000001", "01111110"} },
-        { 'T', {"11111111", "00011000", "00011000", "00011000", "00011000", "00011000", "00011000", "00011000"} },
-        { 'U', {"10000001", "10000001", "10000001", "10000001", "10000001", "10000001", "01000010", "00111100"} },
-        { 'V', {"10000001", "10000001", "10000001", "10000001", "10000001", "01000010", "00100100", "00011000"} },
-        { 'W', {"10000001", "10000001", "10000001", "10000001", "10011001", "10100101", "11000011", "10000001"} },
-        { 'X', {"10000001", "01000010", "00100100", "00011000", "00011000", "00100100", "01000010", "10000001"} },
-        { 'Y', {"10000001", "01000010", "00100100", "00011000", "00011000", "00011000", "00011000", "00011000"} },
-        { 'Z', {"11111111", "00000001", "00000010", "00000100", "00001000", "00010000", "00100000", "11111111"} }
-    };
-
-    clearBoard();
-
-    letter = toupper(letter);
-    if (font.find(letter) == font.end()) return;
-
-    const auto& pattern = font[letter];
-    for (int row = 0; row < 8; ++row) {
-        for (int col = 0; col < 8; ++col) {
-            if (pattern[row][col] == '1') {
-                char tile = getHexTile(row, col);
-                turnOnLED(tile, color);
-            }
-        }
-    }
 }
 
 void HardwareAPI::fireworksShow() {
-    std::vector<std::vector<std::pair<int, int>>> fireworks = {
-        { {3, 3}, {4, 4} },                          // center burst
-        { {2, 3}, {3, 2}, {4, 5}, {5, 4} },          // cross
-        { {1, 3}, {3, 1}, {4, 6}, {6, 4} },          // wider cross
-        { {0, 3}, {3, 0}, {4, 7}, {7, 4} },          // edge burst
-        { {2, 2}, {2, 5}, {5, 2}, {5, 5} },          // corners
-        { {1, 1}, {1, 6}, {6, 1}, {6, 6} },          // far corners
-    };
-
-    std::vector<char> colors = { 'R', 'G', 'B', 'Y', 'P', 'C' };
-
-    for (int i = 0; i < 5; ++i) {
-        clearBoard();
-
-        // Random center
-        int centerRow = rand() % 5 + 1;  // limit to 1–5 so outer effects don’t go offboard
-        int centerCol = rand() % 5 + 1;
-
-        char mainColor = colors[rand() % colors.size()];
-
-    for (const auto& pattern : fireworks) {
-      std::vector<char> tiles;
-      for (const auto& p : pattern) {
-        int dr = p.first;
-        int dc = p.second;
-        int r = centerRow + dr - 3;
-        int c = centerCol + dc - 3;
-        if (r >= 0 && r < 8 && c >= 0 && c < 8)
-            tiles.push_back(getHexTile(r, c));
-          }
-
-            turnOnMultipleTiles(tiles, mainColor);
-            delay(150);  // burst pause
-            clearBoard();
+    // Clear the board first
+    clearBoard();
+    
+    // Define the center points for fireworks explosions
+    std::vector<char> centers = {0x33, 0x44, 0x25, 0x52, 0x77, 0x00, 0x07, 0x70};
+    char colors[] = {'R', 'G', 'B', 'Y'};
+    
+    // Perform 5 fireworks bursts
+    for (int burst = 0; burst < 5; burst++) {
+        // Randomly select a center point
+        char center = centers[random(centers.size())];
+        char color = colors[random(4)]; // Select random color
+        
+        // Get center coordinates
+        int centerRow = getRow(center);
+        int centerCol = getCol(center);
+        
+        // Create expanding rings
+        for (int radius = 0; radius <= 3; radius++) {
+            std::vector<char> explosionTiles;
+            
+            // Generate all tiles at current radius from center
+            for (int r = -radius; r <= radius; r++) {
+                for (int c = -radius; c <= radius; c++) {
+                    // Only include tiles at the current radius (not inside)
+                    if (abs(r) == radius || abs(c) == radius) {
+                        int tileRow = centerRow + r;
+                        int tileCol = centerCol + c;
+                        
+                        // Check if tile is valid
+                        if (tileRow >= 0 && tileRow < 8 && tileCol >= 0 && tileCol < 8) {
+                            char tile = getHexTile(tileRow, tileCol);
+                            explosionTiles.push_back(tile);
+                        }
+                    }
+                }
+            }
+            
+            // Light up the current ring
+            turnOnMultipleTiles(explosionTiles, color);
+            delay(100);
+            
+            // Turn off the previous ring (if not first iteration)
+            if (radius > 0) {
+                std::vector<char> prevRingTiles;
+                for (int r = -(radius-1); r <= (radius-1); r++) {
+                    for (int c = -(radius-1); c <= (radius-1); c++) {
+                        if (abs(r) == (radius-1) || abs(c) == (radius-1)) {
+                            int tileRow = centerRow + r;
+                            int tileCol = centerCol + c;
+                            
+                            if (tileRow >= 0 && tileRow < 8 && tileCol >= 0 && tileCol < 8) {
+                                char tile = getHexTile(tileRow, tileCol);
+                                prevRingTiles.push_back(tile);
+                            }
+                        }
+                    }
+                }
+                turnOffMultipleTiles(prevRingTiles);
+            }
+            
+            delay(50);
         }
-
-        // Sparkles after-burst
-        for (int s = 0; s < 10; ++s) {
-            std::vector<char> sparks;
-            for (int j = 0; j < 6; ++j)
-                sparks.push_back(getHexTile(rand() % 8, rand() % 8));
-            turnOnMultipleTiles(sparks, colors[rand() % colors.size()]);
-            delay(75);
-            clearBoard();
+        
+        // Turn off the final ring
+        std::vector<char> finalTiles;
+        for (int r = -3; r <= 3; r++) {
+            for (int c = -3; c <= 3; c++) {
+                if (abs(r) == 3 || abs(c) == 3) {
+                    int tileRow = centerRow + r;
+                    int tileCol = centerCol + c;
+                    
+                    if (tileRow >= 0 && tileRow < 8 && tileCol >= 0 && tileCol < 8) {
+                        char tile = getHexTile(tileRow, tileCol);
+                        finalTiles.push_back(tile);
+                    }
+                }
+            }
         }
+        turnOffMultipleTiles(finalTiles);
+        
+        // Random delay between bursts
+        delay(random(300, 800));
     }
+    
+    // Ensure board is clear at the end
     clearBoard();
 }
 

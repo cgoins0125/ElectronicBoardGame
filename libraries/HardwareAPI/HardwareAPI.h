@@ -85,10 +85,7 @@ class HardwareAPI {
     void runRowSweepPattern();
     void displayHeart(char color);
     void displaySmiley(char color);
-    void displayCheckerboard(char color1, char color2);
-    void displayXPattern(char color);
     void fireworksShow();
-    void displayLetter(char letter, char color);
 
     // Getters and setters
     void setInterruptTile(char tile);
