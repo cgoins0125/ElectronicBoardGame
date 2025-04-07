@@ -303,7 +303,6 @@ void HardwareAPI::setVars()
 HardwareAPI::HardwareAPI() 
 {
   setVars();
-
 }
 
 HardwareAPI::HardwareAPI(const std::vector<char>& validTiles)
@@ -1548,6 +1547,65 @@ void HardwareAPI::clearLCDL2()
   lcd.print("                ");
 }
 
+void HardwareAPI::printLCD(const String& line1, const String& line2) {
+    clearLCD();
+    lcd.setCursor(0, 0);
+    lcd.print(line1.substring(0, 16));
+    lcd.setCursor(0, 1);
+    lcd.print(line2.substring(0, 16));
+}
+
+void HardwareAPI::printLCD(const String& line1) {
+    clearLCD();
+    lcd.setCursor(0, 0);
+    lcd.print(line1.substring(0, 16));
+}
+
+void HardwareAPI::printLCDL1(const String& line1) {
+    clearLCDL1();
+    lcd.setCursor(0, 0);
+    lcd.print(line1.substring(0, 16));
+}
+
+void HardwareAPI::printLCDL1(const String& line2) {
+    clearLCDL2();
+    lcd.setCursor(0, 1);
+    lcd.print(line2.substring(0, 16));
+}
+
+void HardwareAPI::printLCDMessageScrolling(const String& line1, const String& line2, unsigned int delayMs) {
+    int maxLen1 = max(line1.length(), 16);
+    int maxLen2 = max(line2.length(), 16);
+    int maxScroll = max(maxLen1, maxLen2);
+
+    for (int i = 0; i <= maxScroll - 16; ++i) {
+        lcd.clear();
+
+        // Line 1
+        if (line1.length() > 16) {
+            String scrollLine1 = line1.substring(i, min(i + 16, (int)line1.length()));
+            lcd.setCursor(0, 0);
+            lcd.print(scrollLine1);
+        } else {
+            lcd.setCursor(0, 0);
+            lcd.print(line1);
+        }
+
+        // Line 2
+        if (line2.length() > 16) {
+            String scrollLine2 = line2.substring(i, min(i + 16, (int)line2.length()));
+            lcd.setCursor(0, 1);
+            lcd.print(scrollLine2);
+        } else {
+            lcd.setCursor(0, 1);
+            lcd.print(line2);
+        }
+
+        delay(delayMs);
+    }
+}
+
+
 /* method: isTileOn
 function: Checks if the tile's LED is turned on
 return: bool: true if on, false if off
@@ -1672,8 +1730,20 @@ char HardwareAPI::getHexTile(int port)
     return port_tile_map[port];
 }
 
+void HardwareAPI::clearBoard() 
+{
+    std::vector<char> allTiles;
+    for (int row = 0; row < 8; ++row) {
+        for (int col = 0; col < 8; ++col) {
+            allTiles.push_back(hexTile(row, col));
+        }
+    }
+    turnOffMultipleTiles(allTiles);
+}
+
 void HardwareAPI::runSpiralPattern(char color) 
 {
+  clearBoard();
   const char tiles[] = {
     0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
     0x17, 0x27, 0x37, 0x47, 0x57, 0x67, 0x77,
@@ -1708,8 +1778,47 @@ void HardwareAPI::runSpiralPattern(char color)
   }
 }
 
-void HardwareAPI::runRowSweepPattern(char color) 
+void HardwareAPI::runSpiralPattern() 
 {
+  clearBoard();
+  const char tiles[] = {
+    0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
+    0x17, 0x27, 0x37, 0x47, 0x57, 0x67, 0x77,
+    0x76, 0x75, 0x74, 0x73, 0x72, 0x71, 0x70,
+    0x60, 0x50, 0x40, 0x30, 0x20, 0x10,
+    0x11, 0x12, 0x13, 0x14, 0x15, 0x16,
+    0x26, 0x36, 0x46, 0x56, 0x66,
+    0x65, 0x64, 0x63, 0x62, 0x61,
+    0x51, 0x41, 0x31, 0x21,
+    0x22, 0x23, 0x24, 0x25,
+    0x35, 0x45, 0x55, 0x54, 0x53, 0x52,
+    0x42, 0x32, 0x33, 0x34, 0x44, 0x43
+  };
+
+  int i = 0;
+  std::array<char, 4> colors = {'G','R','B','Y'};  //Green, Red, Blue, Yellow
+  for (char tile : tiles) {
+    turnOnLED(tile, colors[i%4]);
+    i++;
+    if (i >= LED_MAX_ON-1)
+    {
+      turnOffLED(tiles[i-LED_MAX_ON]);
+    }
+    if (i < 63)
+    {
+      delay(100);
+    }
+  }
+
+  for (i = 31 ; i < 64 ; i++) {
+    turnOffLED(tiles[i]);
+    delay(100);
+  }
+}
+
+void HardwareAPI::runRowSweepPattern() 
+{
+  clearBoard();
   std::vector<char> r1tiles = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};
   std::vector<char> r2tiles = {0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17};
   std::vector<char> r3tiles = {0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27};
@@ -1746,6 +1855,7 @@ void HardwareAPI::runRowSweepPattern(char color)
 
 void HardwareAPI::runDiagonalPattern(char color) 
 {
+  clearBoard();
   std::vector<char> d1tiles = {0x00};
   std::vector<char> d2tiles = {0x10, 0x01};
   std::vector<char> d3tiles = {0x20, 0x11, 0x02};
@@ -1771,13 +1881,178 @@ void HardwareAPI::runDiagonalPattern(char color)
       //Wait a sec
       delay(time);
       
+      // Turn off all LEDs for the current row before moving to the next row 
       turnOffMultipleTiles(currentDiagonal); 
-    }
-    // Turn off all LEDs for the current row before moving to the next row 
+    } 
   }
 }
 
-char HardwareAPI::hexTile(int row, int col) 
+void HardwareAPI::runDiagonalPattern() 
+{
+  clearBoard();
+  std::vector<char> d1tiles = {0x00};
+  std::vector<char> d2tiles = {0x10, 0x01};
+  std::vector<char> d3tiles = {0x20, 0x11, 0x02};
+  std::vector<char> d4tiles = {0x30, 0x21, 0x12, 0x03};
+  std::vector<char> d5tiles = {0x40, 0x31, 0x22, 0x13, 0x04};
+  std::vector<char> d6tiles = {0x50, 0x41, 0x32, 0x23, 0x14, 0x05};
+  std::vector<char> d7tiles = {0x60, 0x51, 0x42, 0x33, 0x24, 0x15, 0x06};
+  std::vector<char> d8tiles = {0x70, 0x61, 0x52, 0x43, 0x34, 0x25, 0x16, 0x07};
+  std::vector<char> d9tiles = {0x71, 0x62, 0x53, 0x44, 0x35, 0x26, 0x17};
+  std::vector<char> d10tiles = {0x72, 0x63, 0x54, 0x45, 0x36, 0x27};
+  std::vector<char> d11tiles = {0x73, 0x64, 0x55, 0x46, 0x37};
+  std::vector<char> d12tiles = {0x74, 0x65, 0x56, 0x47};
+  std::vector<char> d13tiles = {0x75, 0x66, 0x57};
+  std::vector<char> d14tiles = {0x76, 0x67};
+  std::vector<char> d15tiles = {0x77};
+  std::vector<std::vector<char>> diagonals = {d1tiles, d2tiles, d3tiles, d4tiles, d5tiles, d6tiles, d7tiles, d8tiles, d9tiles, d10tiles, d11tiles, d12tiles, d13tiles, d14tiles, d15tiles};
+  
+  int i = 0;
+  std::array<char, 4> colors = {'G','R','B','Y'};  //Green, Red, Blue, Yellow
+  for (int time = 300 ; time > 0 ; time -= 100) 
+  {
+    for (auto& currentDiagonal : diagonals) {
+      //Turn each tile green
+      turnOnMultipleTiles(currentDiagonal, colors[i%4]);
+      i++;
+      //Wait a sec
+      delay(time);
+      
+      // Turn off all LEDs for the current row before moving to the next row 
+      turnOffMultipleTiles(currentDiagonal); 
+    }
+  }
+}
+
+void HardwareAPI::displayHeart(char color) {
+    clearBoard();
+    std::vector<char> tiles = {
+        0x11, 0x12, 0x15, 0x16,
+        0x20, 0x13, 0x14, 0x17,
+        0x21, 0x22, 0x25, 0x26,
+        0x32, 0x33, 0x34, 0x35,
+        0x43, 0x44,
+        0x54
+    };
+    turnOnMultipleTiles(tiles, color);
+}
+
+void HardwareAPI::displaySmiley(char color) 
+{
+    clearBoard();
+    std::vector<char> tiles = {
+        0x12, 0x15,       // eyes
+        0x33, 0x34, 0x35  // smile
+    };
+    turnOnMultipleTiles(tiles, color);
+}
+
+void HardwareAPI::displayXPattern(char color) 
+{
+    clearBoard();
+    std::vector<char> tiles;
+    for (int i = 0; i < 8; ++i) {
+        tiles.push_back(hexTile(i, i));
+        tiles.push_back(hexTile(i, 7 - i));
+    }
+    turnOnMultipleTiles(tiles, color);
+}
+
+void HardwareAPI::displayLetter(char letter, char color) {
+    std::map<char, std::vector<std::string>> font = {
+        { 'A', {"00111100", "01000010", "10000001", "10000001", "11111111", "10000001", "10000001", "10000001"} },
+        { 'B', {"11111110", "10000001", "10000001", "11111110", "10000001", "10000001", "10000001", "11111110"} },
+        { 'C', {"00111110", "01000001", "10000000", "10000000", "10000000", "10000000", "01000001", "00111110"} },
+        { 'D', {"11111100", "10000010", "10000001", "10000001", "10000001", "10000001", "10000010", "11111100"} },
+        { 'E', {"11111111", "10000000", "10000000", "11111110", "10000000", "10000000", "10000000", "11111111"} },
+        { 'F', {"11111111", "10000000", "10000000", "11111110", "10000000", "10000000", "10000000", "10000000"} },
+        { 'G', {"00111110", "01000001", "10000000", "10000000", "10001111", "10000001", "01000001", "00111110"} },
+        { 'H', {"10000001", "10000001", "10000001", "11111111", "10000001", "10000001", "10000001", "10000001"} },
+        { 'I', {"00111100", "00011000", "00011000", "00011000", "00011000", "00011000", "00011000", "00111100"} },
+        { 'J', {"00011111", "00000100", "00000100", "00000100", "00000100", "10000100", "01001000", "00110000"} },
+        { 'K', {"10000010", "10000100", "10001000", "11110000", "10001000", "10000100", "10000010", "10000001"} },
+        { 'L', {"10000000", "10000000", "10000000", "10000000", "10000000", "10000000", "10000000", "11111111"} },
+        { 'M', {"10000001", "11000011", "10100101", "10011001", "10000001", "10000001", "10000001", "10000001"} },
+        { 'N', {"10000001", "11000001", "10100001", "10010001", "10001001", "10000101", "10000011", "10000001"} },
+        { 'O', {"00111100", "01000010", "10000001", "10000001", "10000001", "10000001", "01000010", "00111100"} },
+        { 'P', {"11111110", "10000001", "10000001", "11111110", "10000000", "10000000", "10000000", "10000000"} },
+        { 'Q', {"00111100", "01000010", "10000001", "10000001", "10000001", "10010001", "01000010", "00111101"} },
+        { 'R', {"11111110", "10000001", "10000001", "11111110", "10001000", "10000100", "10000010", "10000001"} },
+        { 'S', {"00111110", "01000001", "10000000", "01000000", "00111100", "00000010", "10000001", "01111110"} },
+        { 'T', {"11111111", "00011000", "00011000", "00011000", "00011000", "00011000", "00011000", "00011000"} },
+        { 'U', {"10000001", "10000001", "10000001", "10000001", "10000001", "10000001", "01000010", "00111100"} },
+        { 'V', {"10000001", "10000001", "10000001", "10000001", "10000001", "01000010", "00100100", "00011000"} },
+        { 'W', {"10000001", "10000001", "10000001", "10000001", "10011001", "10100101", "11000011", "10000001"} },
+        { 'X', {"10000001", "01000010", "00100100", "00011000", "00011000", "00100100", "01000010", "10000001"} },
+        { 'Y', {"10000001", "01000010", "00100100", "00011000", "00011000", "00011000", "00011000", "00011000"} },
+        { 'Z', {"11111111", "00000001", "00000010", "00000100", "00001000", "00010000", "00100000", "11111111"} }
+    };
+
+    clearBoard();
+
+    letter = toupper(letter);
+    if (font.find(letter) == font.end()) return;
+
+    const auto& pattern = font[letter];
+    for (int row = 0; row < 8; ++row) {
+        for (int col = 0; col < 8; ++col) {
+            if (pattern[row][col] == '1') {
+                char tile = hexTile(row, col);
+                turnOnLED(tile, color);
+            }
+        }
+    }
+}
+
+void HardwareAPI::fireworksShow() {
+    std::vector<std::vector<std::pair<int, int>>> fireworks = {
+        { {3, 3}, {4, 4} },                          // center burst
+        { {2, 3}, {3, 2}, {4, 5}, {5, 4} },          // cross
+        { {1, 3}, {3, 1}, {4, 6}, {6, 4} },          // wider cross
+        { {0, 3}, {3, 0}, {4, 7}, {7, 4} },          // edge burst
+        { {2, 2}, {2, 5}, {5, 2}, {5, 5} },          // corners
+        { {1, 1}, {1, 6}, {6, 1}, {6, 6} },          // far corners
+    };
+
+    std::vector<char> colors = { 'R', 'G', 'B', 'Y', 'P', 'C' };
+
+    for (int i = 0; i < 5; ++i) {
+        clearBoard();
+
+        // Random center
+        int centerRow = rand() % 5 + 1;  // limit to 1–5 so outer effects don’t go offboard
+        int centerCol = rand() % 5 + 1;
+
+        char mainColor = colors[rand() % colors.size()];
+
+        for (const auto& pattern : fireworks) {
+            std::vector<char> tiles;
+            for (auto [dr, dc] : pattern) {
+                int r = centerRow + dr - 3;
+                int c = centerCol + dc - 3;
+                if (r >= 0 && r < 8 && c >= 0 && c < 8)
+                    tiles.push_back(hexTile(r, c));
+            }
+
+            turnOnMultipleTiles(tiles, mainColor);
+            delay(150);  // burst pause
+            clearBoard();
+        }
+
+        // Sparkles after-burst
+        for (int s = 0; s < 10; ++s) {
+            std::vector<char> sparks;
+            for (int j = 0; j < 6; ++j)
+                sparks.push_back(hexTile(rand() % 8, rand() % 8));
+            turnOnMultipleTiles(sparks, colors[rand() % colors.size()]);
+            delay(75);
+            clearBoard();
+        }
+    }
+    clearBoard();
+}
+
+char HardwareAPI::getHexTile(int row, int col) 
 {
   return (char)((row << 4) | col);
 }
