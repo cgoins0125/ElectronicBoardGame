@@ -1567,15 +1567,15 @@ void HardwareAPI::printLCDL1(const String& line1) {
     lcd.print(line1.substring(0, 16));
 }
 
-void HardwareAPI::printLCDL1(const String& line2) {
+void HardwareAPI::printLCDL2(const String& line2) {
     clearLCDL2();
     lcd.setCursor(0, 1);
     lcd.print(line2.substring(0, 16));
 }
 
 void HardwareAPI::printLCDMessageScrolling(const String& line1, const String& line2, unsigned int delayMs) {
-    int maxLen1 = max(line1.length(), 16);
-    int maxLen2 = max(line2.length(), 16);
+    int maxLen1 = max((int)line1.length(), 16);
+    int maxLen2 = max((int)line2.length(), 16);
     int maxScroll = max(maxLen1, maxLen2);
 
     for (int i = 0; i <= maxScroll - 16; ++i) {
@@ -1710,19 +1710,7 @@ int HardwareAPI::getTilePort(char hexTile)
           return pair.first;
         }
     }
-    
-    /*
-    for (int i = 0 ; i <= 68 ; i++) {
-        if (i == 9) i++ ; //Port 9 broken
-        if (i == 17) i++ ; //Port 17 broken
-        if (i == 66) i++ ; //Port 66 broken
-        if (i == 20) i = 22; //Port 20 and 21 used for I2C
-        if (port_tile_map.at(i) == hexTile) {
-            return i;
-        }
-    }
     return -1;
-    */
 }
 
 char HardwareAPI::getHexTile(int port) 
@@ -1735,7 +1723,7 @@ void HardwareAPI::clearBoard()
     std::vector<char> allTiles;
     for (int row = 0; row < 8; ++row) {
         for (int col = 0; col < 8; ++col) {
-            allTiles.push_back(hexTile(row, col));
+            allTiles.push_back(getHexTile(row, col));
         }
     }
     turnOffMultipleTiles(allTiles);
@@ -1952,8 +1940,8 @@ void HardwareAPI::displayXPattern(char color)
     clearBoard();
     std::vector<char> tiles;
     for (int i = 0; i < 8; ++i) {
-        tiles.push_back(hexTile(i, i));
-        tiles.push_back(hexTile(i, 7 - i));
+        tiles.push_back(getHexTile(i, i));
+        tiles.push_back(getHexTile(i, 7 - i));
     }
     turnOnMultipleTiles(tiles, color);
 }
@@ -1997,7 +1985,7 @@ void HardwareAPI::displayLetter(char letter, char color) {
     for (int row = 0; row < 8; ++row) {
         for (int col = 0; col < 8; ++col) {
             if (pattern[row][col] == '1') {
-                char tile = hexTile(row, col);
+                char tile = getHexTile(row, col);
                 turnOnLED(tile, color);
             }
         }
@@ -2025,14 +2013,16 @@ void HardwareAPI::fireworksShow() {
 
         char mainColor = colors[rand() % colors.size()];
 
-        for (const auto& pattern : fireworks) {
-            std::vector<char> tiles;
-            for (auto [dr, dc] : pattern) {
-                int r = centerRow + dr - 3;
-                int c = centerCol + dc - 3;
-                if (r >= 0 && r < 8 && c >= 0 && c < 8)
-                    tiles.push_back(hexTile(r, c));
-            }
+    for (const auto& pattern : fireworks) {
+      std::vector<char> tiles;
+      for (const auto& p : pattern) {
+        int dr = p.first;
+        int dc = p.second;
+        int r = centerRow + dr - 3;
+        int c = centerCol + dc - 3;
+        if (r >= 0 && r < 8 && c >= 0 && c < 8)
+            tiles.push_back(getHexTile(r, c));
+          }
 
             turnOnMultipleTiles(tiles, mainColor);
             delay(150);  // burst pause
@@ -2043,7 +2033,7 @@ void HardwareAPI::fireworksShow() {
         for (int s = 0; s < 10; ++s) {
             std::vector<char> sparks;
             for (int j = 0; j < 6; ++j)
-                sparks.push_back(hexTile(rand() % 8, rand() % 8));
+                sparks.push_back(getHexTile(rand() % 8, rand() % 8));
             turnOnMultipleTiles(sparks, colors[rand() % colors.size()]);
             delay(75);
             clearBoard();

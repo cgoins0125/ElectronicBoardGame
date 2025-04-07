@@ -64,9 +64,9 @@ class HardwareAPI {
     void printLCDL1(const char str[]);
     void printLCDL2(const char str[]);
     void printLCD(const String& line1, const String& line2);
-    void printLCD(const String& line1)
-    void printLCDL1(const String& line1)
-    void printLCDL2(const String& line2)
+    void printLCD(const String& line1);
+    void printLCDL1(const String& line1);
+    void printLCDL2(const String& line2);
     void printLCDMessageScrolling(const String& line1, const String& line2, unsigned int delayMs = 300);
     void clearLCD();
     void clearLCDL1();
@@ -80,7 +80,7 @@ class HardwareAPI {
     //Pretty Lights
     void runSpiralPattern(char color);
     void runSpiralPattern();
-    void runDiagonalPattern(char color)
+    void runDiagonalPattern(char color);
     void runDiagonalPattern();
     void runRowSweepPattern();
     void displayHeart(char color);
@@ -88,6 +88,7 @@ class HardwareAPI {
     void displayCheckerboard(char color1, char color2);
     void displayXPattern(char color);
     void fireworksShow();
+    void displayLetter(char letter, char color);
 
     // Getters and setters
     void setInterruptTile(char tile);
