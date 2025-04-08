@@ -28,9 +28,12 @@ Released into the public domain
 */
 class HardwareAPI {
   public:
+    //constructors and begin method
     HardwareAPI(const std::vector<char>& validTiles);
     HardwareAPI(); //overloaded constructor that does not enable any interrupts
     void begin();
+    
+    //LED Control
     void turnOnLED(char hexTile, char color);
     void turnOffLED(char hexTile);
     void turnOnMultipleTiles(const std::vector<char>& tiles, char color)
@@ -53,22 +56,37 @@ class HardwareAPI {
       }
     };
     void changeLEDcolor(char hexTile, char color);
+    void clearBoard();
+    
+    //LCD control methods
     void printLCD(const char c1[], const char c2[]);
     void printLCD(const char c1[]);
     void printLCDL1(const char str[]);
     void printLCDL2(const char str[]);
+    void printLCD(const String& line1, const String& line2);
+    void printLCD(const String& line1);
+    void printLCDL1(const String& line1);
+    void printLCDL2(const String& line2);
+    void printLCDMessageScrolling(const String& line1, const String& line2, unsigned int delayMs = 300);
     void clearLCD();
     void clearLCDL1();
     void clearLCDL2();
+    
+    //Board informational methods
     bool isTileOn(char hexTile);
     int getTilePort(char hexTile);
-    char hexTile(int row, int col);
+    char getHexTile(int row, int col);
     
     //Pretty Lights
     void runSpiralPattern(char color);
-    void runRowSweepPattern(char color);
+    void runSpiralPattern();
     void runDiagonalPattern(char color);
-    
+    void runDiagonalPattern();
+    void runRowSweepPattern();
+    void displayHeart(char color);
+    void displaySmiley(char color);
+    void fireworksShow();
+
     // Getters and setters
     void setInterruptTile(char tile);
     char getInterruptTile() const;
@@ -79,7 +97,7 @@ class HardwareAPI {
     
     //For ISRs
     static void setInstance(HardwareAPI* instance);
-// ISR declarations from 0 to 100
+    // ISR declarations from 0 to 100
     static void ISR_0();
     static void ISR_1();
     static void ISR_2();

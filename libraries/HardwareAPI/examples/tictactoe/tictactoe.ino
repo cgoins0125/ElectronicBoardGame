@@ -25,7 +25,7 @@
 // std::vector<char> validHexTiles = {0x23, 0x24, 0x25, 0x33, 0x34, 0x35, 0x43, 0x44, 0x45};
 // std::vector<char> validHexTiles = {0x24, 0x25, 0x26, 0x34, 0x35, 0x36, 0x44, 0x45, 0x46};
 // std::vector<char> validHexTiles = {0x25, 0x26, 0x27, 0x35, 0x36, 0x37, 0x45, 0x46, 0x47};
- std::vector<char> validHexTiles = {0x10, 0x11, 0x12, 0x20, 0x21, 0x22, 0x30, 0x31, 0x32};
+ std::vector<char> validHexTiles = {0x10, 0x11, 0x12, 0x20, 0x21, 0x22, 0x30, 0x31, 0x32}; //WORKS
 // std::vector<char> validHexTiles = {0x11, 0x12, 0x13, 0x21, 0x22, 0x23, 0x31, 0x32, 0x33};
 // std::vector<char> validHexTiles = {0x12, 0x13, 0x14, 0x22, 0x23, 0x24, 0x32, 0x33, 0x34};
 // std::vector<char> validHexTiles = {0x13, 0x14, 0x15, 0x23, 0x24, 0x25, 0x33, 0x34, 0x35};
@@ -83,9 +83,11 @@ void handleInterrupts(char tile) {
         if (isWinner()) {
             gameBoard.printLCD("Winner:", (currentPlayer == 'X') ? "Player X" : "Player O");
             flashWinningBoard();
+            delay(5000);
             resetGame();
         } else if (isBoardFull()) {
             gameBoard.printLCD("Game Over", "It's a Tie!");
+            flashTieBoard();
             delay(5000);
             resetGame();
         } else {
@@ -106,19 +108,11 @@ bool isWinner() {
 }
 
 void flashWinningBoard() {
-  for (int i = 0; i < 5; i++) { // Flash 5 times
-    int rowStart = gameBoard.getRow(validHexTiles[0]);
-    int rowEnd = gameBoard.getRow(validHexTiles[8]);
-    int colStart = gameBoard.getCol(validHexTiles[0]);
-    int colEnd = gameBoard.getCol(validHexTiles[8]);
-    for (int row = rowStart; row <= rowEnd; row++) {
-      for (int col = colStart; col <= colEnd ; col++) {
-        char tile = (row << 4) | col; //create hex value from two ints
-        gameBoard.turnOnLED(tile, (i % 2 == 0) ? 'R' : 'B');
-      }
-    }
-    delay(500);
-  }
+  gameBoard.fireworksShow();
+}
+
+void flashTieBoard() {
+  gameBoard.runSpiralPattern('G');
 }
 
 bool isBoardFull() {
@@ -140,6 +134,8 @@ void resetGame() {
     gameBoard.turnOnMultipleTiles(validHexTiles,'G'); 
     gameBoard.printLCD("Tic Tac Toe", "Player X Start");
     currentPlayer = 'X';
+    gameBoard.setInterruptDetected(false);
+    gameBoard.setInterruptTile(0xFF);
 }
 
 void toggleCurrentPlayer() {
