@@ -24,9 +24,8 @@ void setup(){
     }
     //Set up interrupt(GS) pins - 9 = E0...17 = E7
     for (int i = 0; i < 8; i++){
-        attachInterrupt(digitalPinToInterrupt(interruptPins[i]), interruptHandler, LOW);
+        attachInterrupt(digitalPinToInterrupt(interruptPins[i]), interruptHandler, RISING);
     }
-    
 }
 
 void loop(){
@@ -42,18 +41,23 @@ void loop(){
 }
 
 void interruptHandler(){
+    //Debug
+    Serial.print("Interrupt successful!");
     //Determine the encoder address and write to encoderAddress pins
     for (int i = 0; i < 8; i++){
-        if (digitalRead(interruptPins[i]) == LOW){
-            encoder = interruptPinAddress[i];
+        if (digitalRead(interruptPins[i]) == LOW){ //Which interrupt pin triggered the interrupt?
+            encoder = interruptPinAddress[i]; //That is the current encoder to read/write to
         }
     }
     //Write to encoderAddress pins
     digitalWrite(encoderAddress[0], encoder && 0b100);
+    Serial.print(encoder && 0b100);
     digitalWrite(encoderAddress[1], encoder && 0b010);
+    Serial.print(encoder && 0b010);
     digitalWrite(encoderAddress[2], encoder && 0b001);
+    Serial.print(encoder && 0b001);
     //Read from the inputAddress
-    input = digitalRead(inputAddress[0] << 2) + digitalRead(inputAddress[1] < 1) + digitalRead(inputAddress[2]);
+    input = digitalRead(inputAddress[0] << 2) + digitalRead(inputAddress[1] << 1) + digitalRead(inputAddress[2]);
     //Set tile address - combine encoder and input addresses (shift encoder left three times)
     tile = (encoder << 3) + ~input;
     //Set activeInput as true to print tile address
